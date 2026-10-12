@@ -1,0 +1,76 @@
+---
+description: Strict engineering, workflow, and quality rules for Krishanu Kaundilya Personal Portfolio
+globs: **/*
+alwaysApply: true
+---
+
+# Krishanu Kaundilya Personal Portfolio — Project Rules & Standards
+
+## 1. Mandatory Phase-Wise Development & Checkpoints
+- Development is strictly structured across sequential phases (Phase 0 through Phase 6).
+- **Rule:** Never jump ahead or build components belonging to future phases.
+- **Rule:** Never generate the entire website in one single blind operation.
+- **Rule:** After completing each phase, update `roadmap.md`, `docs/CHANGELOG.md`, and `docs/DEVELOPER_GUIDE.md` (if applicable).
+- **Rule:** Run linting (`npm run lint`) and TypeScript checks (`npx tsc --noEmit`), and report actual outcomes honestly.
+- **Approval Checkpoint:** Stop and wait for the user's explicit approval before proceeding to the next phase.
+
+## 2. Component Reuse & Prevention of Duplication
+- **Inspect Before Creating:** Always inspect `src/components/` before creating a new component. If an existing component performs the same or similar role, reuse or extend it via props and composition.
+- **Shared Primitives:**
+  - One shared `Navbar` with responsive mobile drawer.
+  - One shared `Footer` with social and navigational links.
+  - One shared `Button` with variants (`primary`, `secondary`, `outline`, `pill-cta`).
+  - One shared `Badge` / `Pill` component for chips and tags.
+  - One shared `SectionHeading` for consistent typographic rhythm and badges across sections.
+  - One shared `Container` for layout width and responsive padding constraints.
+  - Reusable card primitives for Experience, Achievements, Services, and Testimonials.
+- Do not duplicate JSX structures, styling classes, event listeners, or layout wrappers across different page sections.
+
+## 3. DRY, Separation of Concerns & Single Responsibility
+- **Data-Driven Content:** All profile information (bio, roles, experiences, credentials, achievements, services, testimonials) must be centralized in typed data files under `src/data/` (e.g., `portfolioData.ts`).
+- Presentation components must be pure or focused on layout/interaction, receiving data via typed props.
+- Never hardcode raw copy, lists, or company metrics directly inside deep JSX blocks.
+- Extract utility functions (date formatting, class combining) into `src/lib/utils.ts`.
+
+## 4. Professional Visual Design & Brand Alignment
+- The site must reflect a senior cybersecurity professional, AI agent architect, and startup founder.
+- Avoid generic AI templates, repetitive identical card grids, excessive glowing neon effects, or meaningless decorative shapes.
+- **Design Tokens & Palette:**
+  - **Background:** Warm off-white / linen (`#F9F8F4` / `#FAF8F5`) with a subtle grid pattern overlay.
+  - **Navbar:** Floating dark pill container (`#1E1E1E` / `#232323`), subtle border, high blur.
+  - **Accent & CTAs:** Warm amber / golden orange (`#F59E0B` / `#D97706` / `#E58A1F`) inspired by CoreDhristi branding.
+  - **Text:** Dark charcoal (`#171717`) for primary copy, muted slate (`#666666`) for secondary details.
+  - **Hero Media Card:** Dark rounded container showcasing the verified portrait (`public/Images/Sir image.jpg`), accompanied by floating metric badges (`7-Layer Security`, `Solutions for the AI Agent Economy`).
+- Follow the visual references provided (screenshot from `localhost:3000` and the user's wireframe).
+
+## 5. Responsive Behavior & Accessibility (WCAG AA)
+- Test layouts across mobile (360px - 480px), tablet (768px), laptop (1024px), and desktop (1280px+).
+- Ensure no horizontal overflow (`overflow-x: hidden` safeguards where appropriate).
+- Proper heading hierarchy: exactly one `<h1>` per page, followed by logical `<h2>` and `<h3>` tags.
+- All interactive controls (`<button>`, `<a>`) must have accessible names, visible focus outlines, and keyboard navigation support (`tabIndex`, `Enter`, `Space`, `Escape` for drawers/modals).
+- Meaningful `alt` text for informative images (e.g., portrait photo of Krishanu Kaundilya). Empty `alt=""` for purely decorative icons/illustrations.
+- Ensure color contrast ratios meet or exceed WCAG 2.1 AA standards (minimum 4.5:1 for normal text, 3:1 for large text).
+
+## 6. Next.js 16 & React 19 Architecture Best Practices
+- Utilize the Next.js App Router (`src/app/`).
+- Leverage React Server Components (RSC) by default. Add `"use client"` directive only to components requiring browser events, state, or hooks (e.g., mobile menu toggle, interactive tabs, back-to-top).
+- Use `next/image` with proper `priority`, `sizes`, `width`, `height`, and responsive styling to eliminate layout shifts (CLS).
+- Keep dependencies minimal. Rely on built-in Tailwind CSS v4, Lucide icons (or clean SVG icons), and standard Web APIs. Do not install heavy or redundant third-party libraries.
+
+## 7. Truthful Content & Zero Hallucination
+- Use only verified professional credentials, dates, and milestones for Krishanu Kaundilya:
+  - Founder @ CoreDhristi (incorporation: CoreDhristi LLP, Oct 2026).
+  - Background in Cybersecurity (VAPT, SAST/DAST, offensive security, CEH Master, custom security tooling).
+  - AI Agent & Automation developer (7-layer review stack: Betterleaks, Semgrep, CodeQL, OSV-Scanner, QA, Promptfoo, Agentic Radar, MCP Inspector, Presidio, Syft).
+- Do not invent employment histories, revenue numbers, client names, student metrics, or fictional testimonials.
+- If information is pending or unverified (e.g., exact dates of past corporate roles, canonical Nextwaves domain), document it in `roadmap.md` and `docs/DEVELOPER_GUIDE.md` under pending content.
+
+## 8. SEO, Metadata & Animations Restrictions (Phase 6 Only)
+- Do not add complex animations, scroll triggers, heavy canvas effects, or complete JSON-LD schemas during Phases 1–5.
+- Keep early phases focused on structural integrity, semantic markup, and responsive design.
+- Phase 6 is dedicated to metadata, Open Graph, canonical links, structured data (JSON-LD), performance tuning, and accessible micro-animations (with `prefers-reduced-motion` support).
+
+## 9. Documentation Discipline
+- Maintain `roadmap.md`, `docs/CHANGELOG.md`, and `docs/DEVELOPER_GUIDE.md` alongside code changes.
+- Never write inaccurate status reports or fabricated test results.
+- Document every file created or modified.
