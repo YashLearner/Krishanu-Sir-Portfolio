@@ -240,3 +240,40 @@ body {
     animation-duration: 800ms;
   }
 }
+
+
+
+/* Continuous horizontal company logo marquee */
+.company-marquee-track {
+  display: flex;
+  width: max-content;
+  animation: company-logo-scroll 30s linear infinite;
+  will-change: transform;
+}
+
+/* Pause the movement when the user hovers over the logos */
+.company-marquee:hover .company-marquee-track {
+  animation-play-state: paused;
+}
+
+@keyframes company-logo-scroll {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* Respect users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .company-marquee-track {
+    animation: none;
+    transform: none;
+  }
+
+  .company-marquee-group[aria-hidden="true"] {
+    display: none;
+  }
+}

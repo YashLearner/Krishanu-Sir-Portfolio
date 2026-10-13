@@ -12,59 +12,67 @@ export function CompanyLogosSection() {
   return (
     <section
       aria-label="Partner and Client Companies"
-      className="w-full py-4 sm:py-5 border-y border-black/[0.06] bg-white/70 backdrop-blur-sm"
+      className="w-full overflow-hidden border-y border-black/[0.06] bg-white/70 py-4 backdrop-blur-sm sm:py-5"
     >
       <Container size="default">
-        <div className="flex flex-col items-center">
-          <p className="text-[11px] sm:text-xs font-semibold uppercase tracking-wider text-zinc-400 mb-2.5 sm:mb-3">
-            Trusted by Companies &amp; Platforms
-          </p>
-          <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-7 md:gap-9 lg:gap-11">
-            {items.map((item, index) => {
-              const isTohfa = item.id === "tohfabazzar";
-              const isRounded =
-                item.id === "crawldigitally" || item.id === "nexttechwaves";
+        <p className="mb-3 text-center text-[11px] font-semibold uppercase tracking-wider text-zinc-400 sm:mb-4 sm:text-xs">
+          Trusted by Companies &amp; Platforms
+        </p>
+      </Container>
 
-              return (
-                <React.Fragment key={item.id}>
-                  {/* Plus separator matching reference layout */}
-                  {index > 0 && (
+      {/* Infinite horizontal logo marquee */}
+      <div className="company-marquee w-full overflow-hidden">
+        <div className="company-marquee-track">
+          {[0, 1].map((groupIndex) => (
+            <div
+              key={groupIndex}
+              className="company-marquee-group flex shrink-0 items-center gap-4 pr-4 sm:gap-7 sm:pr-7 md:gap-9 md:pr-9 lg:gap-11 lg:pr-11"
+              aria-hidden={groupIndex === 1}
+            >
+              {items.map((item) => {
+                const isTohfa = item.id === "tohfabazzar";
+                const isRounded =
+                  item.id === "crawldigitally" ||
+                  item.id === "nexttechwaves";
+
+                return (
+                  <React.Fragment key={item.id}>
+                    <div className="group flex shrink-0 items-center justify-center py-1 transition-transform duration-200 hover:-translate-y-0.5">
+                      {item.logoUrl ? (
+                        <Image
+                          src={item.logoUrl}
+                          alt={`${item.name} logo`}
+                          width={isTohfa ? 200 : 150}
+                          height={isTohfa ? 70 : 42}
+                          className={cn(
+                            "w-auto object-contain transition-transform duration-300",
+                            isTohfa
+                              ? "h-9 sm:h-11 md:h-12"
+                              : "h-6 sm:h-7 md:h-8",
+                            isRounded &&
+                              "overflow-hidden rounded-lg shadow-xs sm:rounded-xl"
+                          )}
+                        />
+                      ) : (
+                        <span className="whitespace-nowrap text-sm font-semibold tracking-tight text-zinc-700 sm:text-base">
+                          {item.name}
+                        </span>
+                      )}
+                    </div>
+
                     <span
-                      className="text-zinc-300 font-light text-sm sm:text-base select-none"
                       aria-hidden="true"
+                      className="select-none text-sm font-light text-zinc-300 sm:text-base"
                     >
                       +
                     </span>
-                  )}
-
-                  {/* Logo Item in Full Original Colors */}
-                  <div className="flex items-center justify-center px-2 py-1 group transition-transform duration-200 hover:-translate-y-0.5">
-                    {item.logoUrl ? (
-                      <Image
-                        src={item.logoUrl}
-                        alt={`${item.name} logo`}
-                        width={isTohfa ? 200 : 150}
-                        height={isTohfa ? 70 : 42}
-                        className={cn(
-                          "w-auto object-contain transition-all duration-300",
-                          isTohfa
-                            ? "h-9 sm:h-11 md:h-12"
-                            : "h-6 sm:h-7 md:h-8",
-                          isRounded && "rounded-lg sm:rounded-xl overflow-hidden shadow-xs"
-                        )}
-                      />
-                    ) : (
-                      <span className="text-sm sm:text-base font-semibold text-zinc-700 tracking-tight">
-                        {item.name}
-                      </span>
-                    )}
-                  </div>
-                </React.Fragment>
-              );
-            })}
-          </div>
+                  </React.Fragment>
+                );
+              })}
+            </div>
+          ))}
         </div>
-      </Container>
+      </div>
     </section>
   );
 }
