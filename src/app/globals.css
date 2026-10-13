@@ -45,3 +45,198 @@ body {
     linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
   background-size: 72px 72px;
 }
+
+
+
+
+/* Credential book opening animation */
+
+.credential-overlay {
+  perspective: 1800px;
+  animation: credential-backdrop-in 350ms ease-out both;
+}
+
+.credential-book {
+  transform-style: preserve-3d;
+  transform-origin: center center;
+  animation: credential-book-enter 500ms ease-out both;
+}
+
+.credential-cover {
+  transform-style: preserve-3d;
+  perspective: 1800px;
+}
+
+.credential-spread {
+  transform-style: preserve-3d;
+  perspective: 1800px;
+}
+
+.credential-page {
+  min-width: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+/* Book opening: both pages move together */
+.credential-page-left,
+.credential-page-right {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  will-change: transform;
+  animation-duration: 1.8s;
+  animation-timing-function: cubic-bezier(0.2, 0.75, 0.2, 1);
+  animation-delay: 200ms;
+  animation-fill-mode: both;
+}
+
+/* Left page hinges at the center spine */
+.credential-page-left {
+  transform-origin: right center;
+  animation-name: credential-left-open;
+}
+
+/* Right page is the exact mirror */
+.credential-page-right {
+  transform-origin: left center;
+  animation-name: credential-right-open;
+}
+
+/* Curved light/shadow near the page fold */
+.credential-page-left::after,
+.credential-page-right::after {
+  content: "";
+  position: absolute;
+  z-index: 5;
+  top: 0;
+  bottom: 0;
+  width: 22%;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 250ms ease;
+}
+
+.credential-page-left::after {
+  right: 0;
+  background: linear-gradient(
+    to right,
+    transparent 0%,
+    rgb(120 90 45 / 5%) 35%,
+    rgb(55 40 20 / 18%) 75%,
+    rgb(255 255 255 / 55%) 100%
+  );
+}
+
+.credential-page-right::after {
+  left: 0;
+  background: linear-gradient(
+    to left,
+    transparent 0%,
+    rgb(120 90 45 / 5%) 35%,
+    rgb(55 40 20 / 18%) 75%,
+    rgb(255 255 255 / 55%) 100%
+  );
+}
+
+
+.credential-spine {
+  box-shadow: 0 0 8px rgb(20 20 22 / 12%);
+}
+
+@keyframes credential-backdrop-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes credential-book-enter {
+  from {
+    opacity: 0;
+    transform: translateY(16px) scale(0.96);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+/* Left page: opens outward */
+@keyframes credential-left-open {
+  0% {
+    opacity: 0.8;
+    transform: rotateY(82deg) skewY(-1deg);
+    box-shadow: inset -28px 0 32px rgb(20 20 22 / 20%);
+  }
+
+  35% {
+    transform: rotateY(38deg) skewY(0.7deg);
+    box-shadow: inset -18px 0 24px rgb(20 20 22 / 13%);
+  }
+
+  65% {
+    transform: rotateY(-7deg) skewY(-0.25deg);
+    box-shadow: inset -7px 0 12px rgb(20 20 22 / 6%);
+  }
+
+  82% {
+    transform: rotateY(3deg) skewY(0.1deg);
+  }
+
+  100% {
+    opacity: 1;
+    transform: rotateY(0deg) skewY(0deg);
+    box-shadow: inset 0 0 0 transparent;
+  }
+}
+/* Right page: mirrored motion */
+@keyframes credential-right-open {
+  0% {
+    opacity: 0.8;
+    transform: rotateY(-82deg) skewY(1deg);
+    box-shadow: inset 28px 0 32px rgb(20 20 22 / 20%);
+  }
+
+  35% {
+    transform: rotateY(-38deg) skewY(-0.7deg);
+    box-shadow: inset 18px 0 24px rgb(20 20 22 / 13%);
+  }
+
+  65% {
+    transform: rotateY(7deg) skewY(0.25deg);
+    box-shadow: inset 7px 0 12px rgb(20 20 22 / 6%);
+  }
+
+  82% {
+    transform: rotateY(-3deg) skewY(-0.1deg);
+  }
+
+  100% {
+    opacity: 1;
+    transform: rotateY(0deg) skewY(0deg);
+    box-shadow: inset 0 0 0 transparent;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .credential-page-left,
+  .credential-page-right {
+    animation: none !important;
+    transform: none !important;
+    will-change: auto;
+  }
+}
+
+@media (max-width: 767px) {
+  .credential-page-left,
+  .credential-page-right {
+    animation-duration: 800ms;
+  }
+}

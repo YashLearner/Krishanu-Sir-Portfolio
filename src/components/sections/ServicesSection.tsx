@@ -122,6 +122,12 @@ function ServiceIcon({ type }: { type: string }) {
   }
 }
 
+
+
+const serviceCtaClass =
+  "inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-amber-400 transition-colors hover:text-amber-300 focus-visible:outline-none focus-visible:underline";
+
+
 export function ServicesSection() {
   const { services } = portfolioData;
 
@@ -165,12 +171,9 @@ export function ServicesSection() {
                 <div>
                   {/* Top Header: Icon & Index */}
                   <div className="flex items-center justify-between mb-6">
-                    <div className="w-12 h-12 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-amber-400 group-hover:scale-110 group-hover:bg-amber-500/10 transition-all">
+                    <div className="w-12 h-12 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-[#F97316] group-hover:scale-110 group-hover:bg-amber-500/10 transition-all">
                       <ServiceIcon type={service.icon || "web"} />
                     </div>
-                    <span className="text-xs font-mono font-bold text-zinc-500">
-                      0{index + 1}
-                    </span>
                   </div>
 
                   {/* Service Title */}
@@ -185,13 +188,15 @@ export function ServicesSection() {
                 </div>
 
                 {/* Bottom CTA / Action Link */}
-                <div className="mt-6 pt-5 border-t border-white/5 flex items-center justify-between">
+
+                {/* Bottom CTA / Action Link */}
+                <div className="mt-6 flex items-center justify-between border-t border-white/5 pt-5">
                   {service.href?.startsWith("http") ? (
                     <a
                       href={service.href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-amber-400 hover:text-amber-300 transition-colors"
+                      className={serviceCtaClass}
                     >
                       <span>{service.ctaText || "Learn More"}</span>
                       <svg
@@ -211,14 +216,16 @@ export function ServicesSection() {
                   ) : (
                     <Link
                       href={service.href || "#contact"}
-                      className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-zinc-300 hover:text-white transition-colors"
+                      className={serviceCtaClass}
                     >
                       <span>{service.ctaText || "Inquire Details"}</span>
-                      <span>→</span>
+                      <span aria-hidden="true">→</span>
                     </Link>
                   )}
-                  <span className="w-2 h-2 rounded-full bg-white/10 group-hover:bg-amber-400 transition-colors" />
+
+                  <span className="h-2 w-2 rounded-full bg-white/10 transition-colors group-hover:bg-amber-400" />
                 </div>
+
               </div>
             ))}
           </div>

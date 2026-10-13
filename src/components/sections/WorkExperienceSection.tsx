@@ -214,22 +214,22 @@ export function WorkExperienceSection() {
         </div>
 
         {/* Board Container with tactile pinned notes and decorative dotted connector line */}
+
+        {/* Board Container with tactile pinned notes and decorative dotted connector line */}
         <div className="relative pt-6 pb-2">
-          {/* ========================================================================= */}
-          {/* HIGH-VISIBILITY DASHED DOODLING CONNECTOR PATH (Desktop lg: >= 1024px)     */}
-          {/* ========================================================================= */}
+
+          {/* Desktop connector path */}
           <div
-            className="absolute inset-0 pointer-events-none hidden lg:block overflow-visible"
+            className="pointer-events-none absolute inset-0 hidden overflow-visible lg:block"
             aria-hidden="true"
           >
             <svg
-              className="w-full h-full"
+              className="h-full w-full"
               viewBox="0 0 1100 580"
               fill="none"
               preserveAspectRatio="none"
             >
               <defs>
-                {/* Vibrant portfolio amber-to-orange gradient */}
                 <linearGradient
                   id="experienceDoodleGrad"
                   x1="0%"
@@ -243,7 +243,6 @@ export function WorkExperienceSection() {
                   <stop offset="100%" stopColor="#F59E0B" />
                 </linearGradient>
 
-                {/* Soft warm drop-shadow so the doodle pops off the canvas */}
                 <filter
                   id="experienceDoodleShadow"
                   x="-20%"
@@ -255,13 +254,12 @@ export function WorkExperienceSection() {
                     dx="0"
                     dy="2"
                     stdDeviation="2.5"
-                    floodColor="#EA580C"
-                    floodOpacity="0.25"
+                    floodColor="pink"
                   />
                 </filter>
               </defs>
 
-              {/* Decorative Start Dot */}
+              {/* Start dot */}
               <circle
                 cx="155"
                 cy="85"
@@ -270,7 +268,7 @@ export function WorkExperienceSection() {
                 filter="url(#experienceDoodleShadow)"
               />
 
-              {/* Main Weaving Dashed Doodling Connector Path */}
+              {/* Main dashed connector */}
               <path
                 d="M 155 85 C 270 45, 410 135, 550 80 C 690 35, 800 135, 930 85 C 1050 45, 1090 190, 1040 260 C 990 320, 890 280, 760 360 C 660 420, 580 340, 480 375 C 370 415, 270 365, 200 420 C 160 450, 170 510, 230 520"
                 stroke="url(#experienceDoodleGrad)"
@@ -280,7 +278,7 @@ export function WorkExperienceSection() {
                 filter="url(#experienceDoodleShadow)"
               />
 
-              {/* Hand-drawn Ending Arrow Head Flourish */}
+              {/* Ending arrow */}
               <path
                 d="M 215 508 L 235 520 L 218 532"
                 stroke="#EA580C"
@@ -290,20 +288,19 @@ export function WorkExperienceSection() {
                 filter="url(#experienceDoodleShadow)"
               />
 
-              {/* Playful Doodle Sparkles (✦) in open margins */}
-              {/* Sparkle 1: Top-Right open area */}
+              {/* Decorative sparkles */}
               <path
                 d="M 1055 80 Q 1055 90 1065 90 Q 1055 90 1055 100 Q 1055 90 1045 90 Q 1055 90 1055 80 Z"
                 fill="#F59E0B"
                 opacity="0.85"
               />
-              {/* Sparkle 2: Central corridor open area */}
+
               <path
                 d="M 540 270 Q 540 278 548 278 Q 540 278 540 286 Q 540 278 532 278 Q 540 278 540 270 Z"
                 fill="#EA580C"
                 opacity="0.75"
               />
-              {/* Sparkle 3: Bottom-Left open area */}
+
               <path
                 d="M 145 460 Q 145 468 153 468 Q 145 468 145 476 Q 145 468 137 468 Q 145 468 145 460 Z"
                 fill="#F59E0B"
@@ -312,15 +309,13 @@ export function WorkExperienceSection() {
             </svg>
           </div>
 
-          {/* ========================================================================= */}
-          {/* HIGH-VISIBILITY DASHED DOODLING CONNECTOR PATH (Tablet md: 768px - 1023px) */}
-          {/* ========================================================================= */}
+          {/* Tablet connector path */}
           <div
-            className="absolute inset-0 pointer-events-none hidden md:block lg:hidden overflow-visible"
+            className="pointer-events-none absolute inset-0 hidden overflow-visible md:block lg:hidden"
             aria-hidden="true"
           >
             <svg
-              className="w-full h-full"
+              className="h-full w-full"
               viewBox="0 0 760 920"
               fill="none"
               preserveAspectRatio="none"
@@ -334,9 +329,10 @@ export function WorkExperienceSection() {
                   y2="100%"
                 >
                   <stop offset="0%" stopColor="#F59E0B" />
-                  <stop offset="100%" stopColor="#EA580C" />
+                  <stop offset="100%" stopColor="#EA5808" />
                 </linearGradient>
               </defs>
+
               <path
                 d="M 190 90 C 280 40, 480 140, 570 90 C 670 140, 680 320, 570 380 C 480 430, 280 340, 190 390 C 100 440, 100 620, 190 680 C 290 740, 480 640, 570 690"
                 stroke="url(#experienceDoodleGradTab)"
@@ -348,8 +344,8 @@ export function WorkExperienceSection() {
             </svg>
           </div>
 
-          {/* Top Row: Cards 01, 02, 03 */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-10 items-stretch">
+          {/* Top row: Cards 01, 02, 03 */}
+          <div className="grid grid-cols-1 items-stretch gap-8 sm:gap-10 md:grid-cols-2 lg:grid-cols-3">
             {topRowExperiences.map((exp, index) => (
               <WorkCard
                 key={exp.id}
@@ -359,8 +355,8 @@ export function WorkExperienceSection() {
             ))}
           </div>
 
-          {/* Bottom Row: Cards 04 & 05 (Centered on Desktop) */}
-          <div className="flex flex-wrap justify-center gap-8 sm:gap-10 mt-8 sm:mt-10 items-stretch">
+          {/* Bottom row: Cards 04 & 05 */}
+          <div className="mt-8 flex flex-wrap items-stretch justify-center gap-8 sm:mt-10 sm:gap-10">
             {bottomRowExperiences.map((exp, index) => (
               <WorkCard
                 key={exp.id}
@@ -370,9 +366,12 @@ export function WorkExperienceSection() {
               />
             ))}
           </div>
+
         </div>
+
       </Container>
     </section>
   );
 }
+
 
