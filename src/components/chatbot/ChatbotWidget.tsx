@@ -1,20 +1,20 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import Image from "next/image";
 
 import { ChatbotWindow } from "./ChatbotWindow";
+import Image from "next/image";
 
 const CHAT_PANEL_ID = "portfolio-chat-panel";
 
 const chatbotWidgetStyles = {
-  
+
   panel: "fixed inset-0 z-50",
 
   launcher:
-    "fixed bottom-5 right-5 z-[60] inline-flex size-16 items-center justify-center rounded-full border-0 bg-transparent p-0 cursor-pointer transition-transform hover:scale-105 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-orange-500 sm:right-10 sm:size-20",
+    "fixed bottom-5 right-5 z-[60] inline-flex min-h-[58px] items-center justify-center gap-3 rounded-full border border-blue-200 bg-white px-5 py-3 text-[#5271d3] shadow-lg shadow-blue-950/5 transition-all duration-200 hover:border-blue-300 hover:shadow-xl focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-blue-500 sm:bottom-8 sm:right-8",
 
-  launcherImage: "size-full rounded-full object-cover",
+  launcherImage: "size-7 shrink-0 object-contain",
 } as const;
 
 export function ChatbotWidget() {
@@ -83,13 +83,21 @@ export function ChatbotWidget() {
           title="Open portfolio chat assistant"
         >
           <Image
-            src="/Images/chatbot-icon.png"
+            src="/Images/Chatbot.png"
             alt=""
             aria-hidden="true"
             width={80}
             height={80}
             className={chatbotWidgetStyles.launcherImage}
-            priority
+            priority />
+
+          <span className="whitespace-nowrap text-sm font-semibold sm:text-base">
+            Chatbot
+          </span>
+
+          <span
+            className="size-2 shrink-0 rounded-full bg-[#5271d3]"
+            aria-hidden="true"
           />
         </button>
       )}

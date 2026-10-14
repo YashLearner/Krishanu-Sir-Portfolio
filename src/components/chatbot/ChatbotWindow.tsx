@@ -173,15 +173,15 @@ const chatbotInlineStyles = {
 
 
 // thinking indicator
-function ThinkingIndicator() {
 
+function ThinkingIndicator() {
     return (
         <div
-            className = "flex w-full min-w-0 items-start gap-3"
-            role = "status"
-            aria-label="Thinking"
+            className="flex w-full min-w-0 items-center gap-3"
+            role="status"
+            aria-label="CoreDhrishti AI is typing"
         >
-
+            {/* Assistant Icon */}
             <div
                 className="grid size-8 shrink-0 place-items-center rounded-lg border border-blue-100 bg-blue-50 text-blue-600"
                 aria-hidden="true"
@@ -189,50 +189,37 @@ function ThinkingIndicator() {
                 <AssistantIcon />
             </div>
 
-            <div className="flex min-w-0 flex-col items-start gap-1.5">
-                <span className="px-1 text-[11px] font-medium text-slate-500">
-                    Krishanu Kaundilya AI
+            {/* Bouncing Dots followed by Typing */}
+            <div
+                className="flex items-center gap-2.5 rounded-xl border px-4 py-3"
+                style={{
+                    backgroundColor: "#edf4f0",
+                    borderColor: "#dce7e1",
+                }}
+            >
+                <span
+                    className="flex items-center gap-1.5"
+                    aria-hidden="true"
+                >
+                    <span
+                        className="size-2 animate-bounce rounded-full bg-blue-500"
+                        style={{ animationDelay: "-0.3s" }}
+                    />
+                    <span
+                        className="size-2 animate-bounce rounded-full bg-blue-500"
+                        style={{ animationDelay: "-0.15s" }}
+                    />
+                    <span className="size-2 animate-bounce rounded-full bg-blue-500" />
                 </span>
 
-                <div
-                    className="flex items-center gap-3 rounded-xl border px-4 py-3"
-                    style={{
-                        backgroundColor: "#edf4f0",
-                        borderColor: "#dce7e1",
-                        color: "#17211d",
-                    }}
-                >
-
-
-                    <span className="text-sm font-medium">
-                        Thinking
-                    </span>
-
-                    <span
-                        className="flex items-center gap-1.5"
-                        aria-hidden="true"
-                    >
-
-                        <span
-                            className="size-2 animate-bounce rounded-full bg-[#5271d3]"
-                            style={{ animationDelay: "-0.3s" }}
-                        />
-                        <span
-                            className="size-2 animate-bounce rounded-full bg-[#5271d3]"
-                            style={{ animationDelay: "-0.15s" }}
-                        />
-                        <span
-                            className="size-2 animate-bounce rounded-full bg-[#5271d3]"
-                        />
-                    </span>
-
-                </div>
-
+                <span className="text-sm font-medium text-slate-500 ">
+                    Typing
+                </span>
             </div>
-
         </div>
-    )
+    );
 }
+
 
 /* -------------------------------------------------------------------------- */
 /* Icons                                                                      */
@@ -458,9 +445,9 @@ function ChatHeader({ onReset, onClose }: ChatHeaderProps) {
 export function ChatbotWindow({ onClose }: ChatbotWindowProps) {
 
     const [pendingQuestion, setPendingQuestion] =
-    useState<string | null>(null);
+        useState<string | null>(null);
 
-const isThinking = pendingQuestion !== null;
+    const isThinking = pendingQuestion !== null;
 
     const [messages, setMessages] = useState<ChatMessage[]>([
         WELCOME_MESSAGE,
@@ -479,24 +466,24 @@ const isThinking = pendingQuestion !== null;
             behavior: "auto",
             block: "end",
         });
-    }, [messages ,pendingQuestion]);
+    }, [messages, pendingQuestion]);
 
 
-    useEffect( () =>{
-        if(pendingQuestion === null){
+    useEffect(() => {
+        if (pendingQuestion === null) {
             return;
 
         }
 
-        const responseTimer = window.setTimeout(() =>{
+        const responseTimer = window.setTimeout(() => {
             const answer = findAnswer(pendingQuestion) ?? NO_ANSWER_RESPONSE;
 
 
             messageIdCounter.current += 1;
 
-            const assistantMessage: ChatMessage ={
-                id : `assistant=${messageIdCounter.current}`,
-                role:"assistant",
+            const assistantMessage: ChatMessage = {
+                id: `assistant=${messageIdCounter.current}`,
+                role: "assistant",
                 content: answer,
             };
 
@@ -507,12 +494,12 @@ const isThinking = pendingQuestion !== null;
             ]);
 
             setPendingQuestion(null);
-        },ThinkingDelay);
+        }, ThinkingDelay);
 
-        return () =>{
+        return () => {
             window.clearTimeout(responseTimer);
         }
-    },[pendingQuestion]);
+    }, [pendingQuestion]);
 
     function createMessage(
         role: MessageRole,
@@ -527,28 +514,28 @@ const isThinking = pendingQuestion !== null;
         };
     }
 
-   
-function sendQuestion(rawQuestion: string): void {
-    const question = rawQuestion.trim();
 
-    if (
-        !question ||
-        question.length > MAX_QUESTION_LENGTH ||
-        isThinking
-    ) {
-        return;
+    function sendQuestion(rawQuestion: string): void {
+        const question = rawQuestion.trim();
+
+        if (
+            !question ||
+            question.length > MAX_QUESTION_LENGTH ||
+            isThinking
+        ) {
+            return;
+        }
+
+        const userMessage = createMessage("user", question);
+
+        setMessages((currentMessages) => [
+            ...currentMessages,
+            userMessage,
+        ]);
+
+        setInputValue("");
+        setPendingQuestion(question);
     }
-
-    const userMessage = createMessage("user", question);
-
-    setMessages((currentMessages) => [
-        ...currentMessages,
-        userMessage,
-    ]);
-
-    setInputValue("");
-    setPendingQuestion(question);
-}
 
 
     function handleSubmit(
@@ -604,16 +591,20 @@ function sendQuestion(rawQuestion: string): void {
                                     Try asking
                                 </p>
 
-                                {SUGGESTED_QUESTIONS.map((question) => (
-                                    <button
-                                        key={question}
-                                        type="button"
-                                        className={chatbotStyles.suggestionButton}
-                                        onClick={() => sendQuestion(question)}
-                                    >
-                                        {question}
-                                    </button>
-                                ))}
+                                <div className="flex max-w-full flex-nowrap items-center gap-2 overflow-x-auto">
+
+                                    {SUGGESTED_QUESTIONS.map((question) => (
+                                        <button
+                                            key={question}
+                                            type="button"
+                                            className={`${chatbotStyles.suggestionButton} shrink-0 whitespace-nowrap bg-slate-300`}
+                                            onClick={() => sendQuestion(question)}
+                                        >
+                                            {question}
+                                        </button>
+                                    ))}
+
+                                </div>
                             </div>
                         )}
 
@@ -644,7 +635,7 @@ function sendQuestion(rawQuestion: string): void {
                             placeholder="Ask Krishanu Kaundilya AI anything..."
                             autoComplete="off"
                             maxLength={MAX_QUESTION_LENGTH}
-                        
+
                         />
 
                         <button
