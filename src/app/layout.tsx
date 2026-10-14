@@ -33,6 +33,7 @@ export default function RootLayout({
         suppressHydrationWarning
       >
         {children}
+        <ChatbotWidget/>
       </body>
     </html>
   );

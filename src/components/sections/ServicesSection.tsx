@@ -163,7 +163,7 @@ export function ServicesSection() {
 
           {/* 6-Card Services Grid */}
           <div className="relative grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-7">
-            {services.map((service, index) => (
+            {services.map((service) => (
               <div
                 key={service.id}
                 className="group relative rounded-2xl sm:rounded-3xl bg-[#1B1B1F] border border-white/8 hover:border-amber-500/40 p-7 sm:p-8 flex flex-col justify-between transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-black/40 hover:bg-[#202026]"

@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { Anton } from "next/font/google";
+
 import { Bebas_Neue } from "next/font/google";
 
 
@@ -10,11 +10,7 @@ const bebasNeue = Bebas_Neue({
   display: "swap",
 });
 
-const anton = Anton({
-  subsets: ["latin"],
-  weight: "400",
-  display: "swap",
-});
+
 
 export function HeroSection() {
   return (

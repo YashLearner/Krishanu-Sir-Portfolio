@@ -26,9 +26,7 @@ export function CompanyLogosSection() {
           {[0, 1].map((groupIndex) => (
             <div
               key={groupIndex}
-              className="company-marquee-group flex shrink-0 items-center gap-4 pr-4 sm:gap-7 sm:pr-7 md:gap-9 md:pr-9 lg:gap-11 lg:pr-11"
-              aria-hidden={groupIndex === 1}
-            >
+              className="company-marquee-group flex min-w-full shrink-0 items-center justify-around gap-4 px-4 sm:gap-7 sm:px-7 md:gap-9 md:px-9 lg:gap-11 lg:px-11">
               {items.map((item) => {
                 const isTohfa = item.id === "tohfabazzar";
                 const isRounded =
@@ -50,7 +48,7 @@ export function CompanyLogosSection() {
                               ? "h-9 sm:h-11 md:h-12"
                               : "h-6 sm:h-7 md:h-8",
                             isRounded &&
-                              "overflow-hidden rounded-lg shadow-xs sm:rounded-xl"
+                            "overflow-hidden rounded-lg shadow-xs sm:rounded-xl"
                           )}
                         />
                       ) : (
@@ -71,8 +69,8 @@ export function CompanyLogosSection() {
               })}
             </div>
           ))}
-        </div>
       </div>
-    </section>
+    </div>
+    </section >
   );
 }
