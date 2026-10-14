@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { portfolioData, sectionCopy } from "@/data/portfolioData";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -13,8 +14,11 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Krishanu Kaundilya | Founder @ CoreDhristi | AI Agent & Automation Developer",
-  description: "Personal portfolio of Krishanu Kaundilya — Founder @ CoreDhristi, AI Agent & Automation Developer, Cybersecurity Specialist. Building Trust Infrastructure for the AI Agent Economy.",
+  title: sectionCopy.metadata.title,
+  description: sectionCopy.metadata.description,
+  authors: [{name:portfolioData.hero.name}],
+  openGraph: {title:sectionCopy.metadata.title,description:sectionCopy.metadata.description,type:"profile",locale:"en_IN"},
+  twitter: {card:"summary",title:sectionCopy.metadata.title,description:sectionCopy.metadata.description},
 };
 
 export default function RootLayout({

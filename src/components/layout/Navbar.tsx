@@ -30,7 +30,7 @@ export function Navbar() {
     const targetElement = document.getElementById(targetId);
     if (targetElement) {
       e.preventDefault();
-      targetElement.scrollIntoView({ behavior: "smooth" });
+      targetElement.scrollIntoView({ behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "instant" : "smooth" });
       window.history.pushState(null, "", href);
     }
   };
@@ -46,24 +46,19 @@ export function Navbar() {
       }
     }
 
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
-
-      // Skip scrollspy override if user manually clicked a link recently
+    const sectionObserver = new IntersectionObserver((entries) => {
       if (manualNavTimerRef.current) return;
-
-      // Section scrollspy
-      const sections = navLinks.map((link) => link.href.replace("#", ""));
-      const scrollPosition = window.scrollY + 140;
-
-      for (let i = sections.length - 1; i >= 0; i--) {
-        const el = document.getElementById(sections[i]);
-        if (el && el.offsetTop <= scrollPosition) {
-          setActiveSection(`#${sections[i]}`);
-          break;
-        }
-      }
-    };
+      const visible = entries.filter(entry => entry.isIntersecting);
+      const nearest = visible.sort((a, b) => Math.abs(a.boundingClientRect.top) - Math.abs(b.boundingClientRect.top))[0];
+      if (nearest) setActiveSection(`#${nearest.target.id}`);
+    }, {rootMargin:"-110px 0px -45% 0px", threshold:0});
+    navLinks.forEach(link => {
+      const section = document.querySelector(link.href);
+      if (section) sectionObserver.observe(section);
+    });
+    const heroSection = document.getElementById("hero");
+    const heroObserver = new IntersectionObserver(([entry]) => setScrolled(!entry.isIntersecting), {threshold:0});
+    if (heroSection) heroObserver.observe(heroSection);
 
     const handleHashChange = () => {
       if (window.location.hash) {
@@ -71,11 +66,11 @@ export function Navbar() {
       }
     };
 
-    window.addEventListener("scroll", handleScroll, { passive: true });
     window.addEventListener("hashchange", handleHashChange);
 
     return () => {
-      window.removeEventListener("scroll", handleScroll);
+      sectionObserver.disconnect();
+      heroObserver.disconnect();
       window.removeEventListener("hashchange", handleHashChange);
       if (manualNavTimerRef.current) {
         clearTimeout(manualNavTimerRef.current);
@@ -95,10 +90,10 @@ export function Navbar() {
   }, [isOpen]);
 
   return (
-    <header className="sticky top-4 sm:top-6 z-50 w-full px-4 sm:px-6 lg:px-8">
+    <header className="fixed top-4 sm:top-6 z-50 w-full px-4 sm:px-6 lg:px-8">
       <nav
         aria-label="Main Navigation"
-        className={`mx-auto max-w-6xl rounded-full bg-[#1E1E1E]/95 backdrop-blur-md border border-white/10 px-4 py-2.5 sm:px-6 sm:py-3 transition-all duration-200 ${
+        className={`mx-auto max-w-6xl rounded-[28px] bg-[#1E1E1E]/95 backdrop-blur-md border border-white/10 px-4 py-2.5 sm:px-6 sm:py-3 transition-all duration-200 ${
           scrolled ? "shadow-2xl shadow-black/30" : "shadow-xl shadow-black/15"
         }`}
       >
@@ -106,6 +101,7 @@ export function Navbar() {
           {/* Brand Logo & Name */}
           <Link
             href="#hero"
+            aria-label={hero.name}
             onClick={(e) => handleNavClick(e, "#hero")}
             className="flex items-center gap-2 text-white font-semibold text-sm sm:text-base tracking-tight group focus-visible:outline focus-visible:outline-2 focus-visible:outline-brand-accent rounded-full py-1 px-2 shrink-0"
           >
@@ -131,7 +127,7 @@ export function Navbar() {
           </Link>
 
           {/* Desktop Navigation Links with Active Orange Round Shade */}
-          <div className="hidden md:flex items-center gap-0.5 lg:gap-1.5">
+          <div className="hidden lg:flex items-center gap-0.5 lg:gap-1.5">
             {navLinks.map((link) => {
               const isActive = activeSection === link.href;
 
@@ -139,6 +135,7 @@ export function Navbar() {
                 <Link
                   key={link.href}
                   href={link.href}
+                  aria-current={isActive ? "location" : undefined}
                   onClick={(e) => handleNavClick(e, link.href)}
                   className={`px-2.5 lg:px-3.5 py-1.5 text-xs lg:text-sm font-medium rounded-full transition-all duration-200 whitespace-nowrap focus-visible:outline focus-visible:outline-2 focus-visible:outline-brand-accent ${
                     isActive
@@ -152,37 +149,38 @@ export function Navbar() {
             })}
           </div>
 
-          {/* Desktop Right CTA Button: Contact Us */}
-          <div className="hidden md:flex items-center shrink-0">
+          {/* Desktop Right CTA Button: {hero.ctaPrimary.label} */}
+          <div className="hidden lg:flex items-center shrink-0">
             <Button
-              href="https://www.coredhristi.com/contact"
+              href="https://www.linkedin.com/in/krishanu-kaundilya/"
               target="_blank"
               rel="noopener noreferrer"
               variant="primary"
               size="sm"
               className="text-xs sm:text-sm font-bold !px-4 !py-1.5 !bg-[#F59E0B] hover:!bg-[#D97706] text-zinc-950 shadow-sm"
             >
-              Contact Us
+              {hero.ctaPrimary.label}
             </Button>
           </div>
 
-          {/* Mobile Right Controls: Contact Us & Hamburger Toggle */}
-          <div className="flex items-center gap-2 md:hidden">
+          {/* Mobile Right Controls: {hero.ctaPrimary.label} & Hamburger Toggle */}
+          <div className="flex items-center gap-2 lg:hidden">
             <Button
-              href="https://www.coredhristi.com/contact"
+              href="https://www.linkedin.com/in/krishanu-kaundilya/"
               target="_blank"
               rel="noopener noreferrer"
               variant="primary"
               size="sm"
               className="text-xs font-bold !px-3 !py-1 !bg-[#F59E0B] hover:!bg-[#D97706] text-zinc-950"
             >
-              Contact Us
+              {hero.ctaPrimary.label}
             </Button>
 
             <button
               type="button"
               onClick={() => setIsOpen(!isOpen)}
               aria-expanded={isOpen}
+              aria-controls="mobile-navigation"
               aria-label="Toggle navigation menu"
               className="flex h-8 w-8 items-center justify-center rounded-full text-zinc-300 hover:text-white hover:bg-white/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-brand-accent"
             >
@@ -215,7 +213,7 @@ export function Navbar() {
 
         {/* Mobile Dropdown Menu with Active Orange Indicator */}
         {isOpen && (
-          <div className="mt-3 border-t border-white/10 pt-3 pb-1 md:hidden">
+          <div id="mobile-navigation" className="mt-3 border-t border-white/10 pt-3 pb-1 lg:hidden">
             <div className="flex flex-col gap-1.5">
               {navLinks.map((link) => {
                 const isActive = activeSection === link.href;

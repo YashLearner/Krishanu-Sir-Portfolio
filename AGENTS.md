@@ -1,5 +1,14 @@
 # AGENTS.md — Instructions for AI Coding Agents
 
+## User-directed design and handover workflow (October 13, 2026)
+
+- Use `design-taste-frontend` for UI changes. Inspect the current layout and supplied screenshots before changing the design language.
+- Use the built-in image-generation tool for design-thinking mockups when planning or recomposing requested UI. Use the mockup for composition only; keep the actual profile photo, certificates, institutions, dates and verified content in production.
+- Before handing over any UI, personally inspect it in the built-in browser at 375px, 768px and 1280px+ and fix visual problems. Lint/type checks alone do not establish that the UI looks correct.
+- Verify the hero's complete FOUNDER word and centered portrait, credential rendering/buttons, certification carousel and popup interactions whenever those areas change. Check keyboard focus, Escape close and mobile layout as applicable.
+- Run the existing engineering gates and document real results. Save screenshots of the implemented UI; generated mockups are not verification screenshots.
+- Keep pending contact-routing instructions in `docs/TODO.md`; update Discuss a project routing when the user provides the destination.
+
 ## Project Overview
 This repository contains the official personal portfolio website for **Krishanu Kaundilya** — Founder @ CoreDhristi, AI Agent & Automation Developer, and Cybersecurity Specialist.
 

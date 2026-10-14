@@ -1,37 +1,46 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Krishanu Kaundilya — Portfolio
 
-## Getting Started
+Personal portfolio for Krishanu Kaundilya, founder of CoreDhristi and CoreD, AI agent and automation developer, and cybersecurity professional.
 
-First, run the development server:
+The GitHub repository itself is the Next.js application root. In this workspace the updated checkout is `E:\porfolio\portfolio-ui`.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## Run locally
+
+From this application directory:
+
+```sh
+npm ci
+npm run dev -- --port 3001
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [the local portfolio](http://localhost:3001/).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+To review a production build:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```sh
+npm run build
+npm run start -- --port 3001
+```
 
-## Learn More
+Stop the development server before starting production on the same port.
 
-To learn more about Next.js, take a look at the following resources:
+## Edit content
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Update `src/data/portfolioData.ts`. It contains profile copy, project stories, career history, section text, contact links, metadata and identity structured data. Components handle presentation and interactions.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Next Tech Waves is a closed former venture. CoreD is CoreDhristi's AI and IT solutions arm. Testimonials stay empty until actual reviews are supplied. Credential copy records the supplied dates without implying an unconfirmed renewal.
 
-## Deploy on Vercel
+## Verify changes
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```sh
+npm run lint
+npx tsc --noEmit
+npm run build
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Check mobile (375px), tablet (768px) and desktop (1280px+) layouts, then update the [roadmap](roadmap.md) and [changelog](docs/CHANGELOG.md).
+
+See the [developer guide](docs/DEVELOPER_GUIDE.md) for motion, cursor, book, metadata and data architecture. Research and draft documents are under `docs/`; local preview screenshots are under `docs/previews/`.
+
+The production domain is pending. Canonical URLs, sitemap, social image URLs and search-engine submission should use the real domain when it is selected.
 

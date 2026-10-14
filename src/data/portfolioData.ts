@@ -1,426 +1,568 @@
 import { PortfolioData } from "@/types/portfolio";
 
 export const portfolioData: PortfolioData = {
-  navLinks: [
-    { label: "Home", href: "#hero" },
-    { label: "About", href: "#about" },
-    { label: "Achievements", href: "#achievements" },
-    { label: "Experience", href: "#experience" },
-    { label: "Services", href: "#services" },
-    { label: "Current Initiatives", href: "#initiatives" },
+  "navLinks": [
+    {
+      "label": "Home",
+      "href": "#hero"
+    },
+    {
+      "label": "About",
+      "href": "#about"
+    },
+    {
+      "label": "Achievements",
+      "href": "#achievements"
+    },
+    {
+      "label": "Experience",
+      "href": "#experience"
+    },
+    {
+      "label": "Services",
+      "href": "#services"
+    },
+    {
+      "label": "Current Initiatives",
+      "href": "#initiatives"
+    }
   ],
-
-  hero: {
-    welcomeBadge: "Welcome",
-    name: "Krishanu Kaundilya",
-    titleAccent: "Founder @ CoreDhristi",
-    role: "AI Agent & Automation Developer",
-    tagline: "Building Trust Infrastructure for the AI Agent Economy",
-    focusAreas: ["AI Agents", "Automation", "Security"],
-    bio: "I help companies stop doing by hand what verified AI agents can already do — hiring vetted agents, automations, and MCP servers like a workforce, with security review before anything goes live.",
-    ctaPrimary: {
-      label: "Let's Talk",
-      href: "https://coredhristi.com/",
-    },
-    profileImage: {
-      src: "/Images/Sir image.jpg",
-      alt: "Krishanu Kaundilya — Founder of CoreDhristi and Cybersecurity Specialist",
-      width: 600,
-      height: 700,
-    },
-    floatingBadges: {
-      topBadge: {
-        title: "Cyber Security Expert",
-      },
-      bottomBadge: {
-        title: "Solutions for the AI Agent Economy",
-      },
-    },
-  },
-
-  companyMarquee: {
-    title: "Companies & Organizations Worked With / Mentored",
-    items: [
-      {
-        id: "adsmark",
-        name: "Adsmark",
-        logoUrl: "/Images/ADSMARK_LANDSCAPE_LOGO_FOR_WHITE_WITHOUT_bg.webp",
-        placeholder: false,
-      },
-      {
-        id: "nexttechwaves",
-        name: "NextTechWaves",
-        logoUrl: "/Images/nexttechwaves.png",
-        placeholder: false,
-      },
-      {
-        id: "tohfabazzar",
-        name: "Tohfa Bazzar",
-        logoUrl: "/Images/tohfabazzar.png",
-        placeholder: false,
-      },
-      {
-        id: "crawldigitally",
-        name: "Crawl Digitally",
-        logoUrl: "/Images/crawl digitally.png",
-        placeholder: false,
-      },
+  "hero": {
+    "welcomeBadge": "Welcome",
+    "name": "Krishanu Kaundilya",
+    "titleAccent": "Founder @ CoreDhristi & CoreD",
+    "role": "AI Agent & Automation Developer",
+    "tagline": "AI for everyday business work, built with security in mind.",
+    "focusAreas": [
+      "AI Agents",
+      "Automation",
+      "Security"
     ],
-  },
-
-  about: {
-    badge: "About us",
-    headline: "About Krishanu Kaundilya",
-    leadBio:
-      "Krishanu Kaundilya is a Cybersecurity Professional, AI Agent & Automation Developer, Educator, and Entrepreneur with approximately five years of experience across cybersecurity, AI agent development, automation, and emerging AI technologies.",
-    bioParagraphs: [
-      "With a background in offensive security and vulnerability research, Krishanu has worked across web and API security, network security, Vulnerability Assessment and Penetration Testing (VAPT), Static and Dynamic Application Security Testing (SAST/DAST), security automation, and AI/LLM security. As a CEH Master and Certified Ethical Hacker, he brings a security-first mindset to evaluating digital systems, identifying vulnerabilities, and understanding the risks associated with increasingly autonomous technologies.",
-      "His work also extends to AI security research, prompt-injection testing, LLM red teaming, custom security tooling, and agentic AI workflows. By actively building AI agents and automation systems, he understands both sides of the technology: how to develop capable AI solutions and how to address the security, trust, and operational challenges they introduce.",
-    ],
-    image: {
-      src: "/Images/Sir image 2.jpg",
-      alt: "Krishanu Kaundilya — Founder of CoreDhristi & Cybersecurity Specialist",
-      width: 600,
-      height: 600,
+    "bio": "I build AI agents, custom CRMs and automations for work that keeps piling up: following up with leads, answering customer questions and keeping business records organised. My background in cybersecurity shapes how I approach the data and access these systems need.",
+    "ctaPrimary": {
+      "label": "Discuss a project",
+      "href": "https://www.linkedin.com/in/krishanu-kaundilya/"
     },
-    skillsAndExperience: {
-      title: "Skills & Experience",
-      headline: "5+ Years of Experience",
-      supportingLine:
-        "Hands-on experience across AI agents, automation, and cybersecurity.",
-      skills: [
-        "AI Automation",
+    "profileImage": {
+      "src": "/Images/Sir image.jpg",
+      "alt": "Krishanu Kaundilya — Founder of CoreDhristi and Cybersecurity Specialist",
+      "width": 600,
+      "height": 700
+    },
+    "floatingBadges": {
+      "topBadge": {
+        "title": "Cyber Security Expert"
+      },
+      "bottomBadge": {
+        "title": "Solutions for the AI Agent Economy"
+      }
+    }
+  },
+  "companyMarquee": {
+    "title": "Selected client and venture work",
+    "items": [
+      {
+        "id": "adsmark",
+        "name": "Adsmark",
+        "logoUrl": "/Images/ADSMARK_LANDSCAPE_LOGO_FOR_WHITE_WITHOUT_bg.webp",
+        "placeholder": false
+      },
+      {
+        "id": "nexttechwaves",
+        "name": "NextTechWaves",
+        "logoUrl": "/Images/nexttechwaves.png",
+        "placeholder": false
+      },
+      {
+        "id": "tohfabazzar",
+        "name": "Tohfa Bazzar",
+        "logoUrl": "/Images/tohfabazzar.png",
+        "placeholder": false
+      },
+      {
+        "id": "crawldigitally",
+        "name": "Crawl Digitally",
+        "logoUrl": "/Images/crawl digitally.png",
+        "placeholder": false
+      }
+    ]
+  },
+  "about": {
+    "badge": "About",
+    "headline": "About Krishanu Kaundilya",
+    "leadBio": "I'm Krishanu Kaundilya, founder of CoreDhristi and CoreD. I build AI agents and business automations, and work in cybersecurity. I started in UI design and learned much of my development work by building things people needed.",
+    "bioParagraphs": [
+      "My first role was a UI design internship at Technomize in December 2022, while I was still in college. After that, I took on design and web development projects through friends and family. If a project needed something I hadn't built before, I learned it and put it to work. That became the start of my freelancing journey.",
+      "I also completed a Product Management programme at IIM Kozhikode. Alongside the design work, I began learning ethical hacking and vulnerability assessment. In 2024, I joined CyberSapiens as an intern, then moved to DTSS Consultants, a Dubai-based firm, as a remote Information Security Consultant. I worked there from May 2024 to March 2026.",
+      "Learning about AI security led me to study the systems themselves. I began building AI agents and automations, including CRMs that handle follow-ups and WhatsApp workflows that answer customer enquiries. In June 2025, I also delivered VAPT training to law enforcement officers at CAPT Bhopal, an opportunity that came through LinkedIn.",
+      "Today, I'm building CoreDhristi, an AI marketplace, and CoreD, its AI and IT solutions arm. CoreD focuses on cloud, AI and cybersecurity. The two bring together my interests in software, product development and security."
+    ],
+    "image": {
+      "src": "/Images/sir-about-enhanced.png",
+      "alt": "Krishanu Kaundilya — Founder of CoreDhristi & Cybersecurity Specialist",
+      "width": 1208,
+      "height": 1302
+    },
+    "skillsAndExperience": {
+      "title": "Skills & Experience",
+      "headline": "Building and learning through real projects since 2022.",
+      "supportingLine": "Design, development, cybersecurity and AI automation.",
+      "skills": [
         "AI Agents",
-        "MCP Servers",
-        "Cybersecurity",
-        "LLM Red Teaming",
-        "CEH Master",
+        "CRM Development",
+        "WhatsApp Automation",
         "VAPT",
+        "API Security",
         "SAST / DAST",
-        "Prompt Injection",
-        "Entrepreneur",
-      ],
+        "Malware Analysis",
+        "UI Design",
+        "Web Development",
+        "Product Management"
+      ]
     },
-    education: [
+    "education": [
       {
-        id: "iim-kozhikode",
-        institution: "Indian Institute of Management, Kozhikode",
-        programme:
-          "Professional Certificate Programme in Product Management (eMDP)",
-        period: "Jul 2023 – Apr 2024",
-        badge: "Executive Education",
-        description:
-          "Completed the Professional Certificate Programme in Product Management (eMDP) covering core product management principles, strategy, lifecycle management, and digital execution.",
-        skillsTags: ["Product Management", "Product Strategy", "Digital Growth"],
-        credentialRef: "202324AsyncEMDP07/054",
-        certificateImageUrl: "/Images/iim-kozhikode-certificate.png",
+        "id": "iim-kozhikode",
+        "institution": "Indian Institute of Management, Kozhikode",
+        "programme": "Professional Certificate Programme in Product Management (eMDP)",
+        "period": "Jul 2023 – Apr 2024",
+        "badge": "Executive Education",
+        "description": "Completed the Professional Certificate Programme in Product Management (eMDP) covering core product management principles, strategy, lifecycle management, and digital execution.",
+        "skillsTags": [
+          "Product Management",
+          "Product Strategy",
+          "Digital Growth"
+        ],
+        "credentialRef": "202324AsyncEMDP07/054",
+        "certificateImageUrl": "/Images/iim-kozhikode-certificate.png"
       },
       {
-        id: "st-paul-bca",
-        institution: "St. Paul Institute Of Professional Studies",
-        programme:
-          "B.C.A, Computer and Information Sciences and Support Services",
-        period: "Jun 2020 – May 2023",
-        grade: "Grade: A",
-        badge: "Undergraduate Degree",
-        description:
-          "Completed Bachelor of Computer Applications with Grade A, building strong foundations in computer sciences, software engineering, UI design, and web architecture.",
-        skillsTags: ["UI Designer", "Web Design", "Computer Science"],
+        "id": "st-paul-bca",
+        "institution": "St. Paul Institute Of Professional Studies",
+        "programme": "Bachelor of Computer Applications (BCA)",
+        "period": "Jun 2020 – May 2023",
+        "grade": "Grade: A",
+        "badge": "Undergraduate Degree",
+        "description": "Completed a Bachelor of Computer Applications with Grade A. My UI design internship at Technomize began during this degree.",
+        "skillsTags": [
+          "UI Designer",
+          "Web Design",
+          "Computer Science"
+        ]
       },
       {
-        id: "ec-council-ceh",
-        institution: "EC-Council",
-        programme:
-          "Certified Ethical Hacker (CEH Master / Practical)",
-        period: "Jan 2025 – Feb 2026",
-        grade: "Practical Certified",
-        badge: "Cybersecurity Specialization",
-        description:
-          "Rigorous offensive security training completing hands-on challenges across network exploitation, VAPT, web/API security testing, and advanced defensive analysis.",
-        skillsTags: ["Offensive Security", "VAPT", "Penetration Testing", "LLM Red Teaming"],
-        credentialRef: "ECC1293456087",
-        certificateImageUrl: "/Images/ceh-practical-certificate.jpg",
-      },
+        "id": "ec-council-practical-training",
+        "institution": "EC-Council",
+        "programme": "Certified Ethical Hacker (Practical)",
+        "period": "Jan 2025 · expiry Feb 2026",
+        "badge": "Cybersecurity specialization",
+        "grade": "Practical credential",
+        "description": "Earned the CEH (Practical) credential in January 2025. The profile lists an expiry in February 2026; renewal has not been confirmed.",
+        "skillsTags": ["Offensive Security", "VAPT", "Penetration Testing"],
+        "credentialRef": "ECC1293456087",
+        "certificateImageUrl": "/Images/ceh-practical-certificate.jpg"
+      }
     ],
-    certificates: [
+    "certificates": [
       {
-        id: "ceh-practical",
-        title: "Certified Ethical Hacker (Practical)",
-        issuer: "EC-Council",
-        dateOrPeriod: "Jan 2025 – Feb 2026",
-        certificateNumber: "ECC1293456087",
-        accreditation: "ANSI / ISO/IEC 17024 Accredited",
-        imageUrl: "/Images/ceh-practical-certificate.jpg",
-        badge: "Offensive Security",
+        "id": "ceh-practical",
+        "title": "Certified Ethical Hacker (Practical)",
+        "issuer": "EC-Council",
+        "dateOrPeriod": "Earned Jan 2025 · listed expiry Feb 2026",
+        "certificateNumber": "ECC1293456087",
+        "accreditation": "CEH (Practical), earned January 2025. The profile lists an expiry in February 2026; renewal has not been confirmed.",
+        "imageUrl": "/Images/ceh-practical-certificate.jpg",
+        "badge": "Historical credential"
       },
       {
-        id: "iim-pm",
-        title: "Professional Certificate Programme in Product Management",
-        issuer: "Indian Institute of Management Kozhikode (IIM Kozhikode)",
-        dateOrPeriod: "Jul 2023 – Apr 2024",
-        certificateNumber: "202324AsyncEMDP07/054",
-        accreditation: "eMDP (Asynchronous)",
-        imageUrl: "/Images/iim-kozhikode-certificate.png",
-        badge: "Product Strategy",
-      },
+        "id": "iim-pm",
+        "title": "Professional Certificate Programme in Product Management",
+        "issuer": "Indian Institute of Management Kozhikode (IIM Kozhikode)",
+        "dateOrPeriod": "Jul 2023 – Apr 2024",
+        "certificateNumber": "202324AsyncEMDP07/054",
+        "accreditation": "eMDP (Asynchronous)",
+        "imageUrl": "/Images/iim-kozhikode-certificate.png",
+        "badge": "Product Strategy"
+      }
     ],
-    credentials: [
-      {
-        title: "Founder & Partner",
-        issuer: "CoreDhristi LLP (Incorporated Oct 2026)",
-        details: "Building trust and evaluation infrastructure for AI agents and MCP servers.",
-      },
-      {
-        title: "Certified Ethical Hacker (CEH Master)",
-        issuer: "EC-Council",
-        details: "Practical penetration testing, ethical hacking, and offensive security methodologies.",
-      },
-      {
-        title: "Executive Security Instructor",
-        issuer: "Bhopal Administration Session",
-        details: "Delivered strategic cybersecurity briefings for senior IPS and IAS officers.",
-      },
-    ],
-    expertiseAreas: [
-      {
-        category: "AI Agents & Automation",
-        description:
-          "Building robust multi-agent systems, autonomous task workflows, and custom MCP bridges for enterprise data environments.",
-        tags: ["CrewAI", "LangChain", "MCP Servers", "Autonomous Agents", "n8n", "Python"],
-      },
-      {
-        category: "Offensive Security & Red Teaming",
-        description:
-          "Proactive vulnerability assessment, penetration testing, prompt injection simulations, and LLM security audits.",
-        tags: ["VAPT", "SAST / DAST", "Promptfoo", "LLM Red Teaming", "Semgrep", "CodeQL"],
-      },
-      {
-        category: "7-Layer Verification Pipeline",
-        description:
-          "Automated security auditing framework verifying code provenance, secret leakage, dependencies, and behavioral boundaries.",
-        tags: ["Betterleaks", "OSV-Scanner", "Syft (SBOM)", "Agentic Radar", "Presidio PII"],
-      },
-    ],
+    "credentials": [],
+    "expertiseAreas": []
   },
-
-  experiences: [
+  "experiences": [
     {
-      id: "tohfa-bazzar",
-      number: "01",
-      company: "Tohfa Bazzar",
-      description: "Built AI based CRM",
-      logoUrl: "/Images/tohfabazzar.png",
-      accentColor: "orange",
-      isVerified: true,
+      "id": "tohfa-bazzar",
+      "number": "01",
+      "company": "Tohfa Bazzar",
+      "description": "Built an AI-based CRM for a 3D miniature business, with automatic follow-up messages, a Gmail connection, AI calling and WhatsApp requirement gathering.",
+      "logoUrl": "/Images/tohfabazzar.png",
+      "accentColor": "orange",
+      "isVerified": true,
+      "role": "AI CRM & follow-ups",
+      "highlights": [
+        "Tohfa Bazzar makes 3D-printed miniatures, paints them and sells them to customers. Digital marketing was bringing in enquiries, but responding and following up on time was becoming difficult.",
+        "I built an AI-based CRM around that part of the business. It could send follow-up messages automatically, connect with Gmail and use a calling agent for follow-up calls. WhatsApp automation handled conversations with customers and gathered their requirements."
+      ]
     },
     {
-      id: "crawl-digitally",
-      number: "02",
-      company: "Crawl Digitally",
-      description: "Cybersecurity and AI solution",
-      logoUrl: "/Images/crawl digitally.png",
-      accentColor: "orange",
-      isVerified: true,
+      "id": "crawl-digitally",
+      "number": "02",
+      "company": "Crawl Digitally",
+      "description": "Ongoing cybersecurity work in malware analysis, protection of company computers and vulnerability assessment and penetration testing.",
+      "logoUrl": "/Images/crawl digitally.png",
+      "accentColor": "orange",
+      "isVerified": true,
+      "role": "Cybersecurity",
+      "highlights": [
+        "My work with Crawl Digitally is ongoing cybersecurity support. It includes malware analysis on the team's computers, threat protection for company systems and vulnerability assessment and penetration testing.",
+        "The engagement spans endpoint issues as well as vulnerability testing. Those are the two parts of the work I support."
+      ]
     },
     {
-      id: "adsmark01",
-      number: "03",
-      company: "ADSMARK01",
-      description: "CRM and ai agent solution",
-      logoUrl: "/Images/ADSMARK_LANDSCAPE_LOGO_FOR_WHITE_WITHOUT_bg.webp",
-      accentColor: "orange",
-      isVerified: true,
+      "id": "adsmark01",
+      "number": "03",
+      "company": "ADSMARK01",
+      "description": "Built an AI-agent-based CRM for a digital marketing company to address delayed lead handling and missed follow-ups.",
+      "logoUrl": "/Images/ADSMARK_LANDSCAPE_LOGO_FOR_WHITE_WITHOUT_bg.webp",
+      "accentColor": "orange",
+      "isVerified": true,
+      "role": "AI-agent CRM",
+      "highlights": [
+        "ADSMARK01 is a digital marketing company. The CRM problem was familiar from my work with Tohfa Bazzar: enquiries were arriving, but timely responses and follow-ups needed a better system.",
+        "I built an AI-agent-based CRM to support that workflow. The project centred on lead handling and follow-ups for the agency, rather than treating every enquiry as a task someone had to remember later."
+      ]
     },
     {
-      id: "nexttechwaves",
-      number: "04",
-      company: "Nexttechwaves",
-      description: "Ai Based Educational Solution",
-      logoUrl: "/Images/nexttechwaves.png",
-      accentColor: "orange",
-      isVerified: true,
+      "id": "nexttechwaves",
+      "number": "04",
+      "company": "Next Tech Waves",
+      "description": "Added AI agents to education-focused CRM systems in a venture I started. Next Tech Waves is now closed.",
+      "logoUrl": "/Images/nexttechwaves.png",
+      "accentColor": "orange",
+      "isVerified": true,
+      "role": "Former venture · Education CRM",
+      "highlights": [
+        "Next Tech Waves was a venture I started. Part of my work involved education-focused CRMs, including adding AI and AI agents to CRM systems that the team had already built.",
+        "That work extended existing software around the needs of education businesses. Next Tech Waves is now closed."
+      ]
     },
     {
-      id: "indiganic-foods",
-      number: "05",
-      company: "Indiganic Foods",
-      description: "Built AI-based CRM",
-      accentColor: "orange",
-      isVerified: true,
-    },
-  ],
-
-  achievements: [
-    {
-      id: "bhopal-ips-session",
-      title: "Cybersecurity & Ethical Hacking Session for IPS, IAS & Civil Officers",
-      category: "Executive Training & Civil Leadership",
-      organizationOrContext: "State Administration, Bhopal",
-      year: "Executive Briefing",
-      description:
-        "Delivered a specialized, high-impact cybersecurity and ethical hacking session in Bhopal for senior government officials, including IPS and IAS officers. Covered critical insights from ethical hacking to advanced cybersecurity, threat vector defense, and digital security governance.",
-      impact:
-        "Equipped senior administrative and police leadership with actionable offensive security concepts, cyber defense mechanisms, and digital risk mitigation strategies.",
-      imageUrl: "/Images/Bhopal ips.jpg",
-      audience: "Senior IPS & IAS Officers, Civil Administration Leaders",
-      keyTopics: [
-        "Ethical Hacking Fundamentals",
-        "Offensive Security Threat Vectors",
-        "Critical Digital Systems Defense",
-        "AI & Cyber Risk Mitigation",
+      "id": "fuel-tracking",
+      "number": "05",
+      "company": "Fuel tracking & loyalty CRM",
+      "description": "Built vehicle-wise fuel records for buses and trucks, tracking refuelling visits and quantities and supporting loyalty points.",
+      "role": "Custom business software",
+      "highlights": [
+        "A petroleum business needed to track how often buses and trucks returned for fuel and how much each vehicle purchased. I built a CRM around the vehicle number, with records for refuelling visits and quantities, alongside loyalty-point tracking.",
+        "The system supported a straightforward view of repeat activity: which vehicle returned, how often it refuelled and how much fuel it took. Those records also supported the business's loyalty programme."
       ],
-      isVerified: true,
+      "accentColor": "orange",
+      "isVerified": false
     },
+    {
+      "id": "indiganic-foods",
+      "number": "06",
+      "company": "Indiganic Foods",
+      "description": "Built WhatsApp automation for a ghee brand to answer customer enquiries and explain its products.",
+      "accentColor": "orange",
+      "isVerified": true,
+      "role": "WhatsApp AI automation",
+      "highlights": [
+        "Indiganic Foods is a food brand selling ghee, primarily through offline business. It needed WhatsApp automation that could respond to customer enquiries and explain its offerings.",
+        "I built AI-based WhatsApp automation for that use case. The focus was answering questions about the brand's products through a channel customers could use directly."
+      ]
+    }
   ],
-
-  services: [
+  "achievements": [
     {
-      id: "coredhristi-marketplace",
-      title: "CoreDhristi Marketplace",
-      description:
-        "The trusted AI workforce marketplace enabling companies to hire verified AI agents, intelligent automations, and custom MCP servers verified across 7 security layers.",
-      icon: "marketplace",
-      href: "https://coredhristi.com/",
-      ctaText: "Explore Marketplace",
-    },
-    {
-      id: "ai-agents",
-      title: "AI Agents",
-      description:
-        "Custom autonomous multi-agent systems and goal-driven LLM workflows tailored for intelligent task execution, document analysis, and 24/7 business operations.",
-      icon: "agent",
-      href: "https://coredhristi.com/hire/developers",
-      ctaText: "Discuss AI Agents",
-    },
-    {
-      id: "ai-automations",
-      title: "AI Automations",
-      description:
-        "Scalable end-to-end process automations connecting webhook flows, APIs, and databases (n8n, Make, custom scripts) to eliminate manual overhead.",
-      icon: "automation",
-      href: "https://coredhristi.com/marketplace?type=automation",
-      ctaText: "Automate Workflows",
-    },
-    {
-      id: "cybersecurity-solutions",
-      title: "Cybersecurity Solutions",
-      description:
-        "Comprehensive Vulnerability Assessment and Penetration Testing (VAPT), offensive security audits, SAST/DAST reviews, and prompt injection LLM red-teaming.",
-      icon: "security",
-      href: "https://coredhristi.com/about#security",
-      ctaText: "Request Security Review",
-    },
-    {
-      id: "ai-based-crm",
-      title: "AI Based CRM",
-      description:
-        "Intelligent customer relationship platforms equipped with automated agent follow-ups, smart pipeline tracking, and personalized client engagement.",
-      icon: "crm",
-      href: "#contact",
-      ctaText: "Build Custom CRM",
-    },
-    {
-      id: "website-development",
-      title: "Website Development",
-      description:
-        "High-performance, secure, and modern web applications engineered with Next.js, TypeScript, and responsive design systems built for speed and conversion.",
-      icon: "web",
-      href: "#contact",
-      ctaText: "Develop Web App",
-    },
-  ],
-
-  currentInitiatives: [
-    {
-      id: "coredhristi-initiative",
-      title: "CoreDhristi",
-      statusTag: "AI Agent Marketplace",
-      logoUrl: "/Images/Coredhristi.png",
-      summary:
-        "CoreDhristi is an AI agent marketplace where companies hire verified AI agents, AI automations, and MCP servers. Developers build and sell their AI agents, earning 80% revenue share. Browsing is free; you only need to log in to hire, subscribe, or list.",
-      teamSize: "8+ Team Members & Engineers",
-      points: [
-        "Vetted AI workforce verified through 7-layer security checks",
-        "80% revenue share for verified AI agent developers",
-        "Browse freely with instant hiring & subscribing",
+      "id": "capt-bhopal",
+      "title": "VAPT training for law enforcement at CAPT Bhopal",
+      "category": "Training & speaking",
+      "organizationOrContext": "CAPT Bhopal",
+      "year": "June 2025",
+      "description": "I delivered a guest lecture at CAPT Bhopal for Indian law enforcement officers. The session covered how vulnerability assessment and penetration testing works, how attackers can steal data, and how systems and information can be protected.",
+      "impact": "The opportunity came through LinkedIn. It gave me a chance to explain security work to people whose responsibilities include dealing with cyber threats and protecting information.",
+      "imageUrl": "/Images/Bhopal ips.jpg",
+      "audience": "Indian law enforcement officers",
+      "keyTopics": [
+        "VAPT methods",
+        "Data theft techniques",
+        "System and information protection"
       ],
-      href: "https://www.coredhristi.com/",
-      linkText: "Visit CoreDhristi",
-      domainStatus: "live_verified",
+      "isVerified": true
+    }
+  ],
+  "services": [
+    {
+      "id": "ai-agents",
+      "title": "AI agents & automation",
+      "description": "Agents and workflows for lead follow-ups, customer enquiries and repeat business tasks. I also add AI capabilities to software a team already uses.",
+      "icon": "agent",
+      "href": "#contact",
+      "ctaText": "Discuss a project"
     },
     {
-      id: "nexttechwaves-initiative",
-      title: "NextTechWaves.online",
-      statusTag: "Educational Academy",
-      logoUrl: "/Images/nexttechwaves.png",
-      summary:
-        "An educational platform where Krishanu teaches AI, Automation, and Cybersecurity. Actively mentoring students from India as well as Nepal in live online cohorts.",
-      teamSize: "Online Cohorts across India & Nepal",
-      points: [
-        "Practical curriculum in AI Agents, Automation, and Ethical Hacking",
-        "Cross-border cohorts mentoring learners in India and Nepal",
-        "Hands-on project delivery and offensive security labs",
+      "id": "crm",
+      "title": "Custom CRM development",
+      "description": "CRMs built around how a business works: customer requirements, follow-up conversations, vehicle records or education workflows.",
+      "icon": "crm",
+      "href": "#contact",
+      "ctaText": "Discuss a project"
+    },
+    {
+      "id": "whatsapp",
+      "title": "WhatsApp enquiry automation",
+      "description": "AI-assisted replies and product information on WhatsApp, built around the questions customers actually ask.",
+      "icon": "automation",
+      "href": "#contact",
+      "ctaText": "Discuss a project"
+    },
+    {
+      "id": "security",
+      "title": "VAPT & application security",
+      "description": "Security assessments for web applications, APIs and networks, with source-code reviews, clear findings and remediation verification.",
+      "icon": "security",
+      "href": "#contact",
+      "ctaText": "Discuss a project"
+    },
+    {
+      "id": "malware",
+      "title": "Malware analysis & endpoint security",
+      "description": "Investigating suspicious activity on company computers and supporting threat protection, informed by my ongoing client security work.",
+      "icon": "security",
+      "href": "#contact",
+      "ctaText": "Discuss a project"
+    },
+    {
+      "id": "web",
+      "title": "Web development & AI integration",
+      "description": "Web applications and AI integrations shaped by my background in UI design, freelance development and product management.",
+      "icon": "web",
+      "href": "#contact",
+      "ctaText": "Discuss a project"
+    }
+  ],
+  "currentInitiatives": [
+    {
+      "id": "coredhristi",
+      "title": "CoreDhristi",
+      "statusTag": "AI agent marketplace",
+      "logoUrl": "/Images/Coredhristi.png",
+      "summary": "I'm building CoreDhristi so businesses can discover and evaluate AI agents, automations and MCP servers, and developers can distribute their work. My focus includes security review, product architecture and the information a buyer needs before adopting an AI system.",
+      "points": [
+        "AI agents, automations and MCP servers",
+        "Security evaluation and permission transparency",
+        "Tools for developers to distribute their work"
       ],
-      href: "https://nexttechwaves.online/index.html",
-      linkText: "Visit NextTechWaves",
-      domainStatus: "live_verified",
+      "href": "https://coredhristi.com/",
+      "linkText": "Explore CoreDhristi",
+      "domainStatus": "live_verified"
     },
+    {
+      "id": "cored",
+      "title": "CoreD",
+      "statusTag": "AI & IT solutions",
+      "summary": "CoreD is part of CoreDhristi. It provides AI and IT solutions for businesses, with a focus on cloud, AI and cybersecurity. It is where I work on solutions shaped around a company’s systems and day-to-day needs.",
+      "points": [
+        "Cloud and IT solutions",
+        "AI agents and business automation",
+        "Cybersecurity support"
+      ],
+      "href": "#contact",
+      "linkText": "Discuss a CoreD project",
+      "domainStatus": "pending_domain"
+    }
   ],
-
-  testimonials: [
+  "testimonials": [],
+  "socialLinks": [
     {
-      id: "testimonial-1",
-      name: "Senior Leadership Team",
-      role: "Enterprise Partner",
-      organization: "Tohfa Bazzar",
-      content:
-        "Krishanu architected and deployed our AI-based CRM with exceptional speed and security guardrails. His dual mastery in autonomous systems and cybersecurity ensures everything runs reliably without risk.",
-      rating: 5,
-      isVerified: true,
+      "platform": "LinkedIn",
+      "url": "https://www.linkedin.com/in/krishanu-kaundilya/",
+      "label": "Krishanu Kaundilya on LinkedIn"
     },
     {
-      id: "testimonial-2",
-      name: "Technical Director",
-      role: "Client Partner",
-      organization: "Crawl Digitally",
-      content:
-        "Outstanding expertise in cybersecurity solutions and AI automation. He identified critical threat vectors that traditional audits missed and built automated agent workflows that streamlined our entire team's workflow.",
-      rating: 5,
-      isVerified: true,
-    },
-    {
-      id: "testimonial-3",
-      name: "Operations Lead",
-      role: "Product Growth",
-      organization: "ADSMARK01",
-      content:
-        "The custom CRM and AI agent solutions Krishanu developed have transformed our lead qualification and client handling. A true engineer with a security-first approach.",
-      rating: 5,
-      isVerified: true,
-    },
+      "platform": "CoreDhristi",
+      "url": "https://coredhristi.com/",
+      "label": "Official CoreDhristi Platform"
+    }
   ],
+  "footer": {
+    "headline": "Have a workflow or security problem in mind?",
+    "subheadline": "Tell me what your team needs. We can start with the problem and work out what is worth building.",
+    "ctaButton": {
+      "label": "Connect on LinkedIn",
+      "href": "https://www.linkedin.com/in/krishanu-kaundilya/"
+    },
+    "copyrightNotice": "© 2026 Krishanu Kaundilya. All rights reserved."
+  }
+};
 
-  socialLinks: [
-    {
-      platform: "LinkedIn",
-      url: "https://www.linkedin.com/in/krishanu-kaundilya/",
-      label: "Krishanu Kaundilya on LinkedIn",
-    },
-    {
-      platform: "CoreDhristi",
-      url: "https://coredhristi.com/",
-      label: "Official CoreDhristi Platform",
-    },
+export const sectionCopy = {
+  "heroLinkedInHeadline": "Founder @ CoreDhristi  @coreD | AI Agent & Automation Developer | Building Trust Infrastructure for the AI Agent Economy | AI Agents • Automation • Security",
+  "founderParts": ["FOUN", "DER"],
+  "story": {"title": "My story", "closeLabel": "Close my story", "close": "Close"},
+  "credentials": {
+    "educationBadge": "Education",
+    "educationTitle": "Academic Background & Specializations",
+    "educationHint": "Open any record to inspect its full details and credentials.",
+    "viewDetails": "View Credential Details",
+    "certificationBadge": "Certifications",
+    "certificationTitle": "Industry Certifications",
+    "browseHint": "Use arrows to browse",
+    "of": "of",
+    "previous": "Previous certification",
+    "next": "Next certification",
+    "issuer": "Issuing authority",
+    "reference": "Certificate ID",
+    "viewCertificate": "View Certificate"
+  },
+  "careerIntro": "Design was my starting point. Security consulting and product building shaped what came next.",
+  "careerToolsLabel": "Tools used",
+  "careerSummaries": {
+    "Technomize": "Designed interfaces during college, then moved into freelance design and web development.",
+    "CyberSapiens": "Worked on penetration testing and vulnerability assessment while preparing for CEH.",
+    "DTSS Consultants": "Assessed web applications, APIs and networks. Reviewed source code, reported findings and verified fixes.",
+    "CoreDhristi": "Building an AI marketplace, working on product architecture, security evaluation and developer distribution."
+  },
+  "careerFocus": {
+    "Technomize": ["UI Design", "Web Design"],
+    "CyberSapiens": ["VAPT", "Ethical Hacking"],
+    "DTSS Consultants": ["Web & API Security", "Source-code Review"],
+    "CoreDhristi": ["AI Agents", "Automation", "MCP Servers"]
+  },
+  "projectDetails": "Read the project",
+  "founderWord": "FOUNDER",
+  "companies": [
+    "CoreDhristi",
+    "CoreD"
   ],
-
-  footer: {
-    headline: "Let's Build the Secure AI Economy Together",
-    subheadline:
-      "Whether you need verified AI agents, custom MCP server architecture, or exhaustive security reviews, let's connect.",
-    ctaButton: {
-      label: "Get in Touch",
-      href: "https://coredhristi.com/",
+  "location": "Indore, India",
+  "heroCompact": "AI agents. Business automation. Cybersecurity.",
+  "founderPortrait": {
+    "src": "/Images/founder.png",
+    "alt": "Krishanu Kaundilya, founder of CoreDhristi and CoreD"
+  },
+  "aboutSubheading": "From UI design to security and AI",
+  "professionalFocus": "VAPT · Malware analysis · AI agents & automation",
+  "projects": {
+    "badge": "Selected work",
+    "title": "Projects built around real business needs",
+    "subtitle": "Some teams needed better follow-ups. Others needed clearer records or security support. Here is what I worked on."
+  },
+  "careerHeading": "My career so far",
+  "career": [
+    {
+      "company": "CoreDhristi",
+      "role": "Founder",
+      "period": "January 2026–present",
+      "description": "Building an AI marketplace. My work spans product strategy, architecture, security review and the information buyers need before adopting an AI system."
     },
-    copyrightNotice: `© ${new Date().getFullYear()} Krishanu Kaundilya. All rights reserved.`,
+    {
+      "company": "DTSS Consultants",
+      "role": "Information Security Consultant",
+      "period": "May 2024–March 2026 · Dubai-based firm · Remote",
+      "description": "VAPT for web applications, APIs and networks, source-code assessments, security reports and remediation verification. Tools included Burp Suite, Nuclei, Semgrep and CodeQL."
+    },
+    {
+      "company": "CyberSapiens",
+      "role": "Cyber Security Specialist Intern",
+      "period": "March–May 2024",
+      "description": "Worked with senior security analysts on penetration testing and vulnerability assessment while preparing for CEH."
+    },
+    {
+      "company": "Technomize",
+      "role": "UI Designer Intern",
+      "period": "December 2022–May 2023",
+      "description": "My first professional role, alongside college. Interface design was my starting point before freelance design and web development."
+    }
+  ],
+  "achievement": {
+    "heading": "Delivered a guest lecture on VAPT to law enforcement officers at CAPT Bhopal",
+    "photoCaption": "VAPT guest lecture · CAPT Bhopal, M.P.",
+    "badge": "Training & speaking",
+    "subtitle": "A guest lecture on vulnerability testing, data theft and practical protection.",
+    "open": "Open the achievement book",
+    "topics": "What the session covered",
+    "sourceLabel": "View the original CAPT Bhopal post",
+    "source": "https://www.linkedin.com/posts/krishanu-kaundilya_delivered-a-guest-lecture-on-vapt-to-the-ugcPost-7377104471186620416-GaLF/"
+  },
+  "services": {
+    "badge": "What I can help with",
+    "title": "AI, software and security work",
+    "subtitle": "Practical development and security support, shaped around the work your team needs to get done."
+  },
+  "initiatives": {
+    "badge": "Current initiatives",
+    "title": "What I’m building now",
+    "subtitle": "CoreDhristi is the marketplace. CoreD is its AI and IT solutions arm."
+  },
+  "footerBio": "Founder of CoreDhristi and CoreD. AI agent and automation developer with a background in information security consulting. Based in Indore, India.",
+  "educationHeading": "Education & credentials",
+  "educationIntro": "The programmes and practical training behind my work.",
+  "labels": {
+    "about": "About me",
+    "skills": "What I work on",
+    "readMore": "Read my story",
+    "readLess": "Show less",
+    "focus": "Professional focus",
+    "founder": "Founder & entrepreneur",
+    "navigation": "Navigation",
+    "connect": "Platforms & connect",
+    "contact": "Contact",
+    "backTop": "Back to top"
+  },
+  "book": {
+    "project": "Project story",
+    "achievement": "Achievement record",
+    "education": "Academic credential",
+    "certificate": "Professional certification",
+    "record": "Supporting record",
+    "details": "Record details",
+    "footer": "Learning · Achievement · Growth",
+    "reference": "Reference",
+    "period": "Period",
+    "grade": "Grade",
+    "overview": "Overview",
+    "skills": "Topics & skills",
+    "close": "Close book",
+    "closeLabel": "Close book details",
+    "review": "Review the details and supporting record."
+  },
+  "metadata": {
+    "title": "Krishanu Kaundilya | AI, Automation & Cybersecurity",
+    "description": "Meet Krishanu Kaundilya, founder of CoreDhristi and CoreD. Explore his AI agents, custom CRM development, WhatsApp automation and cybersecurity work."
+  }
+} as const;
+
+export const careerToolAssets = [
+  {name:"Burp Suite",src:"/Images/tools/burp-suite.png",wordmark:false,source:"https://portswigger.net/content/images/logos/apple-touch-icon.png"},
+  {name:"Nuclei",src:"/Images/tools/nuclei.png",wordmark:true,source:"https://raw.githubusercontent.com/projectdiscovery/nuclei/dev/static/nuclei-logo.png"},
+  {name:"Semgrep",src:"/Images/tools/semgrep.png",wordmark:true,source:"https://raw.githubusercontent.com/semgrep/semgrep/develop/semgrep.svg"},
+  {name:"CodeQL",src:"/Images/tools/codeql.png",wordmark:false,source:"https://codeql.github.com/assets/img/favicons/favicon.png"},
+] as const;
+
+export const careerJourney = [...sectionCopy.career].reverse().map((job, index) => ({
+  ...job,
+  number: String(index + 1).padStart(2, "0"),
+  focus: sectionCopy.careerFocus[job.company],
+  summary: sectionCopy.careerSummaries[job.company],
+  tools: job.company === "DTSS Consultants" ? careerToolAssets : [],
+}));
+
+// Identity data stays with the visible copy; add the canonical URL after a domain is chosen.
+export const profileStructuredData = {
+  "@context": "https://schema.org",
+  "@type": "ProfilePage",
+  name: portfolioData.hero.name,
+  mainEntity: {
+    "@type": "Person",
+    name: portfolioData.hero.name,
+    description: sectionCopy.footerBio,
+    jobTitle: [portfolioData.hero.role, "Cybersecurity Specialist", "Founder"],
+    sameAs: portfolioData.socialLinks.filter(link => link.platform === "LinkedIn").map(link => link.url),
+    worksFor: [
+      {"@type": "Organization", name: "CoreDhristi", url: "https://coredhristi.com/"},
+      {"@type": "Organization", name: "CoreD", parentOrganization: {"@type": "Organization", name: "CoreDhristi"}},
+    ],
+    alumniOf: {"@type": "EducationalOrganization", name: portfolioData.about.education[1].institution},
   },
 };

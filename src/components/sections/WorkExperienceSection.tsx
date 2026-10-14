@@ -1,8 +1,12 @@
 import React from "react";
 import Image from "next/image";
-import { portfolioData } from "@/data/portfolioData";
+import { portfolioData, sectionCopy } from "@/data/portfolioData";
 import { Container } from "@/components/ui/Container";
+import { WordReveal } from "@/components/ui/WordReveal";
 import { ExperienceItem } from "@/types/portfolio";
+import { CareerMap } from "./CareerMap";
+import { ProjectBookButton } from "@/components/ui/ProjectBookButton";
+import { ScrollReveal } from "@/components/ui/ScrollReveal";
 
 // Realistic 3D pushpin component with color gradients and specular highlights
 function PushPin({
@@ -130,7 +134,7 @@ function WorkCard({
   className?: string;
 }) {
   return (
-    <div
+    <ScrollReveal
       className={`group relative rounded-[32px] p-7 sm:p-8 bg-gradient-to-b from-[#FFFDF9] to-[#FFF5E8] border border-[#FED7AA] hover:border-[#F97316]/80 shadow-[0_8px_24px_-6px_rgba(234,88,12,0.12)] hover:shadow-[0_16px_36px_-8px_rgba(234,88,12,0.22)] transition-all duration-300 hover:-translate-y-2 flex flex-col justify-between ${className}`}
     >
       {/* Pinned 3D Pushpin on top center */}
@@ -160,7 +164,7 @@ function WorkCard({
               </div>
             ) : (
               <span className="font-black text-lg text-[#EA580C] tracking-wider">
-                IF
+                {exp.company.split(" ").slice(0,2).map(word => word[0]).join("")}
               </span>
             )}
           </div>
@@ -175,19 +179,20 @@ function WorkCard({
         <p className="text-sm sm:text-base text-zinc-600 leading-relaxed font-normal">
           {exp.description}
         </p>
+        {!!exp.highlights?.length && <ProjectBookButton project={exp} />}
       </div>
 
       {/* Subtle bottom indicator matching portfolio orange */}
       <div className="mt-6 pt-4 border-t border-[#FED7AA]/50 flex items-center justify-between text-xs text-zinc-500 font-medium">
         <span className="flex items-center gap-1.5">
           <span className="w-1.5 h-1.5 rounded-full bg-[#EA580C]" />
-          Client Solution
+          {exp.role}
         </span>
         <span className="text-orange-800/50 font-mono">
           0{displayIndex}
         </span>
       </div>
-    </div>
+    </ScrollReveal>
   );
 }
 
@@ -203,13 +208,13 @@ export function WorkExperienceSection() {
         {/* Section Header */}
         <div className="flex flex-col items-start mb-12 sm:mb-16 max-w-2xl">
           <span className="inline-flex items-center px-4 py-1.5 rounded-full border border-amber-500/30 bg-amber-500/10 text-[#D97706] text-xs sm:text-sm font-bold uppercase tracking-wider mb-3 shadow-xs">
-            Work Experience
+            {sectionCopy.projects.badge}
           </span>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-zinc-950 leading-[1.15]">
-            Enterprise Solutions &amp; Client Projects
+            <WordReveal text={sectionCopy.projects.title} />
           </h2>
           <p className="text-base sm:text-lg text-zinc-600 font-medium mt-3 leading-relaxed">
-            Delivering custom AI CRM architectures, cybersecurity solutions, and autonomous agent workflows across diverse industries.
+            {sectionCopy.projects.subtitle}
           </p>
         </div>
 
@@ -369,6 +374,8 @@ export function WorkExperienceSection() {
 
         </div>
 
+
+        <ScrollReveal><CareerMap /></ScrollReveal>
       </Container>
     </section>
   );

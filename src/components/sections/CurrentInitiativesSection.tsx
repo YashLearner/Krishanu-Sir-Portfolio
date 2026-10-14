@@ -1,6 +1,7 @@
 import React from "react";
 import Image from "next/image";
-import { portfolioData } from "@/data/portfolioData";
+import { portfolioData, sectionCopy } from "@/data/portfolioData";
+import { WordReveal } from "@/components/ui/WordReveal";
 import { Container } from "@/components/ui/Container";
 
 export function CurrentInitiativesSection() {
@@ -12,13 +13,13 @@ export function CurrentInitiativesSection() {
         {/* Section Header */}
         <div className="flex flex-col items-start mb-12 sm:mb-16 max-w-2xl">
           <span className="inline-flex items-center px-4 py-1.5 rounded-full border border-amber-500/30 bg-amber-500/10 text-[#D97706] text-xs sm:text-sm font-bold uppercase tracking-wider mb-3 shadow-xs">
-            Current Initiatives
+            {sectionCopy.initiatives.badge}
           </span>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-zinc-950 leading-[1.15]">
-            What Krishanu is Doing
+            <WordReveal text={sectionCopy.initiatives.title} />
           </h2>
           <p className="text-base sm:text-lg text-zinc-600 font-medium mt-3 leading-relaxed">
-            Leading high-impact technology initiatives — building the trusted marketplace for AI agents and mentoring aspiring engineers across South Asia.
+            {sectionCopy.initiatives.subtitle}
           </p>
         </div>
 
@@ -35,7 +36,7 @@ export function CurrentInitiativesSection() {
                   {/* Clickable Logo */}
                   <a
                     href={item.href}
-                    target="_blank"
+                    target={item.href.startsWith("http") ? "_blank" : undefined}
                     rel="noopener noreferrer"
                     className="relative flex items-center justify-center h-14 sm:h-16 px-4 py-2 rounded-2xl bg-[#1E1E22] border border-black/10 shadow-xs hover:scale-105 transition-transform overflow-hidden group/logo"
                     title={`Visit ${item.title}`}
@@ -74,7 +75,7 @@ export function CurrentInitiativesSection() {
                 <h3 className="text-2xl sm:text-3xl font-bold text-zinc-950 tracking-tight mb-3">
                   <a
                     href={item.href}
-                    target="_blank"
+                    target={item.href.startsWith("http") ? "_blank" : undefined}
                     rel="noopener noreferrer"
                     className="hover:text-amber-600 transition-colors inline-flex items-center gap-2"
                   >
@@ -114,7 +115,7 @@ export function CurrentInitiativesSection() {
               <div className="pt-6 border-t border-zinc-100 flex items-center justify-between">
                 <a
                   href={item.href}
-                  target="_blank"
+                  target={item.href.startsWith("http") ? "_blank" : undefined}
                   rel="noopener noreferrer"
                   className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-full bg-zinc-950 hover:bg-[#1E1E1E] text-white text-xs sm:text-sm font-semibold transition-all hover:shadow-lg shadow-sm group-hover:bg-[#D97706]"
                 >
@@ -135,7 +136,7 @@ export function CurrentInitiativesSection() {
                 </a>
 
                 <span className="text-xs text-zinc-400 font-medium">
-                  Verified Platform
+                  {item.title}
                 </span>
               </div>
             </div>

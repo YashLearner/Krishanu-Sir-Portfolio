@@ -2,15 +2,18 @@
 "use client";
 
 import Image from "next/image";
+import { ModalShell } from "./ModalShell";
+import { sectionCopy } from "@/data/portfolioData";
 
 export type CredentialBookItem = {
-  type: "certificate" | "education";
+  type: "certificate" | "education" | "achievement" | "project";
   title: string;
   subtitle: string;
   period?: string;
   credentialId?: string;
   imageUrl?: string;
   description?: string;
+  paragraphs?: string[];
   skills?: string[];
   grade?: string;
 };
@@ -21,14 +24,9 @@ type CredentialBookProps = {
 };
 
 export function CredentialBook({ item, onClose }: CredentialBookProps) {
+  const copy = sectionCopy.book;
   return (
-    <div
-      role="dialog"
-      aria-modal="true"
-      aria-label={item.title}
-      onClick={onClose}
-      className="credential-overlay fixed inset-0 z-[100] flex items-center justify-center overflow-y-auto bg-black/75 p-3 backdrop-blur-sm sm:p-6"
-    >
+    <ModalShell label={item.title} onClose={onClose} className="credential-overlay">
       <div
         onClick={(event) => event.stopPropagation()}
         className="credential-book relative my-auto w-full max-w-6xl"
@@ -36,27 +34,25 @@ export function CredentialBook({ item, onClose }: CredentialBookProps) {
         <button
           type="button"
           onClick={onClose}
-          aria-label="Close credential details"
-          className="absolute -right-1 -top-12 z-30 flex h-10 w-10 items-center justify-center rounded-full border border-white/20 bg-[#141416] text-xl text-white transition hover:bg-[#D97706] sm:right-0"
+          aria-label={copy.closeLabel}
+          className="absolute right-3 top-3 z-30 flex h-10 w-10 items-center justify-center rounded-full border border-white/20 bg-[#141416] text-xl text-white transition hover:bg-[#D97706]"
         >
           ×
         </button>
 
         {/* Book cover and center spine */}
         <div className="credential-cover relative rounded-2xl border-[5px] border-[#172E49] bg-[#172E49] p-[3px] shadow-2xl sm:rounded-3xl sm:p-2">
-          <div className="credential-spread relative grid grid-cols-1 overflow-hidden rounded-xl md:grid-cols-2">
+          <div className="credential-spread relative grid grid-cols-1 rounded-xl md:grid-cols-2">
             {/* LEFT PAGE */}
             <section className="credential-page credential-page-left relative flex min-h-[330px] flex-col bg-[#FAF7EF] p-4 sm:min-h-[460px] sm:p-7 lg:p-9">
               <div className="pointer-events-none absolute inset-2 border border-[#D97706]/30 sm:inset-4" />
 
               <div className="relative flex items-center justify-between gap-3">
                 <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#B45309] sm:text-xs">
-                  {item.type === "education"
-                    ? "Academic Credential"
-                    : "Professional Certification"}
+                  {copy[item.type]}
                 </span>
-                <span className="text-xs text-zinc-500">
-                  Official Record
+                <span className="hidden text-xs text-zinc-500 sm:inline">
+                  {copy.record}
                 </span>
               </div>
 
@@ -64,7 +60,7 @@ export function CredentialBook({ item, onClose }: CredentialBookProps) {
                 {item.imageUrl ? (
                   <Image
                     src={item.imageUrl}
-                    alt={`${item.title} credential`}
+                    alt={`${item.title}: ${item.subtitle}`}
                     width={1200}
                     height={900}
                     sizes="(max-width: 768px) 90vw, 45vw"
@@ -83,21 +79,21 @@ export function CredentialBook({ item, onClose }: CredentialBookProps) {
                       {item.subtitle}
                     </p>
                     <p className="mt-5 text-xs uppercase tracking-widest text-zinc-500">
-                      Credential Record
+                      {copy.record}
                     </p>
                   </div>
                 )}
               </div>
 
               <p className="relative text-center text-[9px] font-semibold uppercase tracking-[0.22em] text-slate-500 sm:text-[10px]">
-                Learning · Achievement · Growth
+                {copy.footer}
               </p>
             </section>
 
             {/* RIGHT PAGE */}
             <section className="credential-page credential-page-right relative flex min-w-0 flex-col border-t border-[#D6C8AA] bg-[#FFFEFA] p-5 sm:p-8 md:border-l md:border-t-0 lg:p-10">
               <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#B45309] sm:text-xs">
-                Credential Details
+                {copy.details}
               </p>
 
               <h2 className="mt-4 break-words font-serif text-2xl font-bold leading-tight text-[#141416] sm:text-3xl lg:text-4xl">
@@ -113,7 +109,7 @@ export function CredentialBook({ item, onClose }: CredentialBookProps) {
               <dl className="grid gap-x-4 gap-y-4 text-sm sm:grid-cols-[95px_minmax(0,1fr)]">
                 {item.period && (
                   <>
-                    <dt className="text-zinc-500">Period</dt>
+                    <dt className="text-zinc-500">{copy.period}</dt>
                     <dd className="font-semibold text-[#141416]">
                       {item.period}
                     </dd>
@@ -122,7 +118,7 @@ export function CredentialBook({ item, onClose }: CredentialBookProps) {
 
                 {item.credentialId && (
                   <>
-                    <dt className="text-zinc-500">Reference</dt>
+                    <dt className="text-zinc-500">{copy.reference}</dt>
                     <dd className="break-all font-mono text-xs font-semibold text-[#141416] sm:text-sm">
                       {item.credentialId}
                     </dd>
@@ -131,7 +127,7 @@ export function CredentialBook({ item, onClose }: CredentialBookProps) {
 
                 {item.grade && (
                   <>
-                    <dt className="text-zinc-500">Grade</dt>
+                    <dt className="text-zinc-500">{copy.grade}</dt>
                     <dd className="font-semibold text-[#141416]">
                       {item.grade}
                     </dd>
@@ -142,18 +138,19 @@ export function CredentialBook({ item, onClose }: CredentialBookProps) {
               {item.description && (
                 <div className="mt-6">
                   <h3 className="text-xs font-bold uppercase tracking-wide text-zinc-500">
-                    Overview
+                    {copy.overview}
                   </h3>
                   <p className="mt-3 text-sm leading-7 text-zinc-700">
                     {item.description}
                   </p>
+                  {item.paragraphs?.map(paragraph => <p key={paragraph} className="mt-3 text-sm leading-7 text-zinc-700">{paragraph}</p>)}
                 </div>
               )}
 
               {!!item.skills?.length && (
                 <div className="mt-6">
                   <h3 className="text-xs font-bold uppercase tracking-wide text-zinc-500">
-                    Key Skills &amp; Competencies
+                    {copy.skills}
                   </h3>
 
                   <div className="mt-3 flex flex-wrap gap-2">
@@ -172,7 +169,7 @@ export function CredentialBook({ item, onClose }: CredentialBookProps) {
               <div className="mt-auto pt-6">
                 <div className="mb-5 border-t border-zinc-200" />
                 <p className="mb-4 text-xs leading-5 text-zinc-500">
-                  Review the credential information and supporting record.
+                  {copy.review}
                 </p>
 
                 <button
@@ -180,7 +177,7 @@ export function CredentialBook({ item, onClose }: CredentialBookProps) {
                   onClick={onClose}
                   className="w-full rounded-xl bg-[#D97706] px-5 py-3.5 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-[#B45309] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D97706] focus-visible:ring-offset-2"
                 >
-                  Close Credential
+                  {copy.close}
                 </button>
               </div>
             </section>
@@ -193,6 +190,6 @@ export function CredentialBook({ item, onClose }: CredentialBookProps) {
           />
         </div>
       </div>
-    </div>
+    </ModalShell>
   );
 }

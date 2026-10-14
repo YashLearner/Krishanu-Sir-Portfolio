@@ -38,211 +38,106 @@ body {
   min-height: 100vh;
 }
 
-/* Subtle blueprint grid matching user screenshot */
-.bg-grid-pattern {
-  background-image: 
-    linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
-    linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
-  background-size: 72px 72px;
+
+
+
+
+
+
+/* Fixed navigation overlays the hero; anchors leave room for the pill. */
+section[id] { scroll-margin-top: 110px; }
+.hero-stage { --hero-height: clamp(720px,100svh,1100px); height: var(--hero-height); }
+.hero-intro { top: 130px; }
+/* Text tracks follow the face width, while the full-size portrait stays centered. */
+.hero-composition {
+  --composition-height: calc(var(--hero-height) * .82);
+  --portrait-width: min(60vw, calc(var(--composition-height) * 1005 / 1565));
+  --portrait-height: calc(var(--portrait-width) * 1565 / 1005);
+  --title-size: clamp(96px,22vw,360px);
+  --portrait-gap: clamp(8px,.8vw,16px);
+  height: var(--composition-height);
+  display: grid;
+  grid-template-columns: minmax(0,1fr) calc(var(--portrait-width) * .5) minmax(0,1fr);
+  column-gap: var(--portrait-gap);
+  padding-inline: clamp(12px,2vw,40px);
+}
+.hero-word { position: relative; top: calc(100% - var(--portrait-height) * .70 - var(--title-size) * .5); z-index: 5; font-size: var(--title-size); line-height: 1; letter-spacing: -.01em; white-space: nowrap; align-self: start; }
+.hero-word-left { grid-column: 1; grid-row: 1; text-align: right; }
+.hero-word-right { grid-column: 3; grid-row: 1; text-align: left; }
+.hero-portrait { position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); height: var(--portrait-height); width: var(--portrait-width); z-index: 10; }
+.scroll-reveal-ready { opacity: 0; transform: translateY(24px) scale(.96); filter: blur(10px); }
+.scroll-reveal-ready.scroll-reveal-visible { opacity: 1; transform: none; filter: blur(0); transition: opacity .8s ease, transform 1s cubic-bezier(.2,.7,.2,1), filter 1s ease; }
+.modal-overlay { animation: credential-backdrop-in 220ms ease-out both; }
+.story-dialog { animation: credential-book-enter 300ms ease-out both; }
+.career-map { background-color: #FCFBF8; background-image: radial-gradient(#DAD5CB 1px, transparent 1px); background-size: 20px 20px; }
+@media (min-width: 1024px) {
+  .hero-intro { top: auto; bottom: 120px; right: auto; width: clamp(340px,calc(50vw - min(60vw,calc(var(--hero-height) * .82 * 1005 / 1565)) / 2 - 16px),650px); }
+  .career-node-1 { margin-top: 40px; }
+  .career-node-2 { grid-column: 2; grid-row: 2; }
+  .career-node-3 { grid-column: 1; grid-row: 2; margin-top: 40px; }
+}
+@media (max-width: 1023px) {
+  .career-node:not(:last-child)::after { content: ""; position: absolute; width: 1px; height: 33px; left: 30px; top: 100%; background: #D8A34C; }
 }
 
-
-
-
-/* Credential book opening animation */
-
-.credential-overlay {
-  perspective: 1800px;
-  animation: credential-backdrop-in 350ms ease-out both;
+/* Pinull's word stagger: 65ms between words, gentle rise and scale. */
+.reveal-word { display: inline-block; }
+.word-reveal-ready .reveal-word { opacity: 0; transform: translateY(.18em) scale(1.03); filter: blur(6px); }
+.word-reveal-ready.word-reveal-visible .reveal-word {
+  opacity: 1; transform: translateY(0) scale(1); filter: blur(0);
+  transition: opacity 1s cubic-bezier(.2,.7,.2,1), transform 1.2s cubic-bezier(.2,.7,.2,1), filter 1.2s cubic-bezier(.2,.7,.2,1);
+  transition-delay: var(--word-delay, 0ms);
 }
 
-.credential-book {
-  transform-style: preserve-3d;
-  transform-origin: center center;
-  animation: credential-book-enter 500ms ease-out both;
+/* Cursor is enhanced only after actual mouse input. Touch retains its native UI. */
+.cursor-dot, .cursor-ring {
+  position: fixed; top: 0; left: 0; border-radius: 50%; pointer-events: none;
+  opacity: 0; mix-blend-mode: difference; z-index: 150; will-change: transform;
+  transition: opacity .3s;
+}
+.cursor-dot { width: 8px; height: 8px; background: white; }
+.cursor-ring { width: 40px; height: 40px; border: 1.5px solid rgb(255 255 255 / 70%); transition: opacity .3s, width .3s, height .3s, background-color .3s; }
+.cursor-ring.cursor-hover { width: 56px; height: 56px; background: rgb(255 255 255 / 10%); }
+@media (pointer: fine) and (hover: hover) {
+  .custom-cursor-active, .custom-cursor-active * { cursor: none !important; }
 }
 
-.credential-cover {
-  transform-style: preserve-3d;
-  perspective: 1800px;
+/* Transform-only opening: no animated shadows or elastic page overshoot. */
+.credential-overlay { perspective: 1800px; animation: credential-backdrop-in 220ms ease-out both; }
+.credential-book { transform-origin: center; animation: credential-book-enter 380ms cubic-bezier(.2,.7,.2,1) both; }
+.credential-cover, .credential-spread { transform-style: preserve-3d; perspective: 1800px; }
+.credential-page { min-width: 0; backface-visibility: hidden; }
+.credential-page-left, .credential-page-right {
+  overflow: hidden; backface-visibility: hidden;
+  animation-duration: 700ms; animation-timing-function: cubic-bezier(.2,.7,.2,1);
+  animation-delay: 60ms; animation-fill-mode: both;
 }
-
-.credential-spread {
-  transform-style: preserve-3d;
-  perspective: 1800px;
-}
-
-.credential-page {
-  min-width: 0;
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
-}
-
-/* Book opening: both pages move together */
-.credential-page-left,
-.credential-page-right {
-  position: relative;
-  overflow: hidden;
-  isolation: isolate;
-  transform-style: preserve-3d;
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
-  will-change: transform;
-  animation-duration: 1.8s;
-  animation-timing-function: cubic-bezier(0.2, 0.75, 0.2, 1);
-  animation-delay: 200ms;
-  animation-fill-mode: both;
-}
-
-/* Left page hinges at the center spine */
-.credential-page-left {
-  transform-origin: right center;
-  animation-name: credential-left-open;
-}
-
-/* Right page is the exact mirror */
-.credential-page-right {
-  transform-origin: left center;
-  animation-name: credential-right-open;
-}
-
-/* Curved light/shadow near the page fold */
-.credential-page-left::after,
-.credential-page-right::after {
-  content: "";
-  position: absolute;
-  z-index: 5;
-  top: 0;
-  bottom: 0;
-  width: 22%;
-  pointer-events: none;
-  opacity: 0;
-  transition: opacity 250ms ease;
-}
-
-.credential-page-left::after {
-  right: 0;
-  background: linear-gradient(
-    to right,
-    transparent 0%,
-    rgb(120 90 45 / 5%) 35%,
-    rgb(55 40 20 / 18%) 75%,
-    rgb(255 255 255 / 55%) 100%
-  );
-}
-
-.credential-page-right::after {
-  left: 0;
-  background: linear-gradient(
-    to left,
-    transparent 0%,
-    rgb(120 90 45 / 5%) 35%,
-    rgb(55 40 20 / 18%) 75%,
-    rgb(255 255 255 / 55%) 100%
-  );
-}
-
-
-.credential-spine {
-  box-shadow: 0 0 8px rgb(20 20 22 / 12%);
-}
-
-@keyframes credential-backdrop-in {
-  from {
-    opacity: 0;
-  }
-
-  to {
-    opacity: 1;
-  }
-}
-
-@keyframes credential-book-enter {
-  from {
-    opacity: 0;
-    transform: translateY(16px) scale(0.96);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-}
-/* Left page: opens outward */
-@keyframes credential-left-open {
-  0% {
-    opacity: 0.8;
-    transform: rotateY(82deg) skewY(-1deg);
-    box-shadow: inset -28px 0 32px rgb(20 20 22 / 20%);
-  }
-
-  35% {
-    transform: rotateY(38deg) skewY(0.7deg);
-    box-shadow: inset -18px 0 24px rgb(20 20 22 / 13%);
-  }
-
-  65% {
-    transform: rotateY(-7deg) skewY(-0.25deg);
-    box-shadow: inset -7px 0 12px rgb(20 20 22 / 6%);
-  }
-
-  82% {
-    transform: rotateY(3deg) skewY(0.1deg);
-  }
-
-  100% {
-    opacity: 1;
-    transform: rotateY(0deg) skewY(0deg);
-    box-shadow: inset 0 0 0 transparent;
-  }
-}
-/* Right page: mirrored motion */
-@keyframes credential-right-open {
-  0% {
-    opacity: 0.8;
-    transform: rotateY(-82deg) skewY(1deg);
-    box-shadow: inset 28px 0 32px rgb(20 20 22 / 20%);
-  }
-
-  35% {
-    transform: rotateY(-38deg) skewY(-0.7deg);
-    box-shadow: inset 18px 0 24px rgb(20 20 22 / 13%);
-  }
-
-  65% {
-    transform: rotateY(7deg) skewY(0.25deg);
-    box-shadow: inset 7px 0 12px rgb(20 20 22 / 6%);
-  }
-
-  82% {
-    transform: rotateY(-3deg) skewY(-0.1deg);
-  }
-
-  100% {
-    opacity: 1;
-    transform: rotateY(0deg) skewY(0deg);
-    box-shadow: inset 0 0 0 transparent;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .credential-page-left,
-  .credential-page-right {
-    animation: none !important;
-    transform: none !important;
-    will-change: auto;
-  }
+.credential-page-left { border-radius: 12px 0 0 12px; transform-origin: right center; animation-name: credential-left-open; }
+.credential-page-right { border-radius: 0 12px 12px 0; transform-origin: left center; animation-name: credential-right-open; }
+.credential-spine { box-shadow: 0 0 8px rgb(20 20 22 / 12%); }
+@keyframes credential-backdrop-in { from { opacity: 0; } to { opacity: 1; } }
+@keyframes credential-book-enter { from { opacity: 0; transform: translateY(14px) scale(.98); } to { opacity: 1; transform: none; } }
+@keyframes credential-left-open { from { transform: rotateY(48deg); opacity: .7; } to { transform: rotateY(0); opacity: 1; } }
+@keyframes credential-right-open { from { transform: rotateY(-48deg); opacity: .7; } to { transform: rotateY(0); opacity: 1; } }
+@media (min-width: 768px) and (max-width: 1023px) {
+  .hero-stage { --hero-height: clamp(720px,88svh,900px); }
+  .hero-composition { --title-size: 18vw; }
 }
 
 @media (max-width: 767px) {
-  .credential-page-left,
-  .credential-page-right {
-    animation-duration: 800ms;
-  }
+  .hero-stage { --hero-height: clamp(660px,90svh,780px); }
+  .hero-intro { top: 96px; gap: 8px; }
+  .hero-profile-headline { line-height: 1.6; }
+  .hero-composition { --composition-height: calc(var(--hero-height) * .74); --portrait-width: min(90vw,calc(var(--composition-height) * 1005 / 1565)); --title-size: clamp(40px,14.5vw,110px); --portrait-gap: 6px; grid-template-columns: minmax(0,1fr) calc(var(--portrait-width) * .45) minmax(0,1fr); padding-inline: 8px; }
+  .credential-page-left, .credential-page-right { border-radius: 10px; animation: credential-book-enter 350ms ease-out both; }
 }
-
-
-
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto !important; }
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+  .word-reveal .reveal-word { opacity: 1 !important; transform: none !important; filter: none !important; }
+  .scroll-reveal { opacity: 1 !important; transform: none !important; filter: none !important; }
+  .cursor-dot, .cursor-ring { display: none; }
+}
 /* Continuous horizontal company logo marquee */
 .company-marquee-track {
   display: flex;
