@@ -1,8 +1,45 @@
+## October 14 GitHub sync check
+
+Yash's latest main commit 46f568f (October 13, company logo movable) is already incorporated as the local base. Fetched origin and checked all remote branches; merge reports Already up to date. Approved local code retained. Source backup: `E:\porfolio\backups\portfolio-2026-10-14-pre-sync-141628.zip`. Await any future new upstream commit before another integration is needed.
+## October 14 follow-up: desktop headline and enhanced About photo
+
+Desktop headline now sits in the bottom-left above Indore/LinkedIn at widths of 1024px+. Mobile/tablet placement stays at the top. The original About JPEG (453 x 488) is retained; portfolioData.about.image now uses `/Images/sir-about-enhanced.png` (1208 x 1302), restored using the built-in image-generation editor at the user's explicit request. About layout and crop settings are unchanged. Original and result were inspected before applying the asset.
 # Project Living Roadmap — Krishanu Kaundilya Personal Portfolio
 
-**Last Updated:** October 11, 2026  
-**Current Phase:** Phase 2 — Navbar, Hero, and About Sections  
-**Current Status:** PHASE 2 COMPLETED (Awaiting User Review & Approval for Phase 3)
+**Last Updated:** October 14, 2026
+
+**Current work:** User-authorized content and UI revisions to the supplied GitHub repository.
+
+Latest hero spacing follow-up completed: Bebas Neue replaces Anton; text tracks sit closer to the face; FOUN/DER stay beside the large centered photo on mobile; mobile empty space reduced. Fresh production browser checks at 375/768/1280/1880 passed.
+
+**Current status:** User approved the current UI and explicitly authorized GitHub publication on October 14, 2026. Latest source checks passed; the final Discuss a project destination remains pending.
+
+Latest revision: restored original academic cards and certificate carousel, story popup, connected career map with vendor PNGs, large CAPT showcase, FOUN / DER spans beside a centered large portrait, exact user headline, no orange Building line, plain cream background and blur/scale scroll reveals. Project actions now open the shared book. See current changelog and design review.
+
+- [ ] **Discuss a project:** await the user's final destination; routing update is tracked in `docs/TODO.md`.
+
+The October 13 request explicitly authorizes revisions to existing content, Achievements/book interaction, Founder hero, navbar background, cursor and scroll text motion. This work does not authorize additional pages or deployment.
+
+Latest follow-up implemented locally; final production verification is recorded below in the changelog. Await user visual review and the final Discuss a project destination.
+
+### October 13 revision checklist
+
+- [x] Integrate the researched, humanized copy and actual career history.
+- [x] Add all six projects with expandable stories; retain Next Tech Waves as a closed former venture.
+- [x] Add CoreD as CoreDhristi's AI/IT solutions arm.
+- [x] Verify Achievements renders and connect the shared book component.
+- [x] Restore education/credential book controls and smooth the opening animation.
+- [x] Keep FOUN / DER spans fully readable around a centered large portrait; keep them beside the face on mobile too.
+- [x] Remove navbar's cream strip and fix tablet navigation breakpoint.
+- [x] Recreate CoreDhristi's dot/ring cursor and Pinull-style heading reveals.
+- [x] Add metadata, one name H1, real LinkedIn links and ProfilePage/Person JSON-LD.
+- [x] Verify keyboard book close, focus trapping/restoration, menu navigation and responsive layouts.
+- [x] Synchronize content brief, developer guide and changelog.
+- [x] User visual/content review and GitHub publication authorization.
+- [ ] Confirm production domain; then add canonical URL, sitemap, social preview image URLs and search-engine submission.
+- [ ] Confirm petroleum client's official name and CEH renewal before changing those public statements.
+
+The phase table and notes below are the repository's earlier milestone snapshot. The revision checklist above is the current status.
 
 ---
 

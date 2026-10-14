@@ -1,6 +1,215 @@
+## October 14, 2026 - approved portfolio publication
+
+User explicitly authorized pushing the current approved portfolio to GitHub main. Refreshed origin before staging; no newer upstream commits. Publication includes the existing content, UI fixes, real/enhanced assets, reusable popup and motion components, documentation and saved browser evidence. Pending Discuss a project destination remains documented in TODO.md.
+
+The latest source already passed lint (exit 0), TypeScript (exit 0), production build (exit 0) and built-in desktop/tablet/mobile checks in the preceding entries. Publication preparation makes documentation-only changes, so no redundant source/UI tests were repeated. Git diff --check passed before staging. Source backup remains at E:\porfolio\backups\portfolio-2026-10-14-pre-sync-141628.zip. User approval recorded in TODO.md.
+## October 14, 2026 - check Yash updates and preserve local work
+
+User requested integration of Yash's latest GitHub changes. Ran git fetch origin --prune and checked all remote heads. The only remote branch is main, at 46f568fecd6fef0f91b09456e5f7e252623e4917, matching local HEAD. Latest commit: Yashraj Songara, October 13, 2026 16:11:52 +05:30, company logo movable. Its changes were already the base for the approved local portfolio work.
+
+Actual command results:
+
+```text
+git fetch origin --prune
+Exit 0, no output.
+
+git ls-remote --heads origin
+46f568fecd6fef0f91b09456e5f7e252623e4917 refs/heads/main
+
+git merge --ff-only origin/main
+Already up to date.
+Exit 0.
+```
+
+No new upstream changes or conflicts. Current uncommitted portfolio work preserved. Created source backup at `E:\porfolio\backups\portfolio-2026-10-14-pre-sync-141628.zip`: 111 archive entries, 9.37 MB, includes tracked/untracked non-ignored files and a Git state manifest. Verified SHA-256 equality for HeroSection.tsx, globals.css, portfolioData.ts and sir-about-enhanced.png. Dependencies/build caches are excluded by .gitignore. No source changes from the sync, so existing passed build/UI checks remain applicable; no tests repeated for this read/sync operation. No GitHub push performed.
+## October 14, 2026 - desktop headline position and About photo
+
+Changed globals.css: hero-intro moves above bottom-left Indore/LinkedIn at widths >=1024px; mobile/tablet top placement retained. Changed portfolioData.ts About image path/dimensions; added sir-about-enhanced.png (1208 x 1302) using the built-in image editor from the original 453 x 488 JPEG. Original preserved. No About layout changes. Synced roadmap, developer guide and design review.
+
+Actual outputs:
+
+```text
+npm run lint
+> sir-portfolio@0.1.0 lint
+> eslint
+Exit 0; no further output (0 errors/warnings).
+
+npx tsc --noEmit
+Exit 0; no output.
+
+npm run build
+Next.js 16.4.0 (Turbopack)
+Running next.config.ts took 139ms
+Compiled successfully in 1100ms
+Finished TypeScript in 1915ms
+Generating static pages using 5 workers (4/4) in 833ms
+Route (app)
+/ static
+/_not-found static
+Exit 0.
+
+npm run start -- --port 3001
+Ready in 176ms
+Running next.config.ts took 34ms
+```
+
+Built-in browser inspected actual 1280 x 900, 768 x 1024 and 375 x 812 viewports. Desktop headline y=660-780, tablet y=130, mobile y=96. No horizontal overflow. Enhanced photo loaded and visually checked on desktop and mobile; console warnings/errors `[]`. See DESIGN_REVIEW.md for screenshots and image-edit provenance. No push or deployment.
+## October 14, 2026 — tighter founder spacing and reference-style font
+
+User requested less gap, a different reference-style font, and FOUN/DER beside the portrait on mobile. Changed HeroSection.tsx and globals.css only: Bebas Neue replaces Anton; image aspect-ratio variables keep the large real portrait centered; face-width text tracks replace the wide body-width gap. Mobile remains a side composition with 6px shared gaps, 8px padding and less empty hero height. Synced developer guide, roadmap and design review. Saved fresh production screenshots and a separate generated planning concept.
+
+Actual checks:
+
+```text
+npm run lint
+> sir-portfolio@0.1.0 lint
+> eslint
+Exit 0, no further output (0 errors/warnings).
+
+npx tsc --noEmit
+Exit 0, no output (0 type errors).
+
+npm run build
+▲ Next.js 16.4.0 (Turbopack)
+✓ Running next.config.ts took 213ms
+✓ Compiled successfully in 1566ms
+Finished TypeScript in 2.7s ...
+✓ Generating static pages using 5 workers (4/4) in 1190ms
+Route (app)
+┌ ○ /
+└ ○ /_not-found
+○ (Static) prerendered as static content
+Exit 0.
+
+npm run start -- --port 3001
+✓ Ready in 226ms
+✓ Running next.config.ts took 46ms
+```
+
+Built-in browser inspected production at 375 × 812, 768 × 1024, 1280 × 900 and 1880 × 870. No horizontal overflow; full FOUN/DER lettering visible on both sides; computed font confirmed Bebas Neue; centered large portrait retained. Development CSS held stale mobile values, so handover evidence comes from the fresh production build. Console warning/error query returned `[]`. No new dependencies, deployment or GitHub push.
+## October 14, 2026 — reference restoration and requested follow-up
+
+Restored original academic cards and separate certificate carousel; added genuine button treatment; moved credentials into Achievements. Shared ModalShell now supports the credential book and story dialog. Added CareerMap and vendor PNG tools. Replaced the compact CAPT strip with TrainingShowcase's original large-photo layout. Split hero into FOUN/DER spans around a large centered portrait, inserted exact supplied headline including @coreD, removed orange Building caption and page square grid. Read the project opens the shared book for all six projects. Added ScrollReveal blur/scale entry motion with reduced-motion fallbacks.
+
+Changed components/data: HeroSection, AboutSection, AchievementsSection, CredentialsSection, EducationCard, WorkExperienceSection, CareerMap, TrainingShowcase, ModalShell, StoryDialog, ProjectBookButton, CredentialBook, ScrollReveal, portfolioData, page and globals.css. Added reproducible tool-icon script/PNGs and design evidence. Synced roadmap, TODO, developer guide and design review.
+
+Actual final engineering results:
+
+```text
+npm run lint
+> sir-portfolio@0.1.0 lint
+> eslint
+Exit 0; no further output (0 errors/warnings).
+
+npx tsc --noEmit
+Exit 0; no output (0 type errors).
+
+npm run build
+> sir-portfolio@0.1.0 build
+> next build
+▲ Next.js 16.4.0 (Turbopack)
+✓ Running next.config.ts took 224ms
+Creating an optimized production build ...
+✓ Compiled successfully in 5.1s
+Finished TypeScript in 5.0s ...
+Collecting page data using 5 workers ...
+✓ Generating static pages using 5 workers (4/4) in 1381ms
+Finalizing page optimization ...
+Route (app)
+┌ ○ /
+└ ○ /_not-found
+○ (Static) prerendered as static content
+Exit 0.
+
+npm run start -- --port 3001
+▲ Next.js 16.4.0
+✓ Ready in 448ms
+✓ Running next.config.ts took 203ms
+```
+
+Built-in browser: actual 375 × 812, 768 × 1024 and 1280 × 900 checks, no horizontal overflow. Equal hero grid gaps measured 25.60px each at 1280. All six production project buttons opened the matching title. Desktop book focus trap/Escape/opener restore and mobile certificate/story popups passed. Certificate carousel moved from CEH to IIM and back. All four career PNGs loaded after entering the viewport. Production console collection returned `[]`. Screenshots and limits in DESIGN_REVIEW.md. Final contact routing awaits user instructions.
 # Project Changelog — Krishanu Kaundilya Personal Portfolio
 
 All notable changes and phase milestones for this project are documented in this file.
+
+## October 13, 2026 — Hero follow-up requested by user
+
+Scope: `src/components/sections/HeroSection.tsx` and `src/app/globals.css` only.
+
+- Replaced the separate FOU/NDER spans and artificial gap with one continuous FOUNDER string. Enlarged and optically positioned the word behind the portrait; tablet/mobile placement keeps the lettering readable.
+- Moved company attribution from the stacked top-right block to `@CoreDhristi` / `@CoreD` captions below the word, on opposite sides of the portrait as in the reference layout.
+- Removed the hero's Discuss a project CTA and Button import. The navbar retains its independent contact action.
+- `npm run lint`: exit 0, output `> sir-portfolio@0.1.0 lint` / `> eslint`, no errors or warnings.
+- `npx tsc --noEmit`: exit 0, no output/type errors.
+- `npm run build`: exit 0. Actual output: `✓ Running next.config.ts took 126ms`, `✓ Compiled successfully in 1702ms`, `Finished TypeScript in 1808ms`, `✓ Generating static pages using 5 workers (4/4) in 997ms`; `/` and `/_not-found` prerendered as static content.
+- Production browser checks: 375/768/1280/1880px viewports, document widths 360/753/1265/1865px respectively. No horizontal overflow. Every check returned one FOUNDER text string, the two intended company labels and zero Discuss CTAs inside `#hero`.
+- Inspected and saved `docs/previews/hero-revision-mobile.jpg`, `hero-revision-tablet.jpg`, `hero-revision-desktop.jpg` and `hero-revision-wide.jpg`. Production preview runs on port 3001.
+
+Documentation synchronized in roadmap and developer guide. No other sections were revised in this follow-up.
+
+## October 13, 2026 — Requested content, hero and motion revisions
+
+Source: `YashLearner/Krishanu-Sir-Portfolio`, inspected at commit `46f568f`. Local checkout: `E:\porfolio\portfolio-ui`. This is a revision to the supplied implementation; prior phase notes below are historical.
+
+### Changes
+
+- `src/data/portfolioData.ts`: humanized biography, six project stories, four career entries, accurate CAPT session/education/credential details, CoreD, current initiatives, contact copy, metadata and ProfilePage/Person identity data. Removed invented testimonials, unsupported experience/team claims and active Next Tech Waves promotion.
+- `HeroSection.tsx`, `Navbar.tsx`, `globals.css`: fixed navbar flow/background strip, Founder N visibility, mobile/tablet composition, brand spelling, real LinkedIn destination, image-path case, consistent tablet menu breakpoint and observer-based scrollspy.
+- `AchievementsSection.tsx`, `AboutSection.tsx`, `CredentialBook.tsx`: visible achievement card and functional book action; restored education/credential controls; shared accessible portal with focus handling, Escape close and reduced-motion support. Replaced 1.8s page animations/animated shadows with 700ms transforms and a stacked mobile presentation.
+- New `ui/WordReveal.tsx`, `ui/CustomCursor.tsx` and `ui/CredentialTrigger.tsx`; updated `SectionHeading.tsx` and section components to reuse them. References inspected in the in-app browser: `https://pinull.com/` and `https://coredhristi.com/`. About reuses the book item type; Escape handling is centralized in the book.
+- Updated `WorkExperienceSection.tsx`, `ServicesSection.tsx`, `CurrentInitiativesSection.tsx`, `CtaBannerSection.tsx`, `Footer.tsx`, `layout.tsx`, `page.tsx` and `next.config.ts` for content, metadata, motion and navigation integration.
+- Copied the earlier research/content planning documents into this repository; synchronized `CONTENT_BRIEF.md`, `roadmap.md` and `DEVELOPER_GUIDE.md`.
+
+### Actual command results
+
+Final `npm run lint`, exit 0, no errors or warnings:
+
+```text
+> sir-portfolio@0.1.0 lint
+> eslint
+```
+
+Final `npx tsc --noEmit`, exit 0, no output/type errors.
+
+Final `npm run build`, exit 0:
+
+```text
+▲ Next.js 16.4.0 (Turbopack)
+✓ Running next.config.ts took 408ms
+- Cache Components enabled
+- Partial Prefetching enabled
+  Creating an optimized production build ...
+✓ Compiled successfully in 7.0s
+  Running TypeScript ...
+  Finished TypeScript in 10.3s ...
+  Collecting page data using 5 workers ...
+  Generating static pages using 5 workers (0/4) ...
+  Generating static pages using 5 workers (1/4)
+  Generating static pages using 5 workers (2/4)
+  Generating static pages using 5 workers (3/4)
+✓ Generating static pages using 5 workers (4/4) in 3.2s
+  Finalizing page optimization ...
+Route (app)
+┌ ○ /
+└ ○ /_not-found
+○  (Static)  prerendered as static content
+```
+
+`git diff --check`, exit 0; only Git's Windows LF/CRLF normalization warnings, no whitespace errors. Local production server started successfully at `http://localhost:3001/`; an HTTP read returned status 200.
+
+An initial lint run caught a temporary content-migration script's CommonJS import and pre-existing unused handlers/imports. The temporary scripts were removed, handlers connected and unused code removed; subsequent lint runs passed. A sandboxed Next.js startup could not canonicalize its Windows path; running the authorized local preview outside that restriction resolved it. A development CSS cache required a server restart; final screenshots use a fresh production build.
+
+### Browser verification
+
+| Viewport | Document width | Result |
+|---|---:|---|
+| 375 × 812 | 360px | No horizontal overflow; full Founder word, two company names, mobile controls. |
+| 768 × 1024 | 753px | No horizontal overflow; one navbar CTA, tablet menu, portrait/text composition. |
+| 1280 × 900 | 1265px | No horizontal overflow; desktop N readable, dark hero extends behind navbar. |
+
+The width differences are the vertical scrollbar. Verified one name H1, the live meta description, JSON-LD parsing to Krishanu Kaundilya, and the complete biography present in the DOM. Achievement book opens as a body portal, focuses its close control, uses a 0.7s desktop page animation, traps Shift+Tab inside the dialog and closes on Escape with focus/overflow restored. Mobile book pages stack and remain scrollable. Browser checks of the initial mobile page found no failed loaded images. Reduced-motion and touch fallbacks are implemented and source-reviewed; no OS preference or actual touch-device test is claimed.
+
+Saved production evidence: `docs/previews/mobile-375.jpg`, `tablet-768.jpg`, `desktop-1280.jpg`, `achievements-1280.jpg`, `book-1280.jpg`, `book-mobile-375.jpg`. Additional browser checks verified the education book, the CEH expiry/renewal explanation, and expansion of the first project story. The final shared-trigger build was rechecked: education book opened, Escape closed it, the mobile achievement book used one 320px column within the 375px viewport, and tablet/desktop document widths remained 753/1265px. Publication, domain-specific canonical/sitemap/social preview URLs, and search indexing remain pending. No ranking or AI citation guarantee is implied.
 
 ---
 

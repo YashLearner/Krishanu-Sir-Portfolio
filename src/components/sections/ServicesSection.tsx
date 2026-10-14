@@ -1,6 +1,7 @@
 import React from "react";
 import Link from "next/link";
-import { portfolioData } from "@/data/portfolioData";
+import { portfolioData, sectionCopy } from "@/data/portfolioData";
+import { WordReveal } from "@/components/ui/WordReveal";
 import { Container } from "@/components/ui/Container";
 
 function ServiceIcon({ type }: { type: string }) {
@@ -150,14 +151,14 @@ export function ServicesSection() {
           <div className="relative flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-12 sm:mb-16">
             <div className="max-w-2xl">
               <span className="inline-flex items-center px-4 py-1.5 rounded-full border border-amber-500/30 bg-amber-500/10 text-amber-400 text-xs sm:text-sm font-semibold tracking-wide mb-4">
-                What Krishanu Offers
+                {sectionCopy.services.badge}
               </span>
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-white leading-[1.15]">
-                What Services Krishanu Provides
+                <WordReveal text={sectionCopy.services.title} />
               </h2>
             </div>
             <p className="text-sm sm:text-base text-zinc-400 max-w-md leading-relaxed font-normal">
-              Specialized expertise spanning the AI Agent economy, enterprise process automations, offensive cybersecurity, and production-ready digital architectures.
+              {sectionCopy.services.subtitle}
             </p>
           </div>
 

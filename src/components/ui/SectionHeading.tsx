@@ -1,6 +1,7 @@
 import React from "react";
 import { Badge } from "./Badge";
 import { cn } from "@/lib/utils";
+import { WordReveal } from "./WordReveal";
 
 export interface SectionHeadingProps {
   badge?: string;
@@ -36,7 +37,7 @@ export function SectionHeading({
       )}
 
       <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-zinc-900 leading-tight">
-        {title}
+        {typeof title === "string" ? <WordReveal text={title} /> : title}
       </h2>
 
       {subtitle && (

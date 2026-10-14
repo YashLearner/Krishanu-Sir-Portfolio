@@ -1,6 +1,27 @@
+## October 14 follow-up: desktop headline and enhanced About photo
+
+Desktop headline now sits in the bottom-left above Indore/LinkedIn at widths of 1024px+. Mobile/tablet placement stays at the top. The original About JPEG (453 x 488) is retained; portfolioData.about.image now uses `/Images/sir-about-enhanced.png` (1208 x 1302), restored using the built-in image-generation editor at the user's explicit request. About layout and crop settings are unchanged. Original and result were inspected before applying the asset.
 # Developer Guide — Krishanu Kaundilya Personal Portfolio
 
 Welcome to the technical developer documentation for **Krishanu Kaundilya's Personal Portfolio**. This guide provides an architectural overview, design token conventions, data update procedures, and development workflows to enable seamless maintenance without reverse-engineering the codebase.
+
+## October 14 repository revisions
+
+The supplied GitHub repository is the active application at `E:\porfolio\portfolio-ui`. Run npm commands here. The legacy directory diagram below predates this checkout. No new animation dependency was added.
+
+- All profile facts, project paragraphs, headings, labels and metadata live in `src/data/portfolioData.ts`. `ExperienceItem.highlights` supplies project book paragraphs. Keep closed Next Tech Waves historical and CoreD in current initiatives.
+- `EducationCard` restores the original academic card pattern. `CredentialsSection` renders three education/specialization records and a separate two-record certificate carousel inside Achievements. Cards use the shared Button; mobile carousel arrows sit below the record. CEH is described as a historical credential, with its listed expiry and unconfirmed renewal.
+- `ModalShell` owns the body portal, overflow lock, inert background, Escape/backdrop dismissal, Tab trap and opener focus restoration. `CredentialBook` supports education, certificate, achievement and project records; optional `paragraphs` adds project stories. `ProjectBookButton` is a client island using that same book. `StoryDialog` uses the same modal shell. Full popup content mounts on interaction; short biography/project summaries remain in server HTML.
+- `TrainingShowcase` restores the original large CAPT photo/details layout, glass photo caption, topic tiles and amber callout. Copy uses confirmed law-enforcement audience and June 2025 date. Specific officer ranks, endorsement and fabricated quotes were not reintroduced.
+- `CareerMap` uses chronological nodes with SVG connectors and real vendor PNG tools. `careerJourney` and `careerToolAssets` are exported from the data module. `scripts/fetch-career-icons.mjs` reproduces the four PNG assets using existing sharp, preserving wordmark proportions. Only verified DTSS tools are attributed.
+- Hero uses Bebas Neue via next/font and two spans, FOUN and DER, beside the face on every viewport. The full portrait remains centered independently of the text tracks. CSS custom properties derive the image frame from its 1005:1565 aspect ratio; text tracks follow an estimated face-width window with one shared gap. Desktop uses a 50% face window; mobile uses 45%, 6px gaps, 8px outer padding and a shorter hero to reduce empty space. Keep these values synchronized if replacing the portrait asset. The requested headline, no orange Building caption and no hero CTA remain.
+- Warm cream page backgrounds are plain: square grid removed per latest user direction. Career map keeps its small dot canvas. Preserve dark cinematic hero, amber controls, rounded cards and floating pill navigation. Design dials for this preservation pass: variance 6, motion 5, density 4.
+- `WordReveal` adds the existing 65ms heading stagger. `ScrollReveal` adds one-time blur(10px), scale(.96) and rise on viewport entry for selected sections/cards. Both use IntersectionObserver with visible server markup, no per-frame React state, preference guards and cleanup. CSS also forces content visible with reduced motion. This is a viewport-entry effect, not scroll scrubbing.
+- `CustomCursor` keeps the observed fine-pointer dot/ring treatment. Navbar uses the lg breakpoint, fixed overlay and 110px anchor clearance. Layer order: hero 0–20, navbar 50, modal 100, pointer 150.
+- Metadata and ProfilePage/Person JSON-LD are data-driven. Production domain/canonical remain pending the user's deployment choice. Discuss a project destination is tracked in `docs/TODO.md`; do not guess a new email, phone or route.
+- `turbopack.root` is pinned to the app directory; `agentRules: false` protects AGENTS.md. If development CSS becomes stale, restart and verify the fresh production build.
+
+Verification evidence is in `docs/previews/`, `docs/DESIGN_REVIEW.md` and `docs/CHANGELOG.md`. Use `npm run lint`, `npx tsc --noEmit`, `npm run build`, then `npm run start -- --port 3001` for local production review.
 
 ---
 

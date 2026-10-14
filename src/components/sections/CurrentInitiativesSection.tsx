@@ -1,6 +1,5 @@
 
 import Image from "next/image";
-
 import { portfolioData } from "@/data/portfolioData";
 import { Container } from "@/components/ui/Container";
 
@@ -19,22 +18,15 @@ export function CurrentInitiativesSection() {
     >
       <Container size="default">
         {/* Section Header */}
-        <div className="mb-12 flex max-w-2xl flex-col items-start sm:mb-16">
-          <span className="mb-3 inline-flex items-center rounded-full border border-amber-500/30 bg-amber-500/10 px-4 py-1.5 text-xs font-bold uppercase tracking-wider text-[#D97706] shadow-xs sm:text-sm">
+        <div className="flex flex-col items-start mb-12 sm:mb-16 max-w-2xl">
+          <span className="inline-flex items-center px-4 py-1.5 rounded-full border border-amber-500/30 bg-amber-500/10 text-[#D97706] text-xs sm:text-sm font-bold uppercase tracking-wider mb-3 shadow-xs">
             Current Initiatives
           </span>
-
-          <h2
-            id="initiatives-heading"
-            className="text-3xl font-bold leading-[1.15] tracking-tight text-zinc-950 sm:text-4xl lg:text-5xl"
-          >
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-zinc-950 leading-[1.15]">
             What Krishanu is Doing
           </h2>
-
-          <p className="mt-3 text-base font-medium leading-relaxed text-zinc-600 sm:text-lg">
-            Leading high-impact technology initiatives — building the
-            trusted marketplace for AI agents and mentoring aspiring
-            engineers across South Asia.
+          <p className="text-base sm:text-lg text-zinc-600 font-medium mt-3 leading-relaxed">
+            Leading high-impact technology initiatives — building the trusted marketplace for AI agents and mentoring aspiring engineers across South Asia.
           </p>
         </div>
 
@@ -49,7 +41,7 @@ export function CurrentInitiativesSection() {
                 {/* Brand Logo and Status */}
                 <div className="mb-6 flex flex-wrap items-center justify-between gap-4">
                   <a
-                    href={initiative.href}
+                    href={item.href}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="relative flex h-14 items-center justify-center overflow-hidden rounded-2xl border border-black/10 bg-[#1E1E22] px-4 py-2 shadow-xs transition-transform hover:scale-105 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-amber-600 sm:h-16"
@@ -88,7 +80,7 @@ export function CurrentInitiativesSection() {
                 {/* Initiative Title */}
                 <h3 className="mb-3 text-2xl font-bold tracking-tight text-zinc-950 sm:text-3xl">
                   <a
-                    href={initiative.href}
+                    href={item.href}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-2 transition-colors hover:text-amber-600 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-amber-600"
@@ -137,7 +129,7 @@ export function CurrentInitiativesSection() {
               {/* Initiative Footer */}
               <div className="flex items-center justify-between gap-3 border-t border-zinc-100 pt-6">
                 <a
-                  href={initiative.href}
+                  href={item.href}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="group/action inline-flex items-center justify-center gap-2 rounded-full bg-zinc-950 px-5 py-2.5 text-xs font-semibold text-white shadow-sm transition-all hover:bg-[#D97706] hover:shadow-lg focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-amber-600 sm:text-sm"
@@ -160,7 +152,7 @@ export function CurrentInitiativesSection() {
                   </svg>
                 </a>
 
-                <span className="text-right text-xs font-medium text-zinc-400">
+                <span className="text-xs text-zinc-400 font-medium">
                   Verified Platform
                 </span>
               </div>

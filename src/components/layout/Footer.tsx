@@ -2,14 +2,14 @@
 
 import React from "react";
 import Link from "next/link";
-import { portfolioData } from "@/data/portfolioData";
+import { portfolioData, sectionCopy } from "@/data/portfolioData";
 import { Container } from "@/components/ui/Container";
 
 export function Footer() {
   const { navLinks, socialLinks, hero } = portfolioData;
 
   const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    window.scrollTo({ top: 0, behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "instant" : "smooth" });
   };
 
   return (
@@ -52,7 +52,7 @@ export function Footer() {
             </Link>
 
             <p className="mt-4 text-sm text-zinc-400 leading-relaxed max-w-sm">
-              Founder @ CoreDhristi • AI Agent &amp; Automation Developer • Cybersecurity Specialist (CEH Master). Building verified trust infrastructure for autonomous systems.
+              {sectionCopy.footerBio}
             </p>
 
 
@@ -61,7 +61,7 @@ export function Footer() {
           {/* Quick Navigation Links */}
           <div className="lg:col-span-4 flex flex-col">
             <h4 className="text-xs font-bold uppercase tracking-wider text-zinc-200 mb-4">
-              Navigation
+              {sectionCopy.labels.navigation}
             </h4>
             <ul className="grid grid-cols-2 gap-2.5 text-sm">
               {navLinks.map((link) => (
@@ -76,12 +76,12 @@ export function Footer() {
               ))}
               <li>
                 <a
-                  href="https://www.coredhristi.com/contact"
+                  href="https://www.linkedin.com/in/krishanu-kaundilya/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-zinc-400 hover:text-amber-400 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-amber-400 rounded-xs py-0.5 flex items-center gap-1"
                 >
-                  <span>Contact</span>
+                  <span>{sectionCopy.labels.contact}</span>
                   <span className="text-xs">↗</span>
                 </a>
               </li>
@@ -91,7 +91,7 @@ export function Footer() {
           {/* Direct Platforms & Connect */}
           <div className="lg:col-span-3 flex flex-col">
             <h4 className="text-xs font-bold uppercase tracking-wider text-zinc-200 mb-4">
-              Platforms &amp; Connect
+              {sectionCopy.labels.connect}
             </h4>
             <div className="flex flex-col gap-3">
               {socialLinks.map((item) => (
@@ -108,17 +108,6 @@ export function Footer() {
                   </span>
                 </a>
               ))}
-              <a
-                href="https://nexttechwaves.online/index.html"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center justify-between p-2.5 rounded-xl bg-white/5 border border-white/5 hover:border-amber-500/40 hover:bg-white/10 text-xs font-semibold text-zinc-300 hover:text-white transition-all group"
-              >
-                <span>NextTechWaves.online</span>
-                <span className="text-zinc-500 group-hover:text-amber-400 group-hover:translate-x-0.5 transition-all">
-                  ↗
-                </span>
-              </a>
             </div>
           </div>
         </div>
@@ -126,13 +115,10 @@ export function Footer() {
         {/* Bottom Bar: Copyright & Back-to-Top */}
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-zinc-500">
           <p>
-            © 2026 Krishanu Kaundilya. All rights reserved.
+            {portfolioData.footer.copyrightNotice}
           </p>
 
           <div className="flex items-center gap-6">
-            <span className="hidden sm:inline">
-              Built with Next.js, React &amp; Tailwind CSS
-            </span>
 
             {/* Back to Top Button */}
             <button
@@ -141,7 +127,7 @@ export function Footer() {
               aria-label="Scroll back to top"
               className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/5 border border-white/10 text-zinc-300 hover:text-white hover:bg-white/10 hover:border-amber-500/30 transition-all cursor-pointer focus-visible:outline focus-visible:outline-2 focus-visible:outline-amber-400"
             >
-              <span>Back to Top</span>
+              <span>{sectionCopy.labels.backTop}</span>
               <svg
                 width="14"
                 height="14"

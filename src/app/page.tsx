@@ -9,15 +9,20 @@ import { CurrentInitiativesSection } from "@/components/sections/CurrentInitiati
 import { CtaBannerSection } from "@/components/sections/CtaBannerSection";
 import { TestimonialsSection } from "@/components/sections/TestimonialsSection";
 import { Footer } from "@/components/layout/Footer";
+import { CustomCursor } from "@/components/ui/CustomCursor";
+import { profileStructuredData } from "@/data/portfolioData";
+import { ScrollReveal } from "@/components/ui/ScrollReveal";
 
 export default function Home() {
   return (
     <div
-      className="relative min-h-screen bg-canvas bg-grid-pattern selection:bg-[#F59E0B]/30 selection:text-zinc-900"
+      className="relative min-h-screen bg-canvas selection:bg-[#F59E0B]/30 selection:text-zinc-900"
       suppressHydrationWarning
     >
       {/* Floating Pill Navbar */}
       <Navbar />
+      <CustomCursor />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{__html:JSON.stringify(profileStructuredData).replace(/</g,"\\u003c")}} />
 
       {/* Main Content Area */}
       <main id="main-content" className="flex flex-col" suppressHydrationWarning>
@@ -28,22 +33,22 @@ export default function Home() {
         <CompanyLogosSection />
 
         {/* Section 3: About Krishanu Kaundilya */}
-        <AboutSection />
+        <ScrollReveal><AboutSection /></ScrollReveal>
 
-        {/* Section 4: Achievements — Executive Cybersecurity Session (Bhopal IPS & IAS Officers) */}
+        {/* CAPT Bhopal achievement and supporting book view */}
         <AchievementsSection />
 
         {/* Section 5: Work Experience — Pinned Solution Notes */}
         <WorkExperienceSection />
 
         {/* Section 6: Services — What Services Krishanu Provides (Dark Shell Aesthetic) */}
-        <ServicesSection />
+        <ScrollReveal><ServicesSection /></ScrollReveal>
 
-        {/* Section 7: Current Initiatives — What Krishanu is Doing (CoreDhristi & NextTechWaves) */}
-        <CurrentInitiativesSection />
+        {/* Current initiatives: CoreDhristi and CoreD */}
+        <ScrollReveal><CurrentInitiativesSection /></ScrollReveal>
 
         {/* Section 8: Tagline & Contact Banner — Stop Doing By Hand What AI Agents Can Already Do */}
-        <CtaBannerSection />
+        <ScrollReveal><CtaBannerSection /></ScrollReveal>
 
         {/* Section 9: Testimonials — Interactive Client Feedback Slider */}
         <TestimonialsSection />

@@ -11,12 +11,12 @@ export function CompanyLogosSection() {
 
   return (
     <section
-      aria-label="Partner and Client Companies"
+      aria-label="Selected client and venture work"
       className="w-full overflow-hidden border-y border-black/[0.06] bg-white/70 py-4 backdrop-blur-sm sm:py-5"
     >
       <Container size="default">
         <p className="mb-3 text-center text-[11px] font-semibold uppercase tracking-wider text-zinc-400 sm:mb-4 sm:text-xs">
-          Trusted by Companies &amp; Platforms
+          {portfolioData.companyMarquee.title}
         </p>
       </Container>
 
