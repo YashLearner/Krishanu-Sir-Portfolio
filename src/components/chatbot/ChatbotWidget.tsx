@@ -8,13 +8,13 @@ import Image from "next/image";
 const CHAT_PANEL_ID = "portfolio-chat-panel";
 
 const chatbotWidgetStyles = {
-
   panel: "fixed inset-0 z-50",
 
   launcher:
-    "fixed bottom-5 right-5 z-[60] inline-flex min-h-[58px] items-center justify-center gap-3 rounded-full border border-blue-200 bg-white px-5 py-3 text-[#5271d3] shadow-lg shadow-blue-950/5 transition-all duration-200 hover:border-blue-300 hover:shadow-xl focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-blue-500 sm:bottom-8 sm:right-8",
+    "fixed bottom-5 right-5 z-[60] flex size-[76px] items-center justify-center overflow-hidden rounded-full border-0 bg-transparent p-0 shadow-none transition-transform duration-200 hover:scale-110 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-blue-500 sm:bottom-8 sm:right-8",
 
-  launcherImage: "size-7 shrink-0 object-contain",
+  launcherImage:
+    "block size-full shrink-0 rounded-full object-cover p-0 m-0",
 } as const;
 
 export function ChatbotWidget() {
@@ -83,24 +83,17 @@ export function ChatbotWidget() {
           title="Open portfolio chat assistant"
         >
           <Image
-            src="/Images/Chatbot.png"
+            src="/Images/chatbot-icon.jpg"
             alt=""
             aria-hidden="true"
-            width={80}
-            height={80}
+            width={120}
+            height={120}
             className={chatbotWidgetStyles.launcherImage}
-            priority />
-
-          <span className="whitespace-nowrap text-sm font-semibold sm:text-base">
-            Chatbot
-          </span>
-
-          <span
-            className="size-2 shrink-0 rounded-full bg-[#5271d3]"
-            aria-hidden="true"
+            priority
           />
         </button>
       )}
+
     </>
   );
 }

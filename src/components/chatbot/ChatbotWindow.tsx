@@ -7,6 +7,8 @@ import type { CSSProperties, FormEvent } from "react";
 import { knowledgeBase } from "@/data/knowledgeBase";
 import { findAnswer } from "@/lib/findAnswer";
 
+import Image from "next/image";
+
 /* -------------------------------------------------------------------------- */
 /* Types and configuration                                                    */
 /* -------------------------------------------------------------------------- */
@@ -103,7 +105,7 @@ const chatbotStyles = {
     suggestionsTitle: "text-xs font-semibold text-slate-500",
 
     suggestionButton:
-        "max-w-full rounded-full border border-slate-200 bg-white px-3 py-2 text-left text-xs text-slate-700 transition-colors hover:border-blue-200 hover:bg-blue-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500",
+        "max-w-full rounded-full border border-[#dce7e1] bg-[#edf4f0] px-3 py-2 text-left text-xs text-slate-700 transition-colors hover:border-[#c6d8ce] hover:bg-[#e2eee7] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500",
 
     composer:
         "flex shrink-0 items-center gap-3 border-t border-slate-100 bg-white px-4 py-3 sm:px-5 sm:py-4",
@@ -179,14 +181,21 @@ function ThinkingIndicator() {
         <div
             className="flex w-full min-w-0 items-center gap-3"
             role="status"
-            aria-label="CoreDhrishti AI is typing"
+            aria-label=" Krishanu AI is typing"
         >
             {/* Assistant Icon */}
+            {/* Assistant Image */}
             <div
-                className="grid size-8 shrink-0 place-items-center rounded-lg border border-blue-100 bg-blue-50 text-blue-600"
+                className="mt-1 size-8 shrink-0 overflow-hidden rounded-lg"
                 aria-hidden="true"
             >
-                <AssistantIcon />
+                <Image
+                     src="/Images/NavbarLogo.png"
+                    alt=""
+                    width={32}
+                    height={32}
+                    className="size-full object-cover"
+                />
             </div>
 
             {/* Bouncing Dots followed by Typing */}
@@ -225,30 +234,6 @@ function ThinkingIndicator() {
 /* Icons                                                                      */
 /* -------------------------------------------------------------------------- */
 
-function AssistantIcon() {
-    return (
-        <svg
-            viewBox="0 0 24 24"
-            width="23"
-            height="23"
-            fill="none"
-            aria-hidden="true"
-        >
-            <path
-                d="M5 5.75A2.75 2.75 0 0 1 7.75 3h8.5A2.75 2.75 0 0 1 19 5.75v6.5A2.75 2.75 0 0 1 16.25 15H12l-4.5 4v-4.12A2.75 2.75 0 0 1 5 12.25v-6.5Z"
-                stroke="currentColor"
-                strokeWidth="1.7"
-                strokeLinejoin="round"
-            />
-            <path
-                d="M9 8h6M9 11h4"
-                stroke="currentColor"
-                strokeWidth="1.7"
-                strokeLinecap="round"
-            />
-        </svg>
-    );
-}
 
 function ResetIcon() {
     return (
@@ -341,22 +326,29 @@ function MessageItem({ message }: { message: ChatMessage }) {
             className={`${chatbotStyles.messageRow} ${isUserMessage ? "justify-end" : "justify-start"
                 }`}
         >
+
             {!isUserMessage && (
                 <div
-                    className={chatbotStyles.messageAvatar}
-                    style={chatbotInlineStyles.assistantAvatar}
+                    className="mt-1 size-8 shrink-0 overflow-hidden rounded-lg"
                     aria-hidden="true"
                 >
-                    <AssistantIcon />
+                    <Image
+                       src="/Images/NavbarLogo.png"
+                        alt=""
+                        width={32}
+                        height={32}
+                        className="size-full object-cover"
+                    />
                 </div>
             )}
+
 
             <div
                 className={`${chatbotStyles.messageContent} ${isUserMessage ? "items-end" : "items-start"
                     }`}
             >
                 <span className={chatbotStyles.sender}>
-                    {isUserMessage ? "You" : "CoreDhrishti AI"}
+                    {isUserMessage ? "You" : "Krishanu's AI"}
                 </span>
 
                 <p
@@ -395,7 +387,14 @@ function ChatHeader({ onReset, onClose }: ChatHeaderProps) {
                     style={chatbotInlineStyles.brandLogo}
                     aria-hidden="true"
                 >
-                    <AssistantIcon />
+                    <Image
+                        src="/Images/NavbarLogo.png"
+                        alt=""
+                        width={44}
+                        height={44}
+                        className="size-full object-cover"
+                        priority
+                    />
                 </div>
 
                 <div className="min-w-0">
@@ -560,7 +559,7 @@ export function ChatbotWindow({ onClose }: ChatbotWindowProps) {
     return (
         <section
             className={chatbotStyles.window}
-            aria-label="CoreDhrishti AI chat"
+            aria-label="Krishanu AI chat"
         >
             <ChatHeader
                 onReset={handleResetConversation}
@@ -597,7 +596,7 @@ export function ChatbotWindow({ onClose }: ChatbotWindowProps) {
                                         <button
                                             key={question}
                                             type="button"
-                                            className={`${chatbotStyles.suggestionButton} shrink-0 whitespace-nowrap bg-slate-300`}
+                                            className={`${chatbotStyles.suggestionButton} shrink-0 whitespace-nowrap`}
                                             onClick={() => sendQuestion(question)}
                                         >
                                             {question}
@@ -620,7 +619,7 @@ export function ChatbotWindow({ onClose }: ChatbotWindowProps) {
                             htmlFor={QUESTION_INPUT_ID}
                             className={chatbotStyles.visuallyHidden}
                         >
-                            Ask Krishanu Kaundilya AI a question
+                            Ask Krishanu Kaundilya's AI a question
                         </label>
 
                         <input
@@ -632,7 +631,7 @@ export function ChatbotWindow({ onClose }: ChatbotWindowProps) {
                             name="question"
                             value={inputValue}
                             onChange={(event) => setInputValue(event.target.value)}
-                            placeholder="Ask Krishanu Kaundilya AI anything..."
+                            placeholder="Ask Krishanu Kaundilya's AI anything..."
                             autoComplete="off"
                             maxLength={MAX_QUESTION_LENGTH}
 

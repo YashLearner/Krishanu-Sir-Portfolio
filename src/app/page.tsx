@@ -51,7 +51,8 @@ export default function Home() {
         <ScrollReveal><CtaBannerSection /></ScrollReveal>
 
         {/* Section 9: Testimonials — Interactive Client Feedback Slider */}
-        <TestimonialsSection />
+        <TestimonialsSection/>
+         
       </main>
 
       {/* Section 10: Footer — CoreDhristi-inspired dark footer with back-to-top */}

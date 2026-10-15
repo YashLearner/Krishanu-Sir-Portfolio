@@ -1,240 +1,621 @@
-
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import {
+  useCallback,
+  useEffect,
+  useId,
+  useLayoutEffect,
+  useRef,
+  useState,
+  useSyncExternalStore,
+} from "react";
+import type {
+  CSSProperties,
+  FocusEvent as ReactFocusEvent,
+  KeyboardEvent as ReactKeyboardEvent,
+  PointerEvent as ReactPointerEvent,
+  TouchEvent as ReactTouchEvent,
+} from "react";
 import { gsap } from "gsap";
 
 import { portfolioData } from "@/data/portfolioData";
 import { Container } from "@/components/ui/Container";
 
-const AUTOPLAY_INTERVAL_MS = 2000;
-const SLIDE_DURATION_SECONDS = 0.65;
+/* -------------------------------------------------------------------------- */
+/* Configuration                                                              */
+/* -------------------------------------------------------------------------- */
 
-const carouselStyles = {
-  viewport: "overflow-hidden",
-  track: "flex will-change-transform",
-  slide: "shrink-0 px-1 pb-2",
+// Autoplay must stay well above the transition duration so a new transition
+// can never be scheduled while the previous one is still running.
+const autoPlayInterval = 2000;
+const transitionDuration = 0.85;
+const TRANSITION_EASE = "power3.inOut";
 
-  card:
-    "relative overflow-hidden rounded-[32px] border border-zinc-200/90 bg-white p-8 shadow-xl shadow-black/5 sm:rounded-[40px] sm:p-12 lg:p-16",
+// Fraction of a transition after which stacking order is swapped, so a card
+// never jumps in front of its neighbour while they still overlap heavily.
+const Z_SWAP_PROGRESS = 0.45;
 
-  navigation: "flex items-center justify-center gap-3",
+const SWIPE_THRESHOLD_PX = 45;
 
-  arrowButton:
-    "flex h-12 w-12 cursor-pointer items-center justify-center rounded-full border border-zinc-200 bg-white text-zinc-800 shadow-md transition-all duration-200 hover:border-zinc-950 hover:bg-zinc-950 hover:text-white active:scale-95 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-amber-500 sm:h-14 sm:w-14",
+const DESKTOP_QUERY = "(min-width: 1024px)";
+const TABLET_QUERY = "(min-width: 640px)";
+const REDUCED_MOTION_QUERY = "(prefers-reduced-motion: reduce)";
+
+const styles = {
+  stage: "grid grid-cols-1  touch-pan-y overflow-x-clip py-6",
+
+  // Every card shares the same grid cell, so the stage is always as tall as
+  // the tallest testimonial and there are no fixed heights or layout shifts.
+  slide:
+    "col-start-1 row-start-1 w-full justify-self-center will-change-transform sm:w-[74%] lg:w-[62%]",
+
+  card: "relative isolate flex h-full flex-col overflow-hidden rounded-2xl border border-zinc-200/90 bg-white p-6 shadow-xl shadow-black/5 sm:rounded-[32px] sm:p-8 lg:rounded-[40px] lg:p-10",
+
+  controlButton:
+    "flex size-11 shrink-0 items-center justify-center rounded-full border border-zinc-200 bg-white text-zinc-700 shadow-xs transition-colors hover:border-amber-500/50 hover:text-[#D97706] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-500 motion-reduce:transition-none",
 
   paginationButton:
-    "h-2.5 cursor-pointer rounded-full transition-all duration-300 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-amber-500",
-
-  playbackButton:
-    "ml-2 rounded-full border border-zinc-200 px-3 py-2 text-xs font-semibold text-zinc-700 transition-colors hover:bg-zinc-100 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-amber-500",
+    "group flex h-8 items-center justify-center rounded-full px-1.5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-500",
 } as const;
+
+/* -------------------------------------------------------------------------- */
+/* Types                                                                      */
+/* -------------------------------------------------------------------------- */
+
+type Testimonial = (typeof portfolioData.testimonials)[number];
+type CarouselLayout = "mobile" | "tablet" | "desktop";
+type Direction = 1 | -1;
+type PauseSource = "hover" | "focus" | "touch";
+
+type SlotProfile = {
+  xPercent: number;
+  scale: number;
+  autoAlpha: number;
+};
+
+type SlotState = SlotProfile & { zIndex: number };
+
+type SyncSnapshot = {
+  index: number;
+  layout: CarouselLayout;
+  total: number;
+};
+
+/* -------------------------------------------------------------------------- */
+/* Slot geometry                                                              */
+/* -------------------------------------------------------------------------- */
+
+/**
+ * Offset 0 is the active card. Offsets -1 / +1 are the visible neighbours.
+ * Offsets -2 / +2 are the "parked" slots just outside the stack (invisible).
+ *
+ * xPercent is relative to the card's own width, so the stack scales with the
+ * card width at every breakpoint instead of relying on pixel values.
+ */
+const SLOT_PROFILES: Record<
+  CarouselLayout,
+  { near: SlotProfile; far: SlotProfile }
+> = {
+  desktop: {
+    near: { xPercent: 28, scale: 0.88, autoAlpha: 0.6 },
+    far: { xPercent: 40, scale: 0.78, autoAlpha: 0 },
+  },
+  tablet: {
+    near: { xPercent: 22, scale: 0.9, autoAlpha: 0.5 },
+    far: { xPercent: 32, scale: 0.8, autoAlpha: 0 },
+  },
+  // Mobile hides the side previews entirely; cards slide + fade instead.
+  mobile: {
+    near: { xPercent: 100, scale: 0.94, autoAlpha: 0 },
+    far: { xPercent: 120, scale: 0.9, autoAlpha: 0 },
+  },
+};
+
+function getSlotState(layout: CarouselLayout, offset: number): SlotState {
+  const clampedOffset = Math.max(-2, Math.min(2, offset));
+
+  if (clampedOffset === 0) {
+    return { xPercent: 0, scale: 1, autoAlpha: 1, zIndex: 30 };
+  }
+
+  const side = Math.sign(clampedOffset);
+  const isNear = Math.abs(clampedOffset) === 1;
+  const profile = isNear
+    ? SLOT_PROFILES[layout].near
+    : SLOT_PROFILES[layout].far;
+
+  return {
+    xPercent: side * profile.xPercent,
+    scale: profile.scale,
+    autoAlpha: profile.autoAlpha,
+    zIndex: isNear ? 20 : 10,
+  };
+}
+
+/* -------------------------------------------------------------------------- */
+/* Index helpers                                                              */
+/* -------------------------------------------------------------------------- */
+
+function wrapIndex(index: number, total: number): number {
+  return ((index % total) + total) % total;
+}
+
+/**
+ * Signed circular distance of `index` from `activeIndex`, in the range
+ * (-total/2, total/2]. With two testimonials the other card is always "next".
+ */
+function getRelativeOffset(
+  index: number,
+  activeIndex: number,
+  total: number
+): number {
+  let difference = index - activeIndex;
+  const half = total / 2;
+
+  if (difference > half) {
+    difference -= total;
+  } else if (difference <= -half) {
+    difference += total;
+  }
+
+  return difference;
+}
+
+function resolveDirection(
+  fromIndex: number,
+  toIndex: number,
+  total: number
+): Direction {
+  const forwardSteps = wrapIndex(toIndex - fromIndex, total);
+
+  return forwardSteps <= total / 2 ? 1 : -1;
+}
+
+function getInitials(testimonial: Testimonial): string {
+  const nameWords = testimonial.name.trim().split(/\s+/).filter(Boolean);
+  const words =
+    nameWords.length > 0
+      ? nameWords
+      : testimonial.organization.trim().split(/\s+/).filter(Boolean);
+
+  const firstWord = words[0];
+
+  if (!firstWord) {
+    return "";
+  }
+
+  const lastWord = words[words.length - 1];
+  const second =
+    words.length > 1 && lastWord ? lastWord.charAt(0) : firstWord.charAt(1);
+
+  return `${firstWord.charAt(0)}${second}`.toUpperCase();
+}
+
+/* -------------------------------------------------------------------------- */
+/* GSAP                                                                       */
+/* -------------------------------------------------------------------------- */
+
+function setStack(
+  cards: HTMLElement[],
+  activeIndex: number,
+  layout: CarouselLayout
+): void {
+  cards.forEach((card, index) => {
+    gsap.set(
+      card,
+      getSlotState(layout, getRelativeOffset(index, activeIndex, cards.length))
+    );
+  });
+}
+
+type TransitionParams = {
+  cards: HTMLElement[];
+  fromIndex: number;
+  toIndex: number;
+  direction: Direction;
+  layout: CarouselLayout;
+};
+
+/**
+ * One coordinated timeline for every card in the stack.
+ *
+ * - Cards that keep moving in the direction of travel simply tween to their
+ *   new slot (x, scale, opacity), with the stacking order swapped mid-way.
+ * - A card that would have to travel *against* the direction of travel (it
+ *   wraps around the ring) exits towards the side it is already leaving,
+ *   is re-parked on the opposite side while invisible, then enters.
+ */
+function createTransitionTimeline({
+  cards,
+  fromIndex,
+  toIndex,
+  direction,
+  layout,
+}: TransitionParams): gsap.core.Timeline {
+  const total = cards.length;
+  const halfDuration = transitionDuration / 2;
+  const timeline = gsap.timeline();
+
+  cards.forEach((card, index) => {
+    const fromOffset = getRelativeOffset(index, fromIndex, total);
+    const toOffset = getRelativeOffset(index, toIndex, total);
+    const target = getSlotState(layout, toOffset);
+    const { zIndex, ...targetMotion } = target;
+
+    // Parked before and after: nothing visible to animate.
+    if (Math.abs(fromOffset) >= 2 && Math.abs(toOffset) >= 2) {
+      timeline.set(card, target, 0);
+      return;
+    }
+
+    const isWrapping =
+      direction === 1 ? toOffset > fromOffset : toOffset < fromOffset;
+
+    if (!isWrapping) {
+      timeline
+        .to(
+          card,
+          {
+            ...targetMotion,
+            duration: transitionDuration,
+            ease: TRANSITION_EASE,
+          },
+          0
+        )
+        .set(card, { zIndex }, transitionDuration * Z_SWAP_PROGRESS);
+      return;
+    }
+
+    const exitState = getSlotState(layout, -2 * direction);
+    const exitMotion: SlotProfile = {
+      xPercent: exitState.xPercent,
+      scale: exitState.scale,
+      autoAlpha: exitState.autoAlpha,
+    };
+    const enterState = getSlotState(layout, 2 * direction);
+
+    timeline
+      .to(
+        card,
+        { ...exitMotion, duration: halfDuration, ease: "power2.in" },
+        0
+      )
+      .set(card, enterState, halfDuration)
+      .to(
+        card,
+        { ...targetMotion, duration: halfDuration, ease: "power2.out" },
+        halfDuration
+      )
+      .set(
+        card,
+        { zIndex },
+        halfDuration + halfDuration * Z_SWAP_PROGRESS
+      );
+  });
+
+  return timeline;
+}
+
+/* -------------------------------------------------------------------------- */
+/* Environment hooks (SSR / hydration safe)                                   */
+/* -------------------------------------------------------------------------- */
+
+const useIsomorphicLayoutEffect =
+  typeof window !== "undefined" ? useLayoutEffect : useEffect;
+
+function subscribeToMediaQueries(onChange: () => void): () => void {
+  const queryLists = [DESKTOP_QUERY, TABLET_QUERY, REDUCED_MOTION_QUERY].map(
+    (query) => window.matchMedia(query)
+  );
+
+  queryLists.forEach((list) => list.addEventListener("change", onChange));
+
+  return () => {
+    queryLists.forEach((list) => list.removeEventListener("change", onChange));
+  };
+}
+
+function getLayoutSnapshot(): CarouselLayout {
+  if (window.matchMedia(DESKTOP_QUERY).matches) {
+    return "desktop";
+  }
+
+  if (window.matchMedia(TABLET_QUERY).matches) {
+    return "tablet";
+  }
+
+  return "mobile";
+}
+
+function getServerLayoutSnapshot(): CarouselLayout {
+  return "desktop";
+}
+
+function getReducedMotionSnapshot(): boolean {
+  return window.matchMedia(REDUCED_MOTION_QUERY).matches;
+}
+
+function getServerReducedMotionSnapshot(): boolean {
+  return false;
+}
+
+/* -------------------------------------------------------------------------- */
+/* Static, state-independent inline style                                     */
+/* -------------------------------------------------------------------------- */
+
+// Rendered on the server for every card except the first, so nothing flashes
+// before GSAP positions the stack. The value depends only on the card's
+// position in the list, never on React state, so React never rewrites it
+// and never fights GSAP over opacity / visibility.
+const PRE_POSITIONED_STYLE: CSSProperties = {
+  opacity: 0,
+  visibility: "hidden",
+};
+
+/* -------------------------------------------------------------------------- */
+/* Component                                                                  */
+/* -------------------------------------------------------------------------- */
 
 export function TestimonialsSection() {
   const { testimonials } = portfolioData;
   const totalTestimonials = testimonials.length;
-
-  const [activeSlideIndex, setActiveSlideIndex] = useState(
-    totalTestimonials > 1 ? 1 : 0
-  );
-  const [isAutoPlayEnabled, setIsAutoPlayEnabled] = useState(true);
-  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
-
-  const trackRef = useRef<HTMLDivElement>(null);
-  const hasInitializedTrackRef = useRef(false);
-
   const hasMultipleTestimonials = totalTestimonials > 1;
 
-  // Clones allow seamless movement in both directions.
-  const slides = hasMultipleTestimonials
-    ? [
-        testimonials[totalTestimonials - 1],
-        ...testimonials,
-        testimonials[0],
-      ]
-    : testimonials;
+  const stageId = useId();
 
-  const displayedTestimonialIndex = hasMultipleTestimonials
-    ? (activeSlideIndex - 1 + totalTestimonials) % totalTestimonials
-    : 0;
+  // Single source of truth: the real testimonial index (0 .. total - 1).
+  const [storedIndex, setStoredIndex] = useState(0);
+  const activeIndex = Math.min(storedIndex, Math.max(totalTestimonials - 1, 0));
 
-  useEffect(() => {
-    const motionPreference = window.matchMedia(
-      "(prefers-reduced-motion: reduce)"
-    );
+  const [pauseSources, setPauseSources] = useState<readonly PauseSource[]>([]);
+  const isPaused = pauseSources.length > 0;
 
-    function updateMotionPreference(): void {
-      setPrefersReducedMotion(motionPreference.matches);
-    }
+  const layout = useSyncExternalStore(
+    subscribeToMediaQueries,
+    getLayoutSnapshot,
+    getServerLayoutSnapshot
+  );
+  const prefersReducedMotion = useSyncExternalStore(
+    subscribeToMediaQueries,
+    getReducedMotionSnapshot,
+    getServerReducedMotionSnapshot
+  );
 
-    updateMotionPreference();
+  const cardRefs = useRef<Array<HTMLDivElement | null>>([]);
+  const previousSyncRef = useRef<SyncSnapshot | null>(null);
+  const requestedDirectionRef = useRef<Direction | null>(null);
+  const touchStartRef = useRef<{ x: number; y: number } | null>(null);
 
-    motionPreference.addEventListener("change", updateMotionPreference);
+  const isAutoplayRunning =
+    hasMultipleTestimonials && !prefersReducedMotion && !isPaused;
 
-    return () => {
-      motionPreference.removeEventListener(
-        "change",
-        updateMotionPreference
-      );
-    };
-  }, []);
+  /* ------------------------------ Navigation ------------------------------ */
 
-  // GSAP owns all horizontal track movement.
-  useEffect(() => {
-    const track = trackRef.current;
-
-    if (!track || slides.length === 0) {
+  const goNext = useCallback((): void => {
+    if (totalTestimonials < 2) {
       return;
     }
 
-    const targetXPercent =
-      (-activeSlideIndex * 100) / slides.length;
+    requestedDirectionRef.current = 1;
+    setStoredIndex((current) => wrapIndex(current + 1, totalTestimonials));
+  }, [totalTestimonials]);
 
-    // Establish the initial position without animating on page load.
-    if (!hasInitializedTrackRef.current) {
-      gsap.set(track, { xPercent: targetXPercent });
-      hasInitializedTrackRef.current = true;
+  const goPrevious = useCallback((): void => {
+    if (totalTestimonials < 2) {
       return;
     }
 
-    // Respect reduced-motion preferences while retaining navigation.
-    if (prefersReducedMotion) {
-      gsap.set(track, { xPercent: targetXPercent });
+    requestedDirectionRef.current = -1;
+    setStoredIndex((current) => wrapIndex(current - 1, totalTestimonials));
+  }, [totalTestimonials]);
 
-      if (hasMultipleTestimonials && activeSlideIndex === 0) {
-        setActiveSlideIndex(totalTestimonials);
-      } else if (
-        hasMultipleTestimonials &&
-        activeSlideIndex === totalTestimonials + 1
-      ) {
-        setActiveSlideIndex(1);
+  const goToTestimonial = useCallback(
+    (index: number): void => {
+      if (totalTestimonials < 2) {
+        return;
       }
 
+      // Direction is derived from the shortest path when the layout effect runs.
+      requestedDirectionRef.current = null;
+      setStoredIndex(wrapIndex(index, totalTestimonials));
+    },
+    [totalTestimonials]
+  );
+
+  /* --------------------------- Pause (autoplay) --------------------------- */
+
+  const addPause = useCallback((source: PauseSource): void => {
+    setPauseSources((current) =>
+      current.includes(source) ? current : [...current, source]
+    );
+  }, []);
+
+  const removePause = useCallback((source: PauseSource): void => {
+    setPauseSources((current) =>
+      current.includes(source)
+        ? current.filter((item) => item !== source)
+        : current
+    );
+  }, []);
+
+  function handlePointerEnter(event: ReactPointerEvent<HTMLDivElement>): void {
+    // Touch "hover" is sticky on mobile browsers, so only real pointers pause.
+    if (event.pointerType !== "touch") {
+      addPause("hover");
+    }
+  }
+
+  function handlePointerLeave(event: ReactPointerEvent<HTMLDivElement>): void {
+    if (event.pointerType !== "touch") {
+      removePause("hover");
+    }
+  }
+
+  function handleFocus(event: ReactFocusEvent<HTMLDivElement>): void {
+    // Only keyboard focus pauses; clicking a button with a mouse should not
+    // permanently stop autoplay.
+    if (
+      event.target instanceof HTMLElement &&
+      event.target.matches(":focus-visible")
+    ) {
+      addPause("focus");
+    }
+  }
+
+  function handleBlur(event: ReactFocusEvent<HTMLDivElement>): void {
+    if (!event.currentTarget.contains(event.relatedTarget)) {
+      removePause("focus");
+    }
+  }
+
+  /* ------------------------------ Touch / keys ---------------------------- */
+
+  function handleTouchStart(event: ReactTouchEvent<HTMLDivElement>): void {
+    const touch = event.changedTouches[0];
+
+    if (!touch) {
       return;
     }
 
-    const slideAnimation = gsap.to(track, {
-      xPercent: targetXPercent,
-      duration: SLIDE_DURATION_SECONDS,
-      ease: "power2.inOut",
-      overwrite: "auto",
+    touchStartRef.current = { x: touch.clientX, y: touch.clientY };
+    addPause("touch");
+  }
 
-      onComplete: () => {
-        if (!hasMultipleTestimonials) {
-          return;
-        }
+  function handleTouchEnd(event: ReactTouchEvent<HTMLDivElement>): void {
+    const start = touchStartRef.current;
+    const touch = event.changedTouches[0];
 
-        // Jump from the cloned last slide to the real last slide.
-        if (activeSlideIndex === 0) {
-          gsap.set(track, {
-            xPercent: (-totalTestimonials * 100) / slides.length,
-          });
+    touchStartRef.current = null;
+    removePause("touch");
 
-          setActiveSlideIndex(totalTestimonials);
-          return;
-        }
+    if (!start || !touch || !hasMultipleTestimonials) {
+      return;
+    }
 
-        // Jump from the cloned first slide to the real first slide.
-        if (activeSlideIndex === totalTestimonials + 1) {
-          gsap.set(track, {
-            xPercent: (-100 / slides.length),
-          });
+    const deltaX = touch.clientX - start.x;
+    const deltaY = touch.clientY - start.y;
 
-          setActiveSlideIndex(1);
-        }
-      },
-    });
-
-    return () => {
-      slideAnimation.kill();
-    };
-  }, [
-    activeSlideIndex,
-    hasMultipleTestimonials,
-    prefersReducedMotion,
-    slides.length,
-    totalTestimonials,
-  ]);
-
-  // Automatically advance, with timer cleanup on every state change.
-  useEffect(() => {
+    // Ignore short gestures and vertical page scrolling.
     if (
-      !hasMultipleTestimonials ||
-      !isAutoPlayEnabled ||
-      prefersReducedMotion
+      Math.abs(deltaX) < SWIPE_THRESHOLD_PX ||
+      Math.abs(deltaX) < Math.abs(deltaY)
     ) {
       return;
     }
 
-    const autoplayTimer = window.setTimeout(() => {
-      setActiveSlideIndex((currentIndex) => currentIndex + 1);
-    }, AUTOPLAY_INTERVAL_MS);
+    if (deltaX < 0) {
+      goNext();
+    } else {
+      goPrevious();
+    }
+  }
+
+  function handleTouchCancel(): void {
+    touchStartRef.current = null;
+    removePause("touch");
+  }
+
+  function handleKeyDown(event: ReactKeyboardEvent<HTMLDivElement>): void {
+    if (!hasMultipleTestimonials) {
+      return;
+    }
+
+    if (event.key === "ArrowRight") {
+      event.preventDefault();
+      goNext();
+    } else if (event.key === "ArrowLeft") {
+      event.preventDefault();
+      goPrevious();
+    }
+  }
+
+  /* ------------------------- GSAP <-> React sync -------------------------- */
+
+  // React owns `activeIndex`; GSAP owns the transforms/opacity/z-index of the
+  // cards. This effect is the only place the two meet.
+  useIsomorphicLayoutEffect(() => {
+    const cards = cardRefs.current
+      .slice(0, totalTestimonials)
+      .filter((card): card is HTMLDivElement => card !== null);
+
+    if (totalTestimonials === 0 || cards.length !== totalTestimonials) {
+      return;
+    }
+
+    const previous = previousSyncRef.current;
+    const requestedDirection = requestedDirectionRef.current;
+
+    requestedDirectionRef.current = null;
+    previousSyncRef.current = {
+      index: activeIndex,
+      layout,
+      total: totalTestimonials,
+    };
+
+    // First paint, layout change, reduced motion, or data change: snap.
+    // Only a real index change at an unchanged layout is animated.
+    if (
+      previous === null ||
+      prefersReducedMotion ||
+      previous.layout !== layout ||
+      previous.total !== totalTestimonials ||
+      previous.index === activeIndex
+    ) {
+      setStack(cards, activeIndex, layout);
+      return;
+    }
+
+    const timeline = createTransitionTimeline({
+      cards,
+      fromIndex: previous.index,
+      toIndex: activeIndex,
+      direction:
+        requestedDirection ??
+        resolveDirection(previous.index, activeIndex, totalTestimonials),
+      layout,
+    });
 
     return () => {
-      window.clearTimeout(autoplayTimer);
+      // Finish instead of freezing mid-flight so the next run (or unmount)
+      // always starts from a fully resolved stack.
+      timeline.progress(1).kill();
     };
-  }, [
-    activeSlideIndex,
-    hasMultipleTestimonials,
-    isAutoPlayEnabled,
-    prefersReducedMotion,
-  ]);
+  }, [activeIndex, layout, prefersReducedMotion, totalTestimonials]);
 
-  function handleNext(): void {
-    if (!hasMultipleTestimonials) {
+  /* -------------------------------- Autoplay ------------------------------ */
+
+  // Restarts after every index change, so a manual navigation resets the delay.
+  // The interval is far longer than the transition, so it never fires mid-way.
+  useEffect(() => {
+    if (!isAutoplayRunning) {
       return;
     }
 
-    setActiveSlideIndex((currentIndex) => {
-      if (currentIndex === 0) {
-        return 1;
-      }
+    const timerId = window.setTimeout(goNext, autoPlayInterval);
 
-      if (currentIndex === totalTestimonials + 1) {
-        return 2;
-      }
+    return () => {
+      window.clearTimeout(timerId);
+    };
+  }, [activeIndex, goNext, isAutoplayRunning]);
 
-      return currentIndex + 1;
-    });
-  }
-
-  function handlePrevious(): void {
-    if (!hasMultipleTestimonials) {
-      return;
-    }
-
-    setActiveSlideIndex((currentIndex) => {
-      if (currentIndex === 0) {
-        return totalTestimonials - 1;
-      }
-
-      if (currentIndex === 1) {
-        return 0;
-      }
-
-      if (currentIndex === totalTestimonials + 1) {
-        return totalTestimonials;
-      }
-
-      return currentIndex - 1;
-    });
-  }
-
-  function handleSelectTestimonial(index: number): void {
-    setActiveSlideIndex(index + 1);
-  }
+  /* --------------------------------- Render -------------------------------- */
 
   if (totalTestimonials === 0) {
     return null;
   }
 
+  const activeTestimonial = testimonials[activeIndex];
+  const announcement = activeTestimonial
+    ? `Testimonial ${activeIndex + 1} of ${totalTestimonials}, from ${activeTestimonial.name}, ${activeTestimonial.organization}`
+    : "";
+
   return (
     <section
       id="testimonials"
-      className="relative overflow-hidden py-16 sm:py-24"
+      className="relative overflow-hidden py-10 sm:py-16 lg:py-24"
       aria-labelledby="testimonials-heading"
     >
-      <Container size="default">
+      <Container size="default">    
         {/* Section Header */}
         <div className="mb-12 flex flex-col justify-between gap-6 sm:mb-16 sm:flex-row sm:items-end">
           <div className="max-w-xl">
@@ -254,227 +635,168 @@ export function TestimonialsSection() {
               and clients who have deployed solutions with Krishanu.
             </p>
           </div>
-
-          {/* Previous / Next Controls */}
-          <div className={carouselStyles.navigation}>
-            <button
-              type="button"
-              onClick={handlePrevious}
-              disabled={!hasMultipleTestimonials}
-              aria-label="Previous testimonial"
-              className={carouselStyles.arrowButton}
-            >
-              <svg
-                width="20"
-                height="20"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                aria-hidden="true"
-              >
-                <line x1="19" y1="12" x2="5" y2="12" />
-                <polyline points="12 19 5 12 12 5" />
-              </svg>
-            </button>
-
-            <span
-              className="select-none px-2 font-mono text-sm font-semibold text-zinc-500"
-              aria-live="polite"
-              aria-atomic="true"
-            >
-              {String(displayedTestimonialIndex + 1).padStart(2, "0")}
-              {" / "}
-              {String(totalTestimonials).padStart(2, "0")}
-            </span>
-
-            <button
-              type="button"
-              onClick={handleNext}
-              disabled={!hasMultipleTestimonials}
-              aria-label="Next testimonial"
-              className={carouselStyles.arrowButton}
-            >
-              <svg
-                width="20"
-                height="20"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                aria-hidden="true"
-              >
-                <line x1="5" y1="12" x2="19" y2="12" />
-                <polyline points="12 5 19 12 12 19" />
-              </svg>
-            </button>
-          </div>
         </div>
 
-        {/* GSAP Slider */}
+        {/* 3D stacked carousel */}
         <div
           role="region"
           aria-roledescription="carousel"
           aria-label="Client testimonials"
+          onKeyDown={handleKeyDown}
+          onPointerEnter={handlePointerEnter}
+          onPointerLeave={handlePointerLeave}
+          onFocus={handleFocus}
+          onBlur={handleBlur}
+          onTouchStart={handleTouchStart}
+          onTouchEnd={handleTouchEnd}
+          onTouchCancel={handleTouchCancel}
         >
-          <div className="overflow-hidden">
-            <div
-              ref={trackRef}
-              className={carouselStyles.track}
-              style={{ width: `${slides.length * 100}%` }}
-            >
-              {slides.map((testimonial, slideIndex) => {
-                const isClonedSlide =
-                  hasMultipleTestimonials &&
-                  (slideIndex === 0 ||
-                    slideIndex === totalTestimonials + 1);
+          <div id={stageId} className={styles.stage}>
+            {testimonials.map((testimonial, index) => {
+              const isActive = index === activeIndex;
 
-                const isActiveSlide = slideIndex === activeSlideIndex;
+              return (
+                <div
+                  key={`${testimonial.organization}-${testimonial.name}-${index}`}
+                  ref={(node) => {
+                    cardRefs.current[index] = node;
+                  }}
+                  className={styles.slide}
+                  style={index === 0 ? undefined : PRE_POSITIONED_STYLE}
+                  role="group"
+                  aria-roledescription="slide"
+                  aria-label={`${index + 1} of ${totalTestimonials}`}
+                  // Neighbour cards are previews only: `inert` removes them
+                  // from the tab order and the accessibility tree together.
+                  inert={!isActive}
+                >
+                  <article className={styles.card}>
+                    {/* Decorative accent */}
+                    <div
+                      className="pointer-events-none  absolute -right-28 -top-28 h-56 w-56 rounded-full bg-amber-500/10 blur-3xl sm:-right-24 sm:-top-24 sm:h-72 sm:w-72"
+                      aria-hidden="true"
+                    />
 
-                const authorInitials = testimonial.organization
-                  .trim()
-                  .slice(0, 2)
-                  .toUpperCase();
-
-                return (
-                  <div
-                    key={`${testimonial.organization}-${slideIndex}`}
-                    className={carouselStyles.slide}
-                    style={{ width: `${100 / slides.length}%` }}
-                    role="group"
-                    aria-roledescription="slide"
-                    aria-label={`${((slideIndex - 1 + totalTestimonials) % totalTestimonials) + 1} of ${totalTestimonials}`}
-                    aria-hidden={!isActiveSlide}
-                    inert={!isActiveSlide}
-                    data-cloned-slide={isClonedSlide}
-                  >
-                    <article className={carouselStyles.card}>
-                      {/* Decorative Accent */}
-                      <div
-                        className="pointer-events-none absolute -right-24 -top-24 h-80 w-80 rounded-full bg-amber-500/10 blur-3xl"
+                    <div className="relative z-10 text-[#EA580C] flex flex-1 flex-col">
+                      <svg
+                        className="mb-5 size-9  sm:size-11"
+                        viewBox="0 0 24 24"
+                        fill="currentColor"
                         aria-hidden="true"
-                      />
+                      >
+                        <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
+                      </svg>
 
-                      <div className="relative z-10 flex min-h-[280px] flex-col justify-between">
-                        {/* Rating and Quote Icon */}
-                        <div className="mb-8 flex items-center justify-between">
-                          <div
-                            className="flex items-center gap-1.5 text-amber-500"
-                            role="img"
-                            aria-label="5 out of 5 stars"
-                          >
-                            {Array.from({ length: 5 }, (_, index) => (
-                              <svg
-                                key={index}
-                                width="20"
-                                height="20"
-                                viewBox="0 0 24 24"
-                                fill="currentColor"
-                                aria-hidden="true"
-                              >
-                                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
-                              </svg>
-                            ))}
-                          </div>
+                      <blockquote className="mb-8 flex-1 break-words text-lg font-medium italic leading-relaxed text-[#f59e0b] sm:text-xl lg:text-2xl">
+                        &ldquo;{testimonial.content}&rdquo;
+                      </blockquote>
 
-                          <div
-                            className="text-zinc-200"
-                            aria-hidden="true"
-                          >
-                            <svg
-                              width="44"
-                              height="44"
-                              viewBox="0 0 24 24"
-                              fill="currentColor"
-                            >
-                              <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
-                            </svg>
-                          </div>
+                      <footer className="flex min-w-0 items-center gap-4 border-t border-zinc-100 pt-5 sm:pt-6">
+                        <div
+                          className="flex size-12 shrink-0 items-center justify-center rounded-2xl border border-black/10 bg-gradient-to-br from-zinc-900 to-zinc-700 text-base font-bold text-[#f59e0b] shadow-sm sm:size-14 sm:text-lg"
+                          aria-hidden="true"
+                        >
+                          {getInitials(testimonial)}
                         </div>
 
-                        {/* Testimonial Text */}
-                        <blockquote className="mb-10 text-xl font-medium italic leading-relaxed text-zinc-900 sm:text-2xl lg:text-3xl">
-                          &ldquo;{testimonial.content}&rdquo;
-                        </blockquote>
+                        <div className="min-w-0">
+                          <h3 className="break-words text-sm font-bold text-zinc-950 sm:text-base md:text-lg">
+                            {testimonial.name}
+                          </h3>
 
-                        {/* Reviewer Details */}
-                        <div className="flex flex-wrap items-center justify-between gap-4 border-t border-zinc-100 pt-6">
-                          <div className="flex min-w-0 items-center gap-4">
-                            <div
-                              className="flex size-13 shrink-0 items-center justify-center rounded-2xl border border-black/10 bg-gradient-to-br from-zinc-900 to-zinc-700 text-lg font-bold text-white shadow-sm sm:size-14"
-                              aria-hidden="true"
-                            >
-                              {authorInitials}
-                            </div>
-
-                            <div className="min-w-0">
-                              <h3 className="text-base font-bold text-zinc-950 sm:text-lg">
-                                {testimonial.name}
-                              </h3>
-
-                              <p className="text-xs text-zinc-500 sm:text-sm">
-                                {testimonial.role} ·{" "}
-                                <span className="font-semibold text-zinc-700">
-                                  {testimonial.organization}
-                                </span>
-                              </p>
-                            </div>
-                          </div>
-
-                          <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-700">
-                            <span
-                              className="size-1.5 rounded-full bg-emerald-500"
-                              aria-hidden="true"
-                            />
-                            Verified Review
-                          </span>
+                          <p className="break-words text-xs text-zinc-500 sm:text-sm">
+                            {testimonial.role} ·{" "}
+                            <span className="font-semibold text-zinc-700">
+                              {testimonial.organization}
+                            </span>
+                          </p>
                         </div>
-                      </div>
-                    </article>
-                  </div>
-                );
-              })}
-            </div>
+                      </footer>
+                    </div>
+                  </article>
+                </div>
+              );
+            })}
           </div>
 
-          {/* Pagination and Autoplay */}
+          {/* Announces slide changes, but never while autoplay is running. */}
+          <p
+            className="sr-only"
+            aria-live={isAutoplayRunning ? "off" : "polite"}
+            aria-atomic="true"
+          >
+            {announcement}
+          </p>
+
+          {/* Controls */}
           {hasMultipleTestimonials && (
-            <div className="mt-8 flex flex-wrap items-center justify-center gap-2">
-              {testimonials.map((testimonial, index) => (
-                <button
-                  key={`${testimonial.organization}-dot`}
-                  type="button"
-                  onClick={() => handleSelectTestimonial(index)}
-                  aria-label={`Go to testimonial ${index + 1}`}
-                  aria-current={
-                    displayedTestimonialIndex === index ? "true" : undefined
-                  }
-                  className={`${carouselStyles.paginationButton} ${
-                    displayedTestimonialIndex === index
-                      ? "w-8 bg-[#D97706]"
-                      : "w-2.5 bg-zinc-300 hover:bg-zinc-400"
-                  }`}
-                />
-              ))}
+            <div className="mt-4 flex items-center justify-center gap-2 sm:mt-6 sm:gap-4">
+              <button
+                type="button"
+                onClick={goPrevious}
+                aria-label="Previous testimonial"
+                aria-controls={stageId}
+                className={styles.controlButton}
+              >
+                <svg
+                  className="size-5"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  aria-hidden="true"
+                >
+                  <path d="m15 18-6-6 6-6" />
+                </svg>
+              </button>
+
+              <div className="flex flex-wrap items-center justify-center gap-1 sm:gap-1.5">
+                {testimonials.map((testimonial, index) => {
+                  const isActive = index === activeIndex;
+
+                  return (
+                    <button
+                      key={`${testimonial.organization}-${testimonial.name}-${index}-dot`}
+                      type="button"
+                      onClick={() => goToTestimonial(index)}
+                      aria-label={`Go to testimonial ${index + 1}`}
+                      aria-current={isActive ? "true" : undefined}
+                      aria-controls={stageId}
+                      className={styles.paginationButton}
+                    >
+                      <span
+                        className={`block h-2.5 rounded-full transition-all duration-300 motion-reduce:transition-none ${
+                          isActive
+                            ? "w-8 bg-[#D97706]"
+                            : "w-2.5 bg-zinc-300 group-hover:bg-zinc-400"
+                        }`}
+                      />
+                    </button>
+                  );
+                })}
+              </div>
 
               <button
                 type="button"
-                onClick={() =>
-                  setIsAutoPlayEnabled((enabled) => !enabled)
-                }
-                disabled={prefersReducedMotion}
-                aria-pressed={!isAutoPlayEnabled}
-                className={carouselStyles.playbackButton}
+                onClick={goNext}
+                aria-label="Next testimonial"
+                aria-controls={stageId}
+                className={styles.controlButton}
               >
-                {prefersReducedMotion
-                  ? "Motion reduced"
-                  : isAutoPlayEnabled
-                    ? "Pause"
-                    : "Play"}
+                <svg
+                  className="size-5"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  aria-hidden="true"
+                >
+                  <path d="m9 18 6-6-6-6" />
+                </svg>
               </button>
             </div>
           )}

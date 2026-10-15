@@ -1,12 +1,20 @@
+ "use client";
+
 import Image from "next/image";
 import { Bebas_Neue } from "next/font/google";
 import { portfolioData, sectionCopy } from "@/data/portfolioData";
+import { GithubLogoIcon, LinkedinLogoIcon , EnvelopeIcon} from "@phosphor-icons/react/dist/ssr";
 
 const displayFont = Bebas_Neue({ subsets: ["latin"], weight: "400", display: "swap" });
 
 export function HeroSection() {
   const { hero, socialLinks } = portfolioData;
   const linkedin = socialLinks.find((link) => link.platform === "LinkedIn");
+
+  const github = socialLinks.find((link) => link.platform === "GitHub");
+  const coredhristi = socialLinks.find((link) => link.platform === "CoreDhristi");
+  const gmail = socialLinks.find((link) => link.platform === "Gmail");
+
   return (
     <section id="hero" className="hero-stage relative isolate overflow-hidden bg-[#080808] text-white">
       <div aria-hidden="true" className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_46%_40%,rgba(255,255,255,0.10),transparent_50%)]" />
@@ -25,7 +33,13 @@ export function HeroSection() {
       <div className="absolute inset-x-0 bottom-7 z-20 flex items-end justify-between gap-4 px-6 sm:bottom-10 sm:px-10 lg:px-16">
         <div className="max-w-44 sm:max-w-64">
           <p className="text-[10px] uppercase tracking-[0.18em] text-zinc-400 sm:text-xs">{sectionCopy.location}</p>
-          {linkedin && <a href={linkedin.url} target="_blank" rel="noopener noreferrer" aria-label={linkedin.label} className="mt-3 inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/25 text-sm font-bold hover:border-amber-400 hover:text-amber-400">in</a>}
+          {linkedin && <a href={linkedin.url} target="_blank" rel="noopener noreferrer" aria-label={linkedin.label} title={linkedin.label} className="mt-3 inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/25 text-sm font-bold hover:border-amber-400 hover:text-amber-400"><LinkedinLogoIcon size={22}  color="#40c955" weight="bold" /></a>}
+          {github && <a href={github.url} target="_blank" rel="noopener noreferrer" aria-label={github.label} title={github.label} className="mt-3 ml-2 inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/25 text-sm font-bold hover:border-amber-400 hover:text-amber-400"><GithubLogoIcon size={22}  color="#40c955" weight="bold" /></a>}
+         
+          {gmail && (<a href={gmail.url} target="_blank" rel="noopener noreferrer" aria-label={gmail.label} title={gmail.label} className="mt-3 ml-2 inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/25 text-sm font-bold hover:border-amber-400 hover:text-amber-400">
+              <EnvelopeIcon size={22} color="#4fb05e" weight="bold"  />
+            </a>
+          )}
         </div>
       </div>
     </section>

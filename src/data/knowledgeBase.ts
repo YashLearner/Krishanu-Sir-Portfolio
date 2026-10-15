@@ -1,5 +1,4 @@
 
-
 export type FAQ = {
   id: string;
   category: string;
@@ -8,13 +7,7 @@ export type FAQ = {
   answer: string;
 };
 
-/**
- * Public-profile and CoreDhrishti FAQs compiled from the supplied LinkedIn,
- * GitHub, and CoreDhrishti pages. Each entry contains several question phrasings
- * for the same verified answer (exactly 200 question phrasings across 29 entries).
- * Review the content periodically because company features and profile details
- * can change.
- */
+
 export const knowledgeBase: FAQ[] = [
   {
     id: "krishanu-profile",
@@ -25,12 +18,13 @@ export const knowledgeBase: FAQ[] = [
       "Tell me about Krishanu.",
       "Who owns this portfolio?",
       "What is Krishanu Kaundilya known for?",
+      "what is owner's name",
       "Krishanu Kaundilya kaun hain?",
       "Mujhe Krishanu ke baare mein batao.",
     ],
-    keywords: ["Krishanu Kaundilya", "about Krishanu", "portfolio owner", "professional introduction"],
+    keywords: ["Krishanu Kaundilya", "about Krishanu", "portfolio owner", "professional introduction", "owner name"],
     answer:
-      "Krishanu Kaundilya is a cybersecurity professional, VAPT specialist, and AI security researcher. His public profiles describe work across web and API security testing, AI/LLM security, security automation, and the CoreDhrishti AI-agent marketplace. LinkedIn: https://www.linkedin.com/in/krishanu-kaundilya/ | GitHub: https://github.com/krishanumishra778",
+      "Krishanu Kaundilya is a cybersecurity professional, VAPT specialist, and AI security researcher. His public profiles describe work across web and API security testing, AI/LLM security, security automation, and the coredhristi AI-agent marketplace. LinkedIn: https://www.linkedin.com/in/krishanu-kaundilya/ | GitHub: https://github.com/krishanumishra778",
   },
   {
     id: "professional-role",
@@ -109,7 +103,7 @@ export const knowledgeBase: FAQ[] = [
     ],
     keywords: ["network infrastructure", "mobile app security", "network testing", "mobile applications"],
     answer:
-      "The CoreDhrishti About page describes Krishanu's VAPT experience across web applications, network infrastructure, mobile apps, and APIs. Scope and availability for a specific engagement should be confirmed with him.",
+      "The coredhristi About page describes Krishanu's VAPT experience across web applications, network infrastructure, mobile apps, and APIs. Scope and availability for a specific engagement should be confirmed with him.",
   },
   {
     id: "certifications",
@@ -146,7 +140,7 @@ export const knowledgeBase: FAQ[] = [
     id: "consulting-work",
     category: "experience",
     questions: [
-      "What consulting work is mentioned on the CoreDhrishti About page?",
+      "What consulting work is mentioned on the coredhristi About page?",
       "Does Krishanu's public bio mention DTSS Consultants?",
       "Where is the consulting engagement described in his profile based?",
       "What does his public profile say about client risk reduction?",
@@ -156,7 +150,7 @@ export const knowledgeBase: FAQ[] = [
     ],
     keywords: ["DTSS Consultants", "information security consultant", "consulting", "risk reduction"],
     answer:
-      "The CoreDhrishti About page describes Krishanu as an Information Security Consultant and says he consults for DTSS Consultants in Dubai remotely. It also reports that he helped clients reduce security-risk exposure by 40%+ across multiple engagements; this is a published profile claim, not a guarantee of future results.",
+      "The coredhristi About page describes Krishanu as an Information Security Consultant and says he consults for DTSS Consultants in Dubai remotely. It also reports that he helped clients reduce security-risk exposure by 40%+ across multiple engagements; this is a published profile claim, not a guarantee of future results.",
   },
   {
     id: "client-engagements",
@@ -172,7 +166,7 @@ export const knowledgeBase: FAQ[] = [
     ],
     keywords: ["aviation booking portal", "Crawl Digitally", "client engagements", "XSS remediation"],
     answer:
-      "The CoreDhrishti About page highlights an aviation-sector booking portal assessment where six critical/high vulnerabilities were found and remediated, and a Crawl Digitally web application engagement involving XSS, security headers, and session-management issues. These are examples stated on the public site.",
+      "The coredhristi About page highlights an aviation-sector booking portal assessment where six critical/high vulnerabilities were found and remediated, and a Crawl Digitally web application engagement involving XSS, security headers, and session-management issues. These are examples stated on the public site.",
   },
   {
     id: "bug-bounty-research",
@@ -290,44 +284,44 @@ export const knowledgeBase: FAQ[] = [
     id: "coredhristi-purpose",
     category: "coredhristi",
     questions: [
-      "What is CoreDhrishti?",
-      "What does the CoreDhrishti platform do?",
-      "Why was CoreDhrishti created?",
-      "Is CoreDhrishti an AI-agent marketplace?",
-      "What problem does CoreDhrishti aim to solve?",
-      "CoreDhrishti kya hai?",
-      "What is the mission of CoreDhrishti?",
+      "What is coredhristi?",
+      "What does the coredhristi platform do?",
+      "Why was coredhristi created?",
+      "Is coredhristi an AI-agent marketplace?",
+      "What problem does coredhristi aim to solve?",
+      "coredhristi kya hai?",
+      "What is the mission of coredhristi?",
     ],
-    keywords: ["CoreDhrishti", "AI workforce marketplace", "platform mission", "AI agent marketplace"],
+    keywords: ["Coredhristi", "AI workforce marketplace", "platform mission", "AI agent marketplace"],
     answer:
-      "CoreDhrishti describes itself as an AI workforce marketplace connecting developers who build AI agents with businesses that need them. The platform focuses on verified agents, automations, MCP servers, creator IP protection, and a usage model where companies pay per agent. Website: https://www.coredhristi.com/",
+      "Coredhristi describes itself as an AI workforce marketplace connecting developers who build AI agents with businesses that need them. The platform focuses on verified agents, automations, MCP servers, creator IP protection, and a usage model where companies pay per agent. Website: https://www.coredhristi.com/",
   },
   {
     id: "marketplace-listing-types",
     category: "coredhristi",
     questions: [
-      "What can people find on the CoreDhrishti marketplace?",
-      "Does CoreDhrishti list AI agents?",
-      "Are automations available on CoreDhrishti?",
+      "What can people find on the coredhristi marketplace?",
+      "Does coredhristi list AI agents?",
+      "Are automations available on coredhristi?",
       "Does the platform support MCP servers?",
-      "What are Skills on CoreDhrishti?",
-      "CoreDhrishti par kis type ki listings milti hain?",
+      "What are Skills on coredhristi?",
+      "coredhristi par kis type ki listings milti hain?",
       "How do AI agents differ from automations on the platform?",
     ],
     keywords: ["AI agents", "AI automations", "MCP servers", "free skills"],
     answer:
-      "CoreDhrishti lists four broad resource types: AI agents for work requiring judgement, automations for repeatable rule-based steps, MCP servers for connecting AI tools to systems, and Skills such as templates, prompts, datasets, system prompts, and tools. Availability of a particular listing depends on what has been published and verified.",
+      "coredhristi lists four broad resource types: AI agents for work requiring judgement, automations for repeatable rule-based steps, MCP servers for connecting AI tools to systems, and Skills such as templates, prompts, datasets, system prompts, and tools. Availability of a particular listing depends on what has been published and verified.",
   },
   {
     id: "company-buyer-workflow",
     category: "coredhristi",
     questions: [
-      "How can a company get started on CoreDhrishti?",
+      "How can a company get started on coredhristi?",
       "How do businesses find an agent on the marketplace?",
-      "Can a company browse CoreDhrishti without logging in?",
+      "Can a company browse coredhristi without logging in?",
       "What steps does a buyer follow to use an AI agent?",
       "How does a company hire a verified AI agent?",
-      "Company CoreDhrishti par agent kaise hire kare?",
+      "Company coredhristi par agent kaise hire kare?",
       "Can businesses filter marketplace listings by budget?",
     ],
     keywords: ["buyer workflow", "hire an agent", "browse marketplace", "company account"],
@@ -338,75 +332,75 @@ export const knowledgeBase: FAQ[] = [
     id: "developer-listing-workflow",
     category: "coredhristi",
     questions: [
-      "How can a developer sell an AI agent on CoreDhrishti?",
+      "How can a developer sell an AI agent on coredhristi?",
       "Can creators list automations and MCP servers?",
-      "Does CoreDhrishti charge developers to list an agent?",
+      "Does coredhristi charge developers to list an agent?",
       "Can developers publish more than one listing?",
       "What does a creator need to do before listing an agent?",
-      "Developer CoreDhrishti par apna agent kaise list kare?",
+      "Developer coredhristi par apna agent kaise list kare?",
     ],
     keywords: ["creator workflow", "sell an agent", "free listing", "developer listing"],
     answer:
-      "CoreDhrishti says creators can list agents, automations, MCP servers, and free Skills without a platform listing fee, with unlimited listings. Sellers sign up, select an account type, verify their phone, submit a listing, and the listing must pass the applicable security and quality review before receiving a verified listing status.",
+      "coredhristi says creators can list agents, automations, MCP servers, and free Skills without a platform listing fee, with unlimited listings. Sellers sign up, select an account type, verify their phone, submit a listing, and the listing must pass the applicable security and quality review before receiving a verified listing status.",
   },
   {
     id: "creator-revenue-share",
     category: "coredhristi",
     questions: [
-      "What revenue share do creators receive on CoreDhrishti?",
+      "What revenue share do creators receive on coredhristi?",
       "How much of each sale does a developer keep?",
-      "Does CoreDhrishti advertise an 80 percent creator share?",
+      "Does coredhristi advertise an 80 percent creator share?",
       "Are creator earnings reduced by the platform service fee?",
-      "How does CoreDhrishti pay creators fairly?",
-      "CoreDhrishti par developers ko kitna revenue milta hai?",
+      "How does coredhristi pay creators fairly?",
+      "coredhristi par developers ko kitna revenue milta hai?",
       "Is the revenue share the same for each sale?",
     ],
     keywords: ["80% revenue share", "creator earnings", "revenue share", "creator payout"],
     answer:
-      "CoreDhrishti states that creators receive a flat 80% share of every sale. Its About page says the buyer-facing service fee is separate and is not deducted from the creator's stated 80% share. Check the current pricing and terms for the latest conditions.",
+      "coredhristi states that creators receive a flat 80% share of every sale. Its About page says the buyer-facing service fee is separate and is not deducted from the creator's stated 80% share. Check the current pricing and terms for the latest conditions.",
   },
   {
     id: "marketplace-pricing",
     category: "coredhristi",
     questions: [
-      "How much does CoreDhrishti cost?",
+      "How much does coredhristi cost?",
       "Is there a platform subscription fee?",
       "Who sets the subscription price for an AI agent?",
-      "Does CoreDhrishti use per-agent pricing?",
+      "Does coredhristi use per-agent pricing?",
       "Can buyers pay monthly or yearly for an agent?",
-      "CoreDhrishti ka pricing model kya hai?",
+      "coredhristi ka pricing model kya hai?",
       "Are buyers charged for every seat on the platform?",
     ],
-    keywords: ["CoreDhrishti pricing", "per-agent price", "platform subscription fee", "monthly subscription"],
+    keywords: ["coredhristi pricing", "per-agent price", "platform subscription fee", "monthly subscription"],
     answer:
-      "The CoreDhrishti website says there is no platform subscription fee. Companies pay the price set by each agent's creator, with monthly or yearly billing per agent and a separate service fee described in the site's terms. Prices vary by listing, so check https://www.coredhristi.com/ for current details.",
+      "The coredhristi website says there is no platform subscription fee. Companies pay the price set by each agent's creator, with monthly or yearly billing per agent and a separate service fee described in the site's terms. Prices vary by listing, so check https://www.coredhristi.com/ for current details.",
   },
   {
     id: "security-review-overview",
     category: "coredhristi",
     questions: [
-      "How does CoreDhrishti verify agents?",
-      "What is the CoreDhrishti security-review process?",
+      "How does coredhristi verify agents?",
+      "What is the coredhristi security-review process?",
       "How many review layers does an agent pass?",
-      "What does a Security Verified badge mean on CoreDhrishti?",
+      "What does a Security Verified badge mean on coredhristi?",
       "Are listings security-scanned before going live?",
-      "CoreDhrishti ki seven-layer security review kya hai?",
+      "coredhristi ki seven-layer security review kya hai?",
       "Why does the marketplace review AI agents before publishing?",
     ],
     keywords: ["7-layer security review", "verified badge", "security review", "listing verification"],
     answer:
-      "CoreDhrishti says every applicable listing passes a seven-layer security and quality review before going live. The published pipeline covers secret scanning, static analysis, dependency and supply-chain checks, isolated build and test checks, adversarial attack simulation, workflow/MCP verification, and data-claim cross-checks with an SBOM. A review reduces risk but should not be interpreted as a guarantee that software can never fail.",
+      "coredhristi says every applicable listing passes a seven-layer security and quality review before going live. The published pipeline covers secret scanning, static analysis, dependency and supply-chain checks, isolated build and test checks, adversarial attack simulation, workflow/MCP verification, and data-claim cross-checks with an SBOM. A review reduces risk but should not be interpreted as a guarantee that software can never fail.",
   },
   {
     id: "security-review-layers-1-3",
     category: "coredhristi-security",
     questions: [
-      "What do the first three CoreDhrishti security layers check?",
+      "What do the first three coredhristi security layers check?",
       "Which tool scans secrets in a repository?",
-      "Does CoreDhrishti use Semgrep and CodeQL?",
+      "Does coredhristi use Semgrep and CodeQL?",
       "How are dependencies reviewed on the marketplace?",
       "What is the purpose of OSV-Scanner?",
-      "CoreDhrishti ke secret scanning aur dependency checks kya hain?",
+      "coredhristi ke secret scanning aur dependency checks kya hain?",
       "Which checks look for hardcoded credentials?",
     ],
     keywords: ["Betterleaks", "Semgrep", "CodeQL", "OSV-Scanner", "dependency audit"],
@@ -417,12 +411,12 @@ export const knowledgeBase: FAQ[] = [
     id: "security-review-layers-4-5",
     category: "coredhristi-security",
     questions: [
-      "How does CoreDhrishti check whether an agent works?",
+      "How does coredhristi check whether an agent works?",
       "What is the isolated QA layer?",
-      "Does CoreDhrishti run an agent's test suite?",
+      "Does coredhristi run an agent's test suite?",
       "What is Promptfoo used for in the review process?",
       "How are adversarial attacks simulated against agents?",
-      "CoreDhrishti ke QA aur attack simulation checks kya hain?",
+      "coredhristi ke QA aur attack simulation checks kya hain?",
       "Which review layers test functionality and hostile inputs?",
     ],
     keywords: ["isolated QA", "functionality checks", "Promptfoo", "attack simulation", "adversarial testing"],
@@ -431,14 +425,14 @@ export const knowledgeBase: FAQ[] = [
   },
   {
     id: "security-review-layers-6-7",
-    category: "coredhrishti-security",
+    category: "coredhristi-security",
     questions: [
-      "What do CoreDhrishti's last two review layers check?",
+      "What do coredhristi's last two review layers check?",
       "How does the platform verify MCP servers?",
       "What is Agentic Radar used for?",
       "What does MCP Inspector check?",
       "How are personal-data claims cross-checked?",
-      "CoreDhrishti SBOM aur data-claim review kaise karta hai?",
+      "coredhristi SBOM aur data-claim review kaise karta hai?",
       "What are Presidio and Syft used for in the review?",
     ],
     keywords: ["Agentic Radar", "MCP Inspector", "Presidio", "Syft", "SBOM"],
@@ -447,30 +441,30 @@ export const knowledgeBase: FAQ[] = [
   },
   {
     id: "creator-ip-and-access",
-    category: "coredhrishti-security",
+    category: "coredhristi-security",
     questions: [
-      "How does CoreDhrishti protect a creator's source code?",
+      "How does coredhristi protect a creator's source code?",
       "Does the marketplace expose a developer's private repository?",
       "How is access to a subscribed agent controlled?",
       "What happens when a buyer cancels an agent subscription?",
-      "Does CoreDhrishti use revocable license keys?",
-      "CoreDhrishti creator ke IP ko kaise protect karta hai?",
+      "Does coredhristi use revocable license keys?",
+      "coredhristi creator ke IP ko kaise protect karta hai?",
       "Can access be revoked after cancellation?",
     ],
     keywords: ["source-code protection", "creator IP", "license key", "cancel subscription"],
     answer:
-      "CoreDhrishti says it protects creator intellectual property and uses API-gated access, revocable license keys, or developer-managed cloud hosting depending on the deployment model. Its published FAQ says cancelling access revokes the license. The exact protection model depends on the listing and should be checked in the platform's current documentation.",
+      "coredhristi says it protects creator intellectual property and uses API-gated access, revocable license keys, or developer-managed cloud hosting depending on the deployment model. Its published FAQ says cancelling access revokes the license. The exact protection model depends on the listing and should be checked in the platform's current documentation.",
   },
   {
     id: "global-payments-payouts",
-    category: "coredhrishti-payments",
+    category: "coredhristi-payments",
     questions: [
-      "Which currencies does CoreDhrishti support?",
+      "Which currencies does coredhristi support?",
       "Can Indian buyers pay in rupees?",
       "Which payment provider is listed for India?",
       "Which provider handles international payments?",
-      "How are creators paid on CoreDhrishti?",
-      "CoreDhrishti par payout aur payment methods kya hain?",
+      "How are creators paid on coredhristi?",
+      "coredhristi par payout aur payment methods kya hain?",
       "What is the stated buyer-protection hold period for creator payouts?",
     ],
     keywords: ["Razorpay", "Stripe", "INR", "USD", "EUR", "GBP", "creator payouts"],

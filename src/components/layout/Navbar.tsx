@@ -4,6 +4,7 @@ import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { portfolioData } from "@/data/portfolioData";
 import { Button } from "@/components/ui/Button";
+import Image from "next/image";
 
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -51,13 +52,13 @@ export function Navbar() {
       const visible = entries.filter(entry => entry.isIntersecting);
       const nearest = visible.sort((a, b) => Math.abs(a.boundingClientRect.top) - Math.abs(b.boundingClientRect.top))[0];
       if (nearest) setActiveSection(`#${nearest.target.id}`);
-    }, {rootMargin:"-110px 0px -45% 0px", threshold:0});
+    }, { rootMargin: "-110px 0px -45% 0px", threshold: 0 });
     navLinks.forEach(link => {
       const section = document.querySelector(link.href);
       if (section) sectionObserver.observe(section);
     });
     const heroSection = document.getElementById("hero");
-    const heroObserver = new IntersectionObserver(([entry]) => setScrolled(!entry.isIntersecting), {threshold:0});
+    const heroObserver = new IntersectionObserver(([entry]) => setScrolled(!entry.isIntersecting), { threshold: 0 });
     if (heroSection) heroObserver.observe(heroSection);
 
     const handleHashChange = () => {
@@ -93,9 +94,8 @@ export function Navbar() {
     <header className="fixed top-4 sm:top-6 z-50 w-full px-4 sm:px-6 lg:px-8">
       <nav
         aria-label="Main Navigation"
-        className={`mx-auto max-w-6xl rounded-[28px] bg-[#1E1E1E]/95 backdrop-blur-md border border-white/10 px-4 py-2.5 sm:px-6 sm:py-3 transition-all duration-200 ${
-          scrolled ? "shadow-2xl shadow-black/30" : "shadow-xl shadow-black/15"
-        }`}
+        className={`mx-auto max-w-6xl rounded-[28px] bg-[#1E1E1E]/95 backdrop-blur-md border border-white/10 px-4 py-2.5 sm:px-6 sm:py-3 transition-all duration-200 ${scrolled ? "shadow-2xl shadow-black/30" : "shadow-xl shadow-black/15"
+          }`}
       >
         <div className="flex items-center justify-between gap-2 lg:gap-4">
           {/* Brand Logo & Name */}
@@ -107,7 +107,7 @@ export function Navbar() {
           >
             {/* Geometric diamond logo */}
             <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-white/5 border border-white/10 text-[#F59E0B] group-hover:bg-[#F59E0B]/10 transition-colors">
-              <svg
+              {/* <svg
                 width="16"
                 height="16"
                 viewBox="0 0 24 24"
@@ -119,7 +119,16 @@ export function Navbar() {
                 className="transform rotate-45"
               >
                 <rect x="5" y="5" width="14" height="14" rx="2" />
-              </svg>
+              </svg> */}
+
+
+              <Image
+                src="/Images/NavbarLogo.png"
+                alt="Krishanu Kaundilya logo"
+                width={28}
+                height={28}
+                className="size-7 rounded-lg object-contain"
+              />
             </span>
             <span className="text-zinc-100 group-hover:text-white transition-colors hidden sm:inline">
               {hero.name}
@@ -137,11 +146,10 @@ export function Navbar() {
                   href={link.href}
                   aria-current={isActive ? "location" : undefined}
                   onClick={(e) => handleNavClick(e, link.href)}
-                  className={`px-2.5 lg:px-3.5 py-1.5 text-xs lg:text-sm font-medium rounded-full transition-all duration-200 whitespace-nowrap focus-visible:outline focus-visible:outline-2 focus-visible:outline-brand-accent ${
-                    isActive
+                  className={`px-2.5 lg:px-3.5 py-1.5 text-xs lg:text-sm font-medium rounded-full transition-all duration-200 whitespace-nowrap focus-visible:outline focus-visible:outline-2 focus-visible:outline-brand-accent ${isActive
                       ? "text-amber-400 font-semibold bg-amber-500/20 border border-amber-500/40 shadow-[0_0_12px_rgba(245,158,11,0.25)]"
                       : "text-zinc-400 hover:text-zinc-100 hover:bg-white/5 border border-transparent"
-                  }`}
+                    }`}
                 >
                   {link.label}
                 </Link>
@@ -226,11 +234,10 @@ export function Navbar() {
                       handleNavClick(e, link.href);
                       setIsOpen(false);
                     }}
-                    className={`px-4 py-2.5 text-sm font-medium rounded-xl transition-all flex items-center justify-between ${
-                      isActive
+                    className={`px-4 py-2.5 text-sm font-medium rounded-xl transition-all flex items-center justify-between ${isActive
                         ? "text-amber-400 bg-amber-500/20 font-semibold border-l-4 border-amber-500 shadow-[inset_0_0_12px_rgba(245,158,11,0.15)]"
                         : "text-zinc-300 hover:text-white hover:bg-white/5"
-                    }`}
+                      }`}
                   >
                     <span>{link.label}</span>
                     {isActive && (

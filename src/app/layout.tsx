@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { portfolioData, sectionCopy } from "@/data/portfolioData";
+import { ChatbotWidget } from "@/components/chatbot/ChatbotWidget";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",

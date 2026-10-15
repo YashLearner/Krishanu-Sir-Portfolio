@@ -1,3 +1,4 @@
+
 import Image from "next/image";
 import { portfolioData, sectionCopy } from "@/data/portfolioData";
 import { WordReveal } from "@/components/ui/WordReveal";

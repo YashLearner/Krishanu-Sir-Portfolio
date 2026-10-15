@@ -30,7 +30,7 @@ export const portfolioData: PortfolioData = {
   "hero": {
     "welcomeBadge": "Welcome",
     "name": "Krishanu Kaundilya",
-    "titleAccent": "Founder @ CoreDhristi & CoreD",
+    "titleAccent": "Founder @CoreDhristi & CoreD",
     "role": "AI Agent & Automation Developer",
     "tagline": "AI for everyday business work, built with security in mind.",
     "focusAreas": [
@@ -346,7 +346,7 @@ export const portfolioData: PortfolioData = {
       "id": "coredhristi",
       "title": "CoreDhristi",
       "statusTag": "AI agent marketplace",
-      "logoUrl": "/Images/Coredhristi.png",
+      "logoUrl": "/Images/COREDHRISTI.png",
       "summary": "I'm building CoreDhristi so businesses can discover and evaluate AI agents, automations and MCP servers, and developers can distribute their work. My focus includes security review, product architecture and the information a buyer needs before adopting an AI system.",
       "points": [
         "AI agents, automations and MCP servers",
@@ -357,10 +357,12 @@ export const portfolioData: PortfolioData = {
       "linkText": "Explore CoreDhristi",
       "domainStatus": "live_verified"
     },
+
     {
       "id": "cored",
       "title": "CoreD",
       "statusTag": "AI & IT solutions",
+      "logoUrl": "/Images/CoreD.png",
       "summary": "CoreD is part of CoreDhristi. It provides AI and IT solutions for businesses, with a focus on cloud, AI and cybersecurity. It is where I work on solutions shaped around a company’s systems and day-to-day needs.",
       "points": [
         "Cloud and IT solutions",
@@ -372,7 +374,43 @@ export const portfolioData: PortfolioData = {
       "domainStatus": "pending_domain"
     }
   ],
-  "testimonials": [],
+
+  "testimonials": [
+    {
+      id: "testimonial-1",
+      name: "Senior Leadership Team",
+      role: "Enterprise Partner",
+      organization: "Tohfa Bazzar",
+      content:
+        "Krishanu architected and deployed our AI-based CRM with exceptional speed and security guardrails. His dual mastery in autonomous systems and cybersecurity ensures everything runs reliably without risk.",
+      rating: 5,
+      isVerified: true,
+    },
+    {
+      id: "testimonial-2",
+      name: "Technical Director",
+      role: "Client Partner",
+      organization: "Crawl Digitally",
+      content:
+        "Outstanding expertise in cybersecurity solutions and AI automation. He identified critical threat vectors that traditional audits missed and built automated agent workflows that streamlined our entire team's workflow.",
+      rating: 5,
+      isVerified: true,
+    },
+    {
+      id: "testimonial-3",
+      name: "Operations Lead",
+      role: "Product Growth",
+      organization: "ADSMARK01",
+      content:
+        "The custom CRM and AI agent solutions Krishanu developed have transformed our lead qualification and client handling. A true engineer with a security-first approach.",
+      rating: 5,
+      isVerified: true,
+    },
+  ],
+
+
+
+
   "socialLinks": [
     {
       "platform": "LinkedIn",
@@ -383,6 +421,16 @@ export const portfolioData: PortfolioData = {
       "platform": "CoreDhristi",
       "url": "https://coredhristi.com/",
       "label": "Official CoreDhristi Platform"
+    },
+    {
+      "platform": "GitHub",
+      "url": "https://github.com/krishanumishra778",
+      "label": "GitHub Profile",
+    },
+    {
+      "platform": "Gmail",
+      "url": "mailto:krishanumishra778@gmail.com",
+      "label": "Official Gmail"
     }
   ],
   "footer": {
@@ -399,7 +447,7 @@ export const portfolioData: PortfolioData = {
 export const sectionCopy = {
   "heroLinkedInHeadline": "Founder @ CoreDhristi  @coreD | AI Agent & Automation Developer | Building Trust Infrastructure for the AI Agent Economy | AI Agents • Automation • Security",
   "founderParts": ["FOUN", "DER"],
-  "story": {"title": "My story", "closeLabel": "Close my story", "close": "Close"},
+  "story": { "title": "My story", "closeLabel": "Close my story", "close": "Close" },
   "credentials": {
     "educationBadge": "Education",
     "educationTitle": "Academic Background & Specializations",
@@ -534,10 +582,10 @@ export const sectionCopy = {
 } as const;
 
 export const careerToolAssets = [
-  {name:"Burp Suite",src:"/Images/tools/burp-suite.png",wordmark:false,source:"https://portswigger.net/content/images/logos/apple-touch-icon.png"},
-  {name:"Nuclei",src:"/Images/tools/nuclei.png",wordmark:true,source:"https://raw.githubusercontent.com/projectdiscovery/nuclei/dev/static/nuclei-logo.png"},
-  {name:"Semgrep",src:"/Images/tools/semgrep.png",wordmark:true,source:"https://raw.githubusercontent.com/semgrep/semgrep/develop/semgrep.svg"},
-  {name:"CodeQL",src:"/Images/tools/codeql.png",wordmark:false,source:"https://codeql.github.com/assets/img/favicons/favicon.png"},
+  { name: "Burp Suite", src: "/Images/tools/burp-suite.png", wordmark: false, source: "https://portswigger.net/content/images/logos/apple-touch-icon.png" },
+  { name: "Nuclei", src: "/Images/tools/nuclei.png", wordmark: true, source: "https://raw.githubusercontent.com/projectdiscovery/nuclei/dev/static/nuclei-logo.png" },
+  { name: "Semgrep", src: "/Images/tools/semgrep.png", wordmark: true, source: "https://raw.githubusercontent.com/semgrep/semgrep/develop/semgrep.svg" },
+  { name: "CodeQL", src: "/Images/tools/codeql.png", wordmark: false, source: "https://codeql.github.com/assets/img/favicons/favicon.png" },
 ] as const;
 
 export const careerJourney = [...sectionCopy.career].reverse().map((job, index) => ({
@@ -560,9 +608,9 @@ export const profileStructuredData = {
     jobTitle: [portfolioData.hero.role, "Cybersecurity Specialist", "Founder"],
     sameAs: portfolioData.socialLinks.filter(link => link.platform === "LinkedIn").map(link => link.url),
     worksFor: [
-      {"@type": "Organization", name: "CoreDhristi", url: "https://coredhristi.com/"},
-      {"@type": "Organization", name: "CoreD", parentOrganization: {"@type": "Organization", name: "CoreDhristi"}},
+      { "@type": "Organization", name: "CoreDhristi", url: "https://coredhristi.com/" },
+      { "@type": "Organization", name: "CoreD", parentOrganization: { "@type": "Organization", name: "CoreDhristi" } },
     ],
-    alumniOf: {"@type": "EducationalOrganization", name: portfolioData.about.education[1].institution},
+    alumniOf: { "@type": "EducationalOrganization", name: portfolioData.about.education[1].institution },
   },
 };

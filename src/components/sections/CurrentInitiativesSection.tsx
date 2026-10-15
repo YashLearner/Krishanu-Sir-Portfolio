@@ -41,19 +41,19 @@ export function CurrentInitiativesSection() {
                 {/* Brand Logo and Status */}
                 <div className="mb-6 flex flex-wrap items-center justify-between gap-4">
                   <a
-                    href={item.href}
+                    // href={item.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="relative flex h-14 items-center justify-center overflow-hidden rounded-2xl border border-black/10 bg-[#1E1E22] px-4 py-2 shadow-xs transition-transform hover:scale-105 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-amber-600 sm:h-16"
+                    className="relative flex h-16 w-48 items-center justify-center overflow-hidden rounded-2xl border border-black/10 bg-[#1E1E22] px-3 py-2 shadow-xs transition-transform hover:scale-105 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-amber-600 sm:h-[72px] sm:w-52"
                     aria-label={`Visit ${initiative.title}`}
                   >
                     {initiative.logoUrl ? (
-                      <div className="relative h-10 w-36 sm:w-40">
+                      <div className="relative h-12 w-48 sm:h-14 sm:w-52">
                         <Image
                           src={initiative.logoUrl}
                           alt={`${initiative.title} logo`}
                           fill
-                          sizes="160px"
+                          sizes="208px"
                           className="object-contain"
                         />
                       </div>
@@ -80,7 +80,7 @@ export function CurrentInitiativesSection() {
                 {/* Initiative Title */}
                 <h3 className="mb-3 text-2xl font-bold tracking-tight text-zinc-950 sm:text-3xl">
                   <a
-                    href={item.href}
+                    // href={item.href}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-2 transition-colors hover:text-amber-600 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-amber-600"
@@ -129,7 +129,7 @@ export function CurrentInitiativesSection() {
               {/* Initiative Footer */}
               <div className="flex items-center justify-between gap-3 border-t border-zinc-100 pt-6">
                 <a
-                  href={item.href}
+                  // href={item.href}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="group/action inline-flex items-center justify-center gap-2 rounded-full bg-zinc-950 px-5 py-2.5 text-xs font-semibold text-white shadow-sm transition-all hover:bg-[#D97706] hover:shadow-lg focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-amber-600 sm:text-sm"
