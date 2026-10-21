@@ -46,7 +46,7 @@ Built-in browser checks: 1280x900 desktop, 768x1024 tablet and 375x812 mobile. V
 
 The suite exercises every saved question, unique normalized questions/IDs, non-exact keyword and typo queries, factual boundaries, unrelated requests and over-length input. The local preview runs on port 3001. No production deployment is asserted.
 
-Publication: pushed implementation commit `5cdda6d` to `origin/codex/expand-knowledgebase`. GitHub confirms that the branch comparison is automatically mergeable against main. PR creation remains pending: the connected GitHub integration returned 403 and the standard browser is signed out. Automatic approval review rejected a proposed credential-helper fallback before it ran; no credential was read by that fallback. The user was asked to sign in through the normal GitHub browser flow. Review URL: https://github.com/YashLearner/Krishanu-Sir-Portfolio/compare/main...codex/expand-knowledgebase .
+Publication: pushed implementation commit `5cdda6d` to `origin/codex/expand-knowledgebase`. The connected GitHub integration initially returned 403. Automatic approval review rejected a proposed credential-helper fallback before it ran; no credential was read by that fallback. After the user completed normal GitHub browser sign-in, created and verified [pull request #1](https://github.com/YashLearner/Krishanu-Sir-Portfolio/pull/1), targeting main from the knowledgebase branch. GitHub displayed Open and No conflicts with base branch. Attached the PR to this Codex chat. No merge or production deployment was performed. This follow-up only updates publication documentation; the tested source is unchanged, so engineering checks were not repeated.
 
 ## October 14, 2026 - approved portfolio publication
 
