@@ -44,7 +44,9 @@ The first restricted Vitest runs failed before test collection with an EPERM tem
 
 Built-in browser checks: 1280x900 desktop, 768x1024 tablet and 375x812 mobile. Verified Tohfa channel details, Crawl's security-versus-CRM distinction, CEH renewal status, unrelated-question fallback, broad AI and pricing queries, reset, Escape close and focus return to the launcher. Mobile and tablet had no horizontal overflow; browser error logs were empty. Screenshot evidence: `docs/previews/knowledgebase-desktop-1280.png`, `knowledgebase-tablet-768.png`, `knowledgebase-mobile-375.png`.
 
-The suite exercises every saved question, unique normalized questions/IDs, non-exact keyword and typo queries, factual boundaries, unrelated requests and over-length input. The local preview runs on port 3001. Publication is through a separate pull request; no production deployment is asserted.
+The suite exercises every saved question, unique normalized questions/IDs, non-exact keyword and typo queries, factual boundaries, unrelated requests and over-length input. The local preview runs on port 3001. No production deployment is asserted.
+
+Publication: pushed implementation commit `5cdda6d` to `origin/codex/expand-knowledgebase`. GitHub confirms that the branch comparison is automatically mergeable against main. PR creation remains pending: the connected GitHub integration returned 403 and the standard browser is signed out. Automatic approval review rejected a proposed credential-helper fallback before it ran; no credential was read by that fallback. The user was asked to sign in through the normal GitHub browser flow. Review URL: https://github.com/YashLearner/Krishanu-Sir-Portfolio/compare/main...codex/expand-knowledgebase .
 
 ## October 14, 2026 - approved portfolio publication
 

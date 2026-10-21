@@ -278,6 +278,7 @@ The phase table and notes below are the repository's earlier milestone snapshot.
 - [x] Improve whole-word keyword matching, aliases, spelling tolerance and company-specific retrieval; retain an honest unknown-question fallback.
 - [x] Verify desktop 1280px, tablet 768px and mobile 375px chat layouts, sample responses, reset and Escape behavior.
 - [x] Document content maintenance and actual engineering checks in the knowledgebase guide and changelog.
-- [ ] Publish the branch and open its pull request after the final checks.
+- [x] Publish the tested branch to `origin/codex/expand-knowledgebase`.
+- [ ] Open the pull request: the connected GitHub integration returns 403 for PR creation; the prepared browser comparison needs the user's GitHub sign-in.
 
 Pending factual inputs remain credential renewal, exact rates/availability, the petroleum client's official name, final Tohfa spelling and measured client outcomes. These do not block supported FAQ answers. Incoming upstream testimonials have not been independently confirmed and are not sources for the knowledgebase.
