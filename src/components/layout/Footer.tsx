@@ -1,148 +1,189 @@
+
 "use client";
 
-import React from "react";
 import Link from "next/link";
-import { portfolioData, sectionCopy } from "@/data/portfolioData";
+import {
+  ArrowUpIcon,
+  EnvelopeIcon,
+  GithubLogoIcon,
+  GlobeIcon,
+  LinkedinLogoIcon,
+} from "@phosphor-icons/react";
+
+import Image from "next/image";
+
+import { portfolioData } from "@/data/portfolioData";
 import { Container } from "@/components/ui/Container";
 
+const SUPPORT_EMAIL = "krishanu@coredhristi.com";
+
+const FOOTER_NAV_LINKS = [
+  { label: "Home", href: "#hero" },
+  { label: "About", href: "#about" },
+  { label: "Services", href: "#services" },
+  { label: "Achievement", href: "#achievements" },
+] as const;
+
 export function Footer() {
-  const { navLinks, socialLinks, hero } = portfolioData;
+  const { hero, socialLinks } = portfolioData;
+
+  const githubUrl = socialLinks.find((item) =>
+    /github/i.test(`${item.platform} ${item.url}`)
+  )?.url;
+
+  const linkedinUrl = socialLinks.find((item) =>
+    /linkedin/i.test(`${item.platform} ${item.url}`)
+  )?.url;
+
+  const websiteUrl = socialLinks.find((item) =>
+    /coredhristi|website/i.test(`${item.platform} ${item.url}`)
+  )?.url;
 
   const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "instant" : "smooth" });
+    const reduceMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
+
+    window.scrollTo({
+      top: 0,
+      behavior: reduceMotion ? "auto" : "smooth",
+    });
   };
 
   return (
     <footer
       role="contentinfo"
-      aria-label="Site Footer"
-      className="relative bg-[#121214] border-t border-white/10 pt-16 pb-12 text-zinc-400 overflow-hidden"
+      aria-label="Site footer"
+      className="border-y border-white/10 bg-[#111214] text-zinc-300  hover:text-red"
     >
-      {/* Subtle Ambient Radial Lighting */}
-      <div
-        className="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[300px] bg-amber-500/5 rounded-full blur-3xl pointer-events-none"
-        aria-hidden="true"
-      />
-
       <Container size="default">
-        {/* Main Footer Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-12 pb-12 border-b border-white/10">
-          {/* Brand Info (Left Column) */}
-          <div className="lg:col-span-5 flex flex-col items-start">
+        <div className="grid grid-cols-1 gap-7 py-8 sm:py-10 md:grid-cols-2 md:gap-8 lg:grid-cols-[1fr_1.6fr_1fr] lg:items-center lg:gap-10 lg:py-12">
+
+          {/* Brand */}
+          <div className="flex justify-center border-b border-white/10 pb-6 text-center md:justify-start md:border-b-0 md:text-left lg:min-h-[88px] lg:items-center lg:border-r lg:pb-0 lg:pr-8">
             <Link
               href="#hero"
-              className="flex items-center gap-2.5 text-white font-semibold text-lg tracking-tight group focus-visible:outline focus-visible:outline-2 focus-visible:outline-amber-400 rounded-lg py-1"
+              aria-label={`${hero.name} - Home`}
+              className="text-2xl font-extrabold tracking-tight text-[#f59e0b] transition-colors hover:text-[#e58a1f] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white sm:text-3xl"
             >
-              <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-white/5 border border-white/10 text-[#F59E0B] group-hover:bg-[#F59E0B]/10 transition-colors">
-                <svg
-                  width="18"
-                  height="18"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="transform rotate-45"
-                >
-                  <rect x="5" y="5" width="14" height="14" rx="2" />
-                </svg>
-              </span>
-              <span className="text-white font-bold">{hero.name}</span>
+              {hero.name}
             </Link>
-
-            <p className="mt-4 text-sm text-zinc-400 leading-relaxed max-w-sm">
-              {sectionCopy.footerBio}
-            </p>
-
-
           </div>
 
-          {/* Quick Navigation Links */}
-          <div className="lg:col-span-4 flex flex-col">
-            <h4 className="text-xs font-bold uppercase tracking-wider text-zinc-200 mb-4">
-              {sectionCopy.labels.navigation}
-            </h4>
-            <ul className="grid grid-cols-2 gap-2.5 text-sm">
-              {navLinks.map((link) => (
-                <li key={link.href}>
-                  <Link
-                    href={link.href}
-                    className="text-zinc-400 hover:text-amber-400 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-amber-400 rounded-xs py-0.5"
-                  >
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
-              <li>
-                <a
-                  href="https://www.linkedin.com/in/krishanu-kaundilya/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-zinc-400 hover:text-amber-400 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-amber-400 rounded-xs py-0.5 flex items-center gap-1"
-                >
-                  <span>{sectionCopy.labels.contact}</span>
-                  <span className="text-xs">↗</span>
-                </a>
-              </li>
-            </ul>
-          </div>
+          {/* Navigation and copyright */}
+          <div className="flex min-w-0 flex-col items-center gap-5 md:items-start">
+            <nav aria-label="Footer navigation">
+              <ul className="flex flex-wrap justify-center gap-x-5 gap-y-3 sm:gap-x-7 md:justify-start">
+                {FOOTER_NAV_LINKS.map((item) => (
+                  <li key={item.href}>
+                    <Link
+                      href={item.href}
+                      className="text-sm font-medium text-zinc-300 transition-colors hover:text-[#f59e0b] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white sm:text-base"
+                    >
+                      {item.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </nav>
 
-          {/* Direct Platforms & Connect */}
-          <div className="lg:col-span-3 flex flex-col">
-            <h4 className="text-xs font-bold uppercase tracking-wider text-zinc-200 mb-4">
-              {sectionCopy.labels.connect}
-            </h4>
-            <div className="flex flex-col gap-3">
-              {socialLinks.map((item) => (
-                <a
-                  key={item.platform}
-                  href={item.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center justify-between p-2.5 rounded-xl bg-white/5 border border-white/5 hover:border-amber-500/40 hover:bg-white/10 text-xs font-semibold text-zinc-300 hover:text-white transition-all group"
-                >
-                  <span>{item.platform}</span>
-                  <span className="text-zinc-500 group-hover:text-amber-400 group-hover:translate-x-0.5 transition-all">
-                    ↗
-                  </span>
-                </a>
-              ))}
+            <div className="flex flex-col items-center gap-3 sm:items-start">
+              <p className="text-center text-sm leading-relaxed text-zinc-500 sm:text-left">
+                {portfolioData.footer.copyrightNotice}
+              </p>
+
+              <button
+                type="button"
+                onClick={scrollToTop}
+                aria-label="Back to top"
+                className="inline-flex items-center gap-2 rounded-full border border-white/10 px-3 py-2 text-sm text-zinc-400 transition-colors hover:border-white/30 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
+              >
+                Back to top
+                <ArrowUpIcon size={16} weight="bold" aria-hidden="true" />
+              </button>
             </div>
           </div>
-        </div>
 
-        {/* Bottom Bar: Copyright & Back-to-Top */}
-        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-zinc-500">
-          <p>
-            {portfolioData.footer.copyrightNotice}
-          </p>
+          {/* Social links and support email */}
+          <div className="flex min-w-0 flex-col items-center gap-4 md:col-span-2 lg:col-span-1 lg:items-end">
+            <nav aria-label="Social media links">
+              <ul className="flex items-center gap-6">
+                {githubUrl && (
+                  <li>
+                    <a
+                      href={githubUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label="GitHub profile"
+                      title="GitHub"
+                      className="inline-flex text-zinc-400 transition-colors hover:text-white"
+                    >
+                      <GithubLogoIcon size={26} color="#f7f1e4" weight="bold" />
+                    </a>
+                  </li>
+                )}
 
-          <div className="flex items-center gap-6">
+                {linkedinUrl && (
+                  <li>
+                    <a
+                      href={linkedinUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label="LinkedIn profile"
+                      title="LinkedIn"
+                      className="inline-flex text-zinc-400 transition-colors hover:text-white"
+                    >
+                     <LinkedinLogoIcon size={22}  color="#f7f1e4" weight="bold" />
+                    </a>
+                  </li>
+                )}
 
-            {/* Back to Top Button */}
-            <button
-              type="button"
-              onClick={scrollToTop}
-              aria-label="Scroll back to top"
-              className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/5 border border-white/10 text-zinc-300 hover:text-white hover:bg-white/10 hover:border-amber-500/30 transition-all cursor-pointer focus-visible:outline focus-visible:outline-2 focus-visible:outline-amber-400"
+
+                <li>
+                  <a
+                    href={`mailto:${SUPPORT_EMAIL}`}
+                    aria-label="Send an email"
+                    title="Email"
+                    className="inline-flex text-zinc-400 transition-colors hover:text-white"
+                  >
+                    <EnvelopeIcon size={26} color="#f7f1e4" weight="bold" />
+                  </a>
+                </li>
+
+
+                {websiteUrl && (
+                  <li>
+                    <a
+                      href={websiteUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label="Visit CoreDhristi website"
+                      title="CoreDhristi"
+                      className="inline-flex items-center justify-center transition-opacity hover:opacity-80"
+                    >
+                      <Image
+                        src="/Images/NavbarLogo.png"
+                        alt="CoreDhristi logo"
+                        width={28}
+                        height={28}
+                        className="h-7 w-7 object-contain"
+                      />
+                    </a>
+                  </li>
+                )}
+
+                
+              </ul>
+            </nav>
+
+            <a
+              href={`mailto:${SUPPORT_EMAIL}`}
+              className="max-w-full break-words text-center text-sm leading-relaxed text-zinc-400 transition-colors hover:text-white lg:text-right"
             >
-              <span>{sectionCopy.labels.backTop}</span>
-              <svg
-                width="14"
-                height="14"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <line x1="12" y1="19" x2="12" y2="5" />
-                <polyline points="5 12 12 5 19 12" />
-              </svg>
-            </button>
+              Support: {SUPPORT_EMAIL}
+            </a>
           </div>
+
         </div>
       </Container>
     </footer>

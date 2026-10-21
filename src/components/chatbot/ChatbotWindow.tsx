@@ -551,10 +551,7 @@ export function ChatbotWindow({ onClose }: ChatbotWindowProps) {
         questionInputRef.current?.focus();
     }
 
-    function handleSelectQuickLink(question: string): void {
-        setInputValue(question);
-        questionInputRef.current?.focus();
-    }
+    
 
     return (
         <section
@@ -619,7 +616,7 @@ export function ChatbotWindow({ onClose }: ChatbotWindowProps) {
                             htmlFor={QUESTION_INPUT_ID}
                             className={chatbotStyles.visuallyHidden}
                         >
-                            Ask Krishanu Kaundilya's AI a question
+                            ${`Ask Krishanu Kaundilya's AI a question`}
                         </label>
 
                         <input

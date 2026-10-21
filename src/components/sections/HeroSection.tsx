@@ -12,7 +12,6 @@ export function HeroSection() {
   const linkedin = socialLinks.find((link) => link.platform === "LinkedIn");
 
   const github = socialLinks.find((link) => link.platform === "GitHub");
-  const coredhristi = socialLinks.find((link) => link.platform === "CoreDhristi");
   const gmail = socialLinks.find((link) => link.platform === "Gmail");
 
   return (
