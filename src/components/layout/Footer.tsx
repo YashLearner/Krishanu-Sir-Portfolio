@@ -6,7 +6,6 @@ import {
   ArrowUpIcon,
   EnvelopeIcon,
   GithubLogoIcon,
-  GlobeIcon,
   LinkedinLogoIcon,
 } from "@phosphor-icons/react";
 

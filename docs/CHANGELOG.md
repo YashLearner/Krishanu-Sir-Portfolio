@@ -1,3 +1,51 @@
+## October 21, 2026 - professional knowledgebase expansion
+
+User authorized integrating Yash's latest push and adding 300-400 professional questions with stronger answers and keyword matching. Fetched origin and fast-forwarded main from `90a8efa` to `6a365c8` (latest subject: `footer changed`), then worked on `codex/expand-knowledgebase`.
+
+Added 375 English/Hinglish question forms across 125 new detailed answer topics in `src/data/portfolioData.ts`. Each question resolves to its shared answer. The complete corpus has 154 answer topics and 576 saved questions. Corrected stale DTSS/current-employment wording, credential validity, client scope and unsupported outcome claims. Updated welcome/fallback/suggestions and removed the stray dollar sign from the input's accessible label.
+
+Added `src/types/knowledgeBase.ts` and the precomputed matcher in `src/lib/answerMatcher.ts`; the existing `findAnswer.ts` import remains stable. Matching now uses aliases, whole-word keywords, question similarity, weighted query coverage, conservative typo correction and organization constraints. Added maintenance guidance in `docs/KNOWLEDGE_BASE.md`, updated the developer guide and roadmap, and saved three built-in browser screenshots.
+
+During integration, removed the unused `GlobeIcon` import from the incoming footer and corrected the missing `/Images/COREDHRISTI.png` reference to the existing `/Images/Coredhristi.png` asset. No section redesign was performed.
+
+Final actual command output:
+
+```text
+npm run lint
+> eslint
+Lint exit code: 0
+
+npx tsc --noEmit
+TypeScript exit code: 0
+
+npm test
+RUN v4.1.11 E:/porfolio/portfolio-ui
+Test Files 1 passed (1)
+Tests 648 passed (648)
+Duration 587ms (transform 127ms, setup 0ms, import 194ms, tests 74ms, environment 0ms)
+
+npm run build
+Next.js 16.4.0 (Turbopack)
+Compiled successfully in 1369ms
+Finished TypeScript in 10.6s
+Generating static pages using 5 workers (4/4) in 1209ms
+Route (app)
+  /             Static
+  /_not-found   Static
+Exit code: 0
+
+Corpus audit
+topics: 154
+questions: 576
+newTopics: 125
+```
+
+The first restricted Vitest runs failed before test collection with an EPERM temporary-file rename error. Using `.next/test-temp` for TEMP/TMP resolved this. An early matcher regression incorrectly routed `AI agents` to marketplace categories; the keyword ownership was corrected and the final suite passed. An initial restricted production build stalled and was cancelled; the final production build above ran successfully with normal process/network access. These unsuccessful attempts are not counted as passing checks.
+
+Built-in browser checks: 1280x900 desktop, 768x1024 tablet and 375x812 mobile. Verified Tohfa channel details, Crawl's security-versus-CRM distinction, CEH renewal status, unrelated-question fallback, broad AI and pricing queries, reset, Escape close and focus return to the launcher. Mobile and tablet had no horizontal overflow; browser error logs were empty. Screenshot evidence: `docs/previews/knowledgebase-desktop-1280.png`, `knowledgebase-tablet-768.png`, `knowledgebase-mobile-375.png`.
+
+The suite exercises every saved question, unique normalized questions/IDs, non-exact keyword and typo queries, factual boundaries, unrelated requests and over-length input. The local preview runs on port 3001. Publication is through a separate pull request; no production deployment is asserted.
+
 ## October 14, 2026 - approved portfolio publication
 
 User explicitly authorized pushing the current approved portfolio to GitHub main. Refreshed origin before staging; no newer upstream commits. Publication includes the existing content, UI fixes, real/enhanced assets, reusable popup and motion components, documentation and saved browser evidence. Pending Discuss a project destination remains documented in TODO.md.

@@ -4,7 +4,7 @@
 import { useEffect, useRef, useState } from "react";
 import type { CSSProperties, FormEvent } from "react";
 
-import { knowledgeBase } from "@/data/knowledgeBase";
+import { assistantCopy } from "@/data/portfolioData";
 import { findAnswer } from "@/lib/findAnswer";
 
 import Image from "next/image";
@@ -33,19 +33,13 @@ const QUESTION_INPUT_ID = "portfolio-chat-question";
 const WELCOME_MESSAGE: ChatMessage = {
     id: "welcome-message",
     role: "assistant",
-    content:
-        "Hello! I'm the Assistant of Krishanu Kaundilya. Ask me abour my owner's profile, experience, expertise or projects."
+    content: assistantCopy.welcome,
 };
 
-const NO_ANSWER_RESPONSE =
-    "I couldn't find a reliable answer in my knowledge base. " +
-    "Try asking about the portfolio owner's profile, experience, skills, or projects.";
+const NO_ANSWER_RESPONSE = assistantCopy.noAnswer;
 
 
-const SUGGESTED_QUESTIONS = knowledgeBase
-    .map((faq) => faq.questions[0])
-    .filter((question): question is string => Boolean(question))
-    .slice(0, 3);
+const SUGGESTED_QUESTIONS = assistantCopy.suggestions;
 
 /* -------------------------------------------------------------------------- */
 /* Tailwind classes                                                           */
@@ -616,7 +610,7 @@ export function ChatbotWindow({ onClose }: ChatbotWindowProps) {
                             htmlFor={QUESTION_INPUT_ID}
                             className={chatbotStyles.visuallyHidden}
                         >
-                            ${`Ask Krishanu Kaundilya's AI a question`}
+                            {assistantCopy.inputLabel}
                         </label>
 
                         <input

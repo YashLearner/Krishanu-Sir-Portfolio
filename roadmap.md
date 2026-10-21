@@ -266,3 +266,18 @@ The phase table and notes below are the repository's earlier milestone snapshot.
 - **Objective:** Integrate OpenGraph & Twitter metadata, canonical URLs, JSON-LD structured data (Person & Organization), sitemap, robots.txt, performance audits, and tasteful micro-animations with reduced motion support.
 - **Status:** NOT STARTED
 - **Approval Status:** Pending Phase 5 Approval.
+
+---
+
+### October 21 2026 user requested knowledgebase enhancement
+
+- [x] Fetch the latest push and fast-forward the local main checkout to Yash's `6a365c8` footer update.
+- [x] Create the focused `codex/expand-knowledgebase` branch.
+- [x] Add 375 English/Hinglish question forms across 125 new detailed answer topics.
+- [x] Correct stale employment, credential and client-scope claims in the existing corpus.
+- [x] Improve whole-word keyword matching, aliases, spelling tolerance and company-specific retrieval; retain an honest unknown-question fallback.
+- [x] Verify desktop 1280px, tablet 768px and mobile 375px chat layouts, sample responses, reset and Escape behavior.
+- [x] Document content maintenance and actual engineering checks in the knowledgebase guide and changelog.
+- [ ] Publish the branch and open its pull request after the final checks.
+
+Pending factual inputs remain credential renewal, exact rates/availability, the petroleum client's official name, final Tohfa spelling and measured client outcomes. These do not block supported FAQ answers. Incoming upstream testimonials have not been independently confirmed and are not sources for the knowledgebase.

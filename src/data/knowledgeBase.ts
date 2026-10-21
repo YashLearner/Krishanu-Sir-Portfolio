@@ -1,12 +1,6 @@
-
-export type FAQ = {
-  id: string;
-  category: string;
-  questions: string[];
-  keywords: string[];
-  answer: string;
-};
-
+import { professionalFAQs } from "./portfolioData";
+import type { FAQ } from "@/types/knowledgeBase";
+export type { FAQ } from "@/types/knowledgeBase";
 
 export const knowledgeBase: FAQ[] = [
   {
@@ -24,7 +18,7 @@ export const knowledgeBase: FAQ[] = [
     ],
     keywords: ["Krishanu Kaundilya", "about Krishanu", "portfolio owner", "professional introduction", "owner name"],
     answer:
-      "Krishanu Kaundilya is a cybersecurity professional, VAPT specialist, and AI security researcher. His public profiles describe work across web and API security testing, AI/LLM security, security automation, and the coredhristi AI-agent marketplace. LinkedIn: https://www.linkedin.com/in/krishanu-kaundilya/ | GitHub: https://github.com/krishanumishra778",
+      "Krishanu Kaundilya is the founder of CoreDhristi and CoreD, an AI agent and automation developer, and an information security consultant based in Indore, India. His work includes custom CRMs, WhatsApp enquiry workflows, web/API/network VAPT and malware analysis. Ask about a project, his career journey, or the kind of work you need help with.",
   },
   {
     id: "professional-role",
@@ -40,7 +34,7 @@ export const knowledgeBase: FAQ[] = [
     ],
     keywords: ["professional role", "career focus", "cybersecurity professional", "VAPT specialist"],
     answer:
-      "His public profile describes him as a cybersecurity professional, CEH Master, VAPT specialist, and AI/LLM security researcher. His listed focus areas include web and API penetration testing, DAST scanner rule development, and agentic security automation.",
+      "Krishanu builds AI agents and business automations and works in cybersecurity. He leads CoreDhristi and CoreD, and previously worked remotely as an Information Security Consultant at DTSS Consultants from May 2024 to March 2026. His security background includes VAPT, SAST/DAST, reporting and remediation verification.",
   },
   {
     id: "location-experience",
@@ -55,7 +49,7 @@ export const knowledgeBase: FAQ[] = [
     ],
     keywords: ["Indore", "location", "years of VAPT experience", "based in India"],
     answer:
-      "His public GitHub profile lists Indore, Madhya Pradesh, India, and states 2+ years of hands-on VAPT experience. Experience figures are based on the published profile and may change over time.",
+      "Krishanu is based in Indore, Madhya Pradesh, India. His documented professional journey starts with a UI internship in December 2022, followed by freelance development, a cybersecurity internship and information security consulting. The portfolio uses the actual timeline rather than an unsupported rounded experience count.",
   },
   {
     id: "security-focus-areas",
@@ -69,9 +63,9 @@ export const knowledgeBase: FAQ[] = [
       "Krishanu cybersecurity mein kis cheez par kaam karte hain?",
       "Does his profile mention agentic security automation?",
     ],
-    keywords: ["security specialities", "AI security", "agentic security automation", "VAPT focus"],
+    keywords: ["cybersecurity", "security", "security specialities", "AI security", "agentic security automation", "VAPT focus"],
     answer:
-      "His public profile lists web-application and API penetration testing, AI/LLM security and prompt injection, DAST scanner rule development, and agentic security automation as focus areas.",
+      "Krishanu's documented security work covers web, API and network VAPT, SAST/DAST, malware analysis, threat protection and remediation verification. His AI security interests also inform CoreDhristi's work on agent evaluation and permission transparency. Ask about the target system to discuss a specific assessment scope.",
   },
   {
     id: "web-api-testing",
@@ -103,7 +97,7 @@ export const knowledgeBase: FAQ[] = [
     ],
     keywords: ["network infrastructure", "mobile app security", "network testing", "mobile applications"],
     answer:
-      "The coredhristi About page describes Krishanu's VAPT experience across web applications, network infrastructure, mobile apps, and APIs. Scope and availability for a specific engagement should be confirmed with him.",
+      "Network assessment is part of Krishanu's documented DTSS work, alongside web application and API testing. A specific mobile-app, cloud or infrastructure assessment needs a separate scope discussion; the portfolio does not establish a completed engagement for every technology.",
   },
   {
     id: "certifications",
@@ -117,9 +111,9 @@ export const knowledgeBase: FAQ[] = [
       "Krishanu ki profile par kaun si CEH certifications listed hain?",
       "Does his profile mention Certified Ethical Hacker v13?",
     ],
-    keywords: ["CEH Master", "CEH v13", "CEH Practical", "EC-Council certifications"],
+    keywords: ["CEH", "CEH Master", "CEH v13", "CEH Practical", "certification", "EC-Council certifications"],
     answer:
-      "His public profiles list CEH Master, Certified Ethical Hacker v13 (CEH), and CEH Practical associated with EC-Council. For current validity or credential verification, check the relevant issuer records rather than relying only on a portfolio summary.",
+      "Krishanu's credential record includes EC-Council CEH and CEH Practical, issued January 2025 with a listed expiry in February 2026. Renewal has not been confirmed, so this assistant does not describe them as currently valid. He also completed EC-Council courses in network security, OWASP ZAP and Burp Suite. Ask for issuer evidence if current certification is a requirement.",
   },
   {
     id: "product-management-education",
@@ -150,23 +144,23 @@ export const knowledgeBase: FAQ[] = [
     ],
     keywords: ["DTSS Consultants", "information security consultant", "consulting", "risk reduction"],
     answer:
-      "The coredhristi About page describes Krishanu as an Information Security Consultant and says he consults for DTSS Consultants in Dubai remotely. It also reports that he helped clients reduce security-risk exposure by 40%+ across multiple engagements; this is a published profile claim, not a guarantee of future results.",
+      "Krishanu worked as an Information Security Consultant at the Dubai-based DTSS Consultants, remotely, from May 2024 to March 2026. Work covered web/API/network VAPT, custom Nuclei templates, SAST with Semgrep and CodeQL, ISO/IEC 27001 gap assessments, CVSS v3.1 reporting and remediation verification. DTSS is a past role; no percentage improvement is claimed here.",
   },
   {
     id: "client-engagements",
     category: "experience",
     questions: [
       "What client security work is highlighted on the portfolio site?",
-      "What was found in the aviation booking portal assessment?",
-      "Which issues were addressed for Crawl Digitally?",
+      "Which business CRM cases are confirmed in the portfolio?",
+      "What kind of security work is confirmed for Crawl Digitally?",
       "Does the About page list real client work?",
       "What application-security examples are publicly mentioned?",
       "Kya profile mein client engagements ke examples diye gaye hain?",
-      "What does the site say about the aviation-sector portal?",
+      "Which confirmed client cases can I ask about?",
     ],
-    keywords: ["aviation booking portal", "Crawl Digitally", "client engagements", "XSS remediation"],
+    keywords: ["confirmed client engagements", "business project examples"],
     answer:
-      "The coredhristi About page highlights an aviation-sector booking portal assessment where six critical/high vulnerabilities were found and remediated, and a Crawl Digitally web application engagement involving XSS, security headers, and session-management issues. These are examples stated on the public site.",
+      "Confirmed client work includes AI CRMs for Tohfa Bazzar and ADSMARK01, WhatsApp enquiry automation for Indiganic Foods, AI integrations in education CRMs at Next Tech Waves, a vehicle-refuelling and loyalty CRM, and ongoing malware analysis, threat protection and VAPT for Crawl Digitally. Ask about any one project for its business problem and delivered workflow.",
   },
   {
     id: "bug-bounty-research",
@@ -182,7 +176,7 @@ export const knowledgeBase: FAQ[] = [
     ],
     keywords: ["HackerOne", "IDOR", "business logic", "cryptocurrency exchange"],
     answer:
-      "His public profile describes two HackerOne findings from 2025 on a cryptocurrency exchange: an IDOR issue involving unauthorised access to P2P trading history through userId manipulation, and a business-logic issue involving negative or zero amounts. The profile says both reports were confirmed by the platform security team. This summary is informational, not an instruction to test systems without permission.",
+      "His public profile describes two HackerOne findings on a cryptocurrency exchange: an IDOR issue involving unauthorised access to P2P trading history through userId manipulation, and a business-logic issue involving negative or zero amounts. The profile says both reports were confirmed by the platform security team. This summary is informational, not an instruction to test systems without permission.",
   },
   {
     id: "speaking-training",
@@ -198,7 +192,7 @@ export const knowledgeBase: FAQ[] = [
     ],
     keywords: ["CAPT Bhopal", "ethical hacking lecture", "phishing awareness", "security training"],
     answer:
-      "His public profile says he delivered a guest lecture on ethical hacking to law-enforcement officers at CAPT Bhopal and conducted phishing-awareness training for the Crawl Digitally team.",
+      "Krishanu delivered a guest VAPT session for Indian law enforcement officers at CAPT Bhopal in June 2025. He explained assessment methods, how attackers steal data and how systems and information can be protected. His public profile also lists phishing-awareness training for Crawl Digitally. Specific audience ranks and attendance figures are not confirmed.",
   },
   {
     id: "open-source-overview",
@@ -212,7 +206,7 @@ export const knowledgeBase: FAQ[] = [
       "Krishanu ke GitHub par kaun se security tools hain?",
       "What are the main projects in his open-source portfolio?",
     ],
-    keywords: ["open-source tools", "GitHub repositories", "security projects", "public repositories"],
+    keywords: ["open-source tools", "open source overview", "security projects", "public repositories"],
     answer:
       "His public GitHub profile highlights four security tools: nuclei-template-library, recon-automation-tool, vapt-report-generator, and prompt-injection-toolkit. They cover vulnerability-scanning templates, reconnaissance automation, structured assessment reporting, and AI/LLM security testing. Explore them at https://github.com/krishanumishra778",
   },
@@ -308,7 +302,7 @@ export const knowledgeBase: FAQ[] = [
       "coredhristi par kis type ki listings milti hain?",
       "How do AI agents differ from automations on the platform?",
     ],
-    keywords: ["AI agents", "AI automations", "MCP servers", "free skills"],
+    keywords: ["marketplace AI agents", "AI automations", "MCP servers", "free skills"],
     answer:
       "coredhristi lists four broad resource types: AI agents for work requiring judgement, automations for repeatable rule-based steps, MCP servers for connecting AI tools to systems, and Skills such as templates, prompts, datasets, system prompts, and tools. Availability of a particular listing depends on what has been published and verified.",
   },
@@ -471,4 +465,5 @@ export const knowledgeBase: FAQ[] = [
     answer:
       "The website lists INR payments in India through Razorpay, including UPI, cards, and net banking, while international payments use Stripe in USD, EUR, or GBP based on region. It describes a 21-day buyer-protection hold, automatic monthly creator payouts, and a minimum payout of ₹1,000. Payment terms can change, so verify current details on the official site.",
   },
+  ...professionalFAQs,
 ];
