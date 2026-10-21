@@ -1,0 +1,21 @@
+# Portrait colourization — October 21, 2026
+
+## Face clarity follow-up
+
+Mode: built-in image edit, transparent background. Final asset: `public/Images/founder-about-restored.png` (1005 x 1565 RGBA, 2,010,648 bytes). The tool did not provide the requested larger dimensions; no 2K/4K or recovered-original-detail claim is made. The first enhancement iteration was discarded because it retained an artificial skin texture. The selected iteration uses the original monochrome suit image as the edit target and the outdoor colour photo as reference. Some source/generated texture remains; a genuinely sharper original photograph would offer more faithful detail than repeated AI restoration.
+
+About now uses `unoptimized` for this single image so its full PNG pixels reach the browser, without Next.js resizing or lossy re-encoding. This trades a roughly 2 MB transfer for consistent source quality; other images retain normal optimization. Browser inspection confirmed `naturalWidth: 1005`, `naturalHeight: 1565` and `/Images/founder-about-restored.png` as currentSrc. Mobile/tablet/desktop crop verified. Originals and the previous colour asset are retained.
+
+Exact selected prompt:
+
+> Faithful photographic restoration and colorization. Edit target: first attached image, the original monochrome suit portrait of Krishanu Kaundilya. Second attached image is a natural color photograph of the same man, reference for his face and skin color ONLY. Preserve the first portrait's exact face identity, expression, smile, teeth, hair, head size, pose, charcoal suit, white shirt, black tie and full torso framing. Create a clean, sharp professional photograph in natural color, with crisp eyes and realistic beard and hair detail. Skin should have gentle natural photographic texture like the second reference, never patterned or painted. Avoid squiggles, worm-like textures, etched textures, plastic smoothing, over-sharpening or beauty retouching. Face clarity is the only restoration priority. Maintain the exact first image framing and aspect ratio and transparent background; no scenery, text or props. Deliver high native resolution, preferably 2010x3130 or larger, with subtle photographic detail rather than invented decorative texture. Keep natural warm medium-brown skin, dark brown eyes and black hair with subtle warm highlights. Soft neutral light with clear facial detail; no dramatic shadowing across eyes.
+
+Mode: edit, built-in `image_gen.imagegen`, transparent background enabled. No external image API or fallback generator used.
+
+Target: `public/Images/founder.png`, the original monochrome suited hero cutout. Supporting colour reference: `public/Images/sir-about-enhanced.png`. Both were inspected before editing. The colour result was inspected in the actual About card at mobile, tablet and desktop sizes. Originals remain unchanged.
+
+Final asset: `public/Images/founder-about-color.png`, 1005 x 1565 RGBA, 1,935,109 bytes. This asset is used only in About.
+
+Exact generation prompt:
+
+> Edit target: the FIRST attached image, the monochrome suit portrait of Krishanu Kaundilya. Supporting color reference: the SECOND attached outdoor color portrait of the SAME man; use this second image ONLY to guide his natural warm medium-brown skin tone, dark brown eyes, black/dark-brown hair and beard. Colorize ONLY the first image photorealistically. Preserve the exact identity, facial geometry, expression, smile, hairline, hairstyle, beard, pose, suit tailoring, white shirt, dark tie, white pocket square, portrait framing and cutout silhouette of the first image. Maintain the original portrait aspect ratio, full source framing including torso and comfortable space above the head. Charcoal suit stays charcoal with subtly realistic color; shirt and pocket square stay white; do not introduce colorful clothing. Skin should be natural and realistically colored, not orange, pink, over-smoothed or glamorized. Preserve the first image's existing transparent background and feathered alpha edges. Do not import the second image's casual shirt, grass or architecture. No changes to facial features, no new person, no added props, no text, no logos. Produce a high-resolution transparent PNG suitable for the existing website About portrait card.

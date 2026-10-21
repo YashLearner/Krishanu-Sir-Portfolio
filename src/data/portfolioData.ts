@@ -99,10 +99,10 @@ export const portfolioData: PortfolioData = {
       "Today, I'm building CoreDhristi, an AI marketplace, and CoreD, its AI and IT solutions arm. CoreD focuses on cloud, AI and cybersecurity. The two bring together my interests in software, product development and security."
     ],
     "image": {
-      "src": "/Images/sir-about-enhanced.png",
-      "alt": "Krishanu Kaundilya — Founder of CoreDhristi & Cybersecurity Specialist",
-      "width": 1208,
-      "height": 1302
+      "src": "/Images/founder-about-restored.png",
+      "alt": "Krishanu Kaundilya in a charcoal suit, founder of CoreDhristi and CoreD",
+      "width": 1005,
+      "height": 1565
     },
     "skillsAndExperience": {
       "title": "Skills & Experience",

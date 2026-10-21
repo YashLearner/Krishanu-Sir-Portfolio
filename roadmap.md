@@ -6,7 +6,20 @@ Yash's latest main commit 46f568f (October 13, company logo movable) is already 
 Desktop headline now sits in the bottom-left above Indore/LinkedIn at widths of 1024px+. Mobile/tablet placement stays at the top. The original About JPEG (453 x 488) is retained; portfolioData.about.image now uses `/Images/sir-about-enhanced.png` (1208 x 1302), restored using the built-in image-generation editor at the user's explicit request. About layout and crop settings are unchanged. Original and result were inspected before applying the asset.
 # Project Living Roadmap — Krishanu Kaundilya Personal Portfolio
 
-**Last Updated:** October 14, 2026
+**Last Updated:** October 21, 2026
+
+### October 21 portrait/icon follow-up
+
+- [x] Restore About portrait clarity, serve original PNG pixels, and verify at 375/768/1280. Output remains 1005x1565; a sharper original source would improve faithful fine detail further. See image-edit notes and changelog.
+
+- [x] Remove footer Home/About/Services/Achievement links on request; verify the remaining footer at 375/768/1280 and pass lint, TypeScript and build.
+
+- [x] Replace About's casual photo with a colourized copy of the hero suit portrait; retain original assets.
+- [x] Make hero social icons monochrome, including hover/focus treatment.
+- [x] Correct tablet image cropping and verify mobile (375), tablet (768), desktop (1280) in the built-in browser.
+- [x] Pass lint, TypeScript and final production build; record actual results in the changelog.
+
+User approved these UI edits and authorized GitHub publication on October 21. Publishing through the existing `codex/expand-knowledgebase` PR branch; merge/deployment is a separate action.
 
 **Current work:** User-authorized content and UI revisions to the supplied GitHub repository.
 

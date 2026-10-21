@@ -6,6 +6,7 @@ import { portfolioData, sectionCopy } from "@/data/portfolioData";
 import { GithubLogoIcon, LinkedinLogoIcon , EnvelopeIcon} from "@phosphor-icons/react/dist/ssr";
 
 const displayFont = Bebas_Neue({ subsets: ["latin"], weight: "400", display: "swap" });
+const socialLinkClassName = "mt-3 inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/25 text-sm font-bold text-white transition-colors hover:border-white hover:bg-white hover:text-black focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white";
 
 export function HeroSection() {
   const { hero, socialLinks } = portfolioData;
@@ -32,11 +33,11 @@ export function HeroSection() {
       <div className="absolute inset-x-0 bottom-7 z-20 flex items-end justify-between gap-4 px-6 sm:bottom-10 sm:px-10 lg:px-16">
         <div className="max-w-44 sm:max-w-64">
           <p className="text-[10px] uppercase tracking-[0.18em] text-zinc-400 sm:text-xs">{sectionCopy.location}</p>
-          {linkedin && <a href={linkedin.url} target="_blank" rel="noopener noreferrer" aria-label={linkedin.label} title={linkedin.label} className="mt-3 inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/25 text-sm font-bold hover:border-amber-400 hover:text-amber-400"><LinkedinLogoIcon size={22}  color="#40c955" weight="bold" /></a>}
-          {github && <a href={github.url} target="_blank" rel="noopener noreferrer" aria-label={github.label} title={github.label} className="mt-3 ml-2 inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/25 text-sm font-bold hover:border-amber-400 hover:text-amber-400"><GithubLogoIcon size={22}  color="#40c955" weight="bold" /></a>}
+          {linkedin && <a href={linkedin.url} target="_blank" rel="noopener noreferrer" aria-label={linkedin.label} title={linkedin.label} className={socialLinkClassName}><LinkedinLogoIcon size={22} weight="bold" /></a>}
+          {github && <a href={github.url} target="_blank" rel="noopener noreferrer" aria-label={github.label} title={github.label} className={`${socialLinkClassName} ml-2`}><GithubLogoIcon size={22} weight="bold" /></a>}
          
-          {gmail && (<a href={gmail.url} target="_blank" rel="noopener noreferrer" aria-label={gmail.label} title={gmail.label} className="mt-3 ml-2 inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/25 text-sm font-bold hover:border-amber-400 hover:text-amber-400">
-              <EnvelopeIcon size={22} color="#4fb05e" weight="bold"  />
+          {gmail && (<a href={gmail.url} target="_blank" rel="noopener noreferrer" aria-label={gmail.label} title={gmail.label} className={`${socialLinkClassName} ml-2`}>
+              <EnvelopeIcon size={22} weight="bold" />
             </a>
           )}
         </div>

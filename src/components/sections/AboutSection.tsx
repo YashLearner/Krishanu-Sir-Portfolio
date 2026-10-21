@@ -29,7 +29,7 @@ export function AboutSection() {
             <div className="mt-7 border-t border-zinc-200 pt-5"><p className="text-xs font-medium text-zinc-500">{sectionCopy.labels.focus}</p><p className="mt-2 text-sm leading-6 text-zinc-700">{sectionCopy.professionalFocus}</p></div>
           </div>
           <div className="relative isolate h-[420px] overflow-hidden rounded-[28px] border border-zinc-200 bg-zinc-100 shadow-sm sm:rounded-[36px] lg:col-span-5 lg:h-full lg:min-h-[600px]">
-            <Image src={about.image.src} alt={about.image.alt} fill sizes="(max-width: 1024px) 90vw, 42vw" className="object-cover object-top" />
+            <Image src={about.image.src} alt={about.image.alt} fill unoptimized sizes="(max-width: 1024px) 90vw, 42vw" className="object-cover object-top sm:object-contain lg:object-cover" />
             <div aria-hidden="true" className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
             <div className="absolute inset-x-5 bottom-5 rounded-2xl border border-white/15 bg-zinc-950/85 p-5 text-white backdrop-blur-sm">
               <p className="text-xs font-semibold text-amber-400">{hero.titleAccent}</p>
