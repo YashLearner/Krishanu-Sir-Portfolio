@@ -6,7 +6,20 @@ Yash's latest main commit 46f568f (October 13, company logo movable) is already 
 Desktop headline now sits in the bottom-left above Indore/LinkedIn at widths of 1024px+. Mobile/tablet placement stays at the top. The original About JPEG (453 x 488) is retained; portfolioData.about.image now uses `/Images/sir-about-enhanced.png` (1208 x 1302), restored using the built-in image-generation editor at the user's explicit request. About layout and crop settings are unchanged. Original and result were inspected before applying the asset.
 # Project Living Roadmap — Krishanu Kaundilya Personal Portfolio
 
-**Last Updated:** October 14, 2026
+**Last Updated:** October 21, 2026
+
+### October 21 portrait/icon follow-up
+
+- [x] Restore About portrait clarity, serve original PNG pixels, and verify at 375/768/1280. Output remains 1005x1565; a sharper original source would improve faithful fine detail further. See image-edit notes and changelog.
+
+- [x] Remove footer Home/About/Services/Achievement links on request; verify the remaining footer at 375/768/1280 and pass lint, TypeScript and build.
+
+- [x] Replace About's casual photo with a colourized copy of the hero suit portrait; retain original assets.
+- [x] Make hero social icons monochrome, including hover/focus treatment.
+- [x] Correct tablet image cropping and verify mobile (375), tablet (768), desktop (1280) in the built-in browser.
+- [x] Pass lint, TypeScript and final production build; record actual results in the changelog.
+
+User approved these UI edits and authorized GitHub publication on October 21. Publishing through the existing `codex/expand-knowledgebase` PR branch; merge/deployment is a separate action.
 
 **Current work:** User-authorized content and UI revisions to the supplied GitHub repository.
 
@@ -266,3 +279,19 @@ The phase table and notes below are the repository's earlier milestone snapshot.
 - **Objective:** Integrate OpenGraph & Twitter metadata, canonical URLs, JSON-LD structured data (Person & Organization), sitemap, robots.txt, performance audits, and tasteful micro-animations with reduced motion support.
 - **Status:** NOT STARTED
 - **Approval Status:** Pending Phase 5 Approval.
+
+---
+
+### October 21 2026 user requested knowledgebase enhancement
+
+- [x] Fetch the latest push and fast-forward the local main checkout to Yash's `6a365c8` footer update.
+- [x] Create the focused `codex/expand-knowledgebase` branch.
+- [x] Add 375 English/Hinglish question forms across 125 new detailed answer topics.
+- [x] Correct stale employment, credential and client-scope claims in the existing corpus.
+- [x] Improve whole-word keyword matching, aliases, spelling tolerance and company-specific retrieval; retain an honest unknown-question fallback.
+- [x] Verify desktop 1280px, tablet 768px and mobile 375px chat layouts, sample responses, reset and Escape behavior.
+- [x] Document content maintenance and actual engineering checks in the knowledgebase guide and changelog.
+- [x] Publish the tested branch to `origin/codex/expand-knowledgebase`.
+- [x] Open [pull request #1](https://github.com/YashLearner/Krishanu-Sir-Portfolio/pull/1) after the user completed normal GitHub browser sign-in. PR is open for review; no merge or deployment is asserted.
+
+Pending factual inputs remain credential renewal, exact rates/availability, the petroleum client's official name, final Tohfa spelling and measured client outcomes. These do not block supported FAQ answers. Incoming upstream testimonials have not been independently confirmed and are not sources for the knowledgebase.

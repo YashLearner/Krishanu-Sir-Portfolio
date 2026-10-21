@@ -174,3 +174,15 @@ npm run build
 2. **Nextwaves Canonical Domain:** User prompt referenced `https://nextwaves.onlinecom/` (a malformed URL). Domain `nextwaves.online` is not yet active on public DNS. Data marks status as `pending_domain`.
 3. **Past Employment Tenures:** Specific past company roles (prior to CoreDhristi) will be added in Phase 3.
 4. **Verified Testimonials:** Client endorsements will be added in Phase 4.
+
+---
+
+## October 21 2026 assistant enhancement
+
+The user authorized fetching Yash's latest changes and strengthening the existing chatbot. The checkout was fast-forwarded to `6a365c8` before creating branch `codex/expand-knowledgebase`. This is a focused enhancement to the existing assistant, not a new section or redesign.
+
+The new FAQ content and assistant copy are centralized in `src/data/portfolioData.ts`. Existing corrected topics remain in `src/data/knowledgeBase.ts`, which exports the combined corpus. The shared type lives in `src/types/knowledgeBase.ts`. `src/lib/findAnswer.ts` retains the component-facing API and delegates retrieval to `answerMatcher.ts`.
+
+See `docs/KNOWLEDGE_BASE.md` for the content schema, source boundaries and update workflow. At this revision, 375 new question forms share 125 new detailed answer topics; the combined corpus has 154 topics and 576 saved questions. No external model service was introduced. UI layout was preserved, with updated welcome/fallback/suggestion copy and an accessible input label.
+
+The previous phase entries describe historical work. Current factual guidance is in `docs/CONTENT_BRIEF.md`; in particular, Next Tech Waves is closed and current initiatives are CoreDhristi and CoreD. Unverified testimonial text in the incoming upstream changes must not be treated as evidence for chatbot claims.

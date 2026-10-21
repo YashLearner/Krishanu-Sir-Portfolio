@@ -6,7 +6,6 @@ import {
   ArrowUpIcon,
   EnvelopeIcon,
   GithubLogoIcon,
-  GlobeIcon,
   LinkedinLogoIcon,
 } from "@phosphor-icons/react";
 
@@ -16,13 +15,6 @@ import { portfolioData } from "@/data/portfolioData";
 import { Container } from "@/components/ui/Container";
 
 const SUPPORT_EMAIL = "krishanu@coredhristi.com";
-
-const FOOTER_NAV_LINKS = [
-  { label: "Home", href: "#hero" },
-  { label: "About", href: "#about" },
-  { label: "Services", href: "#services" },
-  { label: "Achievement", href: "#achievements" },
-] as const;
 
 export function Footer() {
   const { hero, socialLinks } = portfolioData;
@@ -70,23 +62,8 @@ export function Footer() {
             </Link>
           </div>
 
-          {/* Navigation and copyright */}
+          {/* Copyright and back to top */}
           <div className="flex min-w-0 flex-col items-center gap-5 md:items-start">
-            <nav aria-label="Footer navigation">
-              <ul className="flex flex-wrap justify-center gap-x-5 gap-y-3 sm:gap-x-7 md:justify-start">
-                {FOOTER_NAV_LINKS.map((item) => (
-                  <li key={item.href}>
-                    <Link
-                      href={item.href}
-                      className="text-sm font-medium text-zinc-300 transition-colors hover:text-[#f59e0b] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white sm:text-base"
-                    >
-                      {item.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </nav>
-
             <div className="flex flex-col items-center gap-3 sm:items-start">
               <p className="text-center text-sm leading-relaxed text-zinc-500 sm:text-left">
                 {portfolioData.footer.copyrightNotice}

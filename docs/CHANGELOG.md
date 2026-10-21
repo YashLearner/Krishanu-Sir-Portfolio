@@ -1,3 +1,139 @@
+## October 21, 2026 - approved UI publication preparation
+
+User approved the restored About portrait and requested pushing the current code. Fetched origin successfully; the working branch `codex/expand-knowledgebase` matches its upstream before this publication (0 ahead / 0 behind), and main remains at `6a365c8`. Prepared the approved portrait, monochrome hero icons, removed footer navigation, documentation and browser screenshots for the existing PR branch. Final source was already checked with lint, TypeScript, production build and 375/768/1280 browser verification in the entries below; no source edits occurred during publication preparation. `git diff --check` passed. Push result is reported after remote verification; no merge or production deployment is implied.
+
+## October 21, 2026 - About portrait clarity follow-up
+
+User reported blur/pixelation in About. Used the built-in image editor to restore the original suit portrait in colour, inspecting source and output. Added `public/Images/founder-about-restored.png` (1005x1565, 2,010,648 bytes), updated its reference in `src/data/portfolioData.ts`, and set only the About image to `unoptimized` in `src/components/sections/AboutSection.tsx`. This preserves the PNG's original pixels instead of serving a resized/lossy derivative. No layout changes. The tool retained the original dimensions despite the request for higher resolution; restoration does not recover unknown original detail. Full prompt, iteration limitation and delivery tradeoff recorded in `docs/IMAGE_EDITS.md`.
+
+Actual checks after final code edit:
+
+```text
+npm run lint
+> sir-portfolio@0.1.0 lint
+> eslint
+Exit code: 0
+
+npx tsc --noEmit
+No output. Exit code: 0
+
+npm run build
+Next.js 16.4.0 (Turbopack)
+Compiled successfully in 1762ms
+Finished TypeScript in 8.6s
+Generating static pages using 5 workers (4/4) in 997ms
+/ and /_not-found: Static
+Exit code: 0
+```
+
+Built-in browser: inspected About at 1280x900, 768x1024 and 375x812, verified visible face/crop and no horizontal overflow. Confirmed currentSrc is the restored PNG with natural dimensions 1005x1565. Evidence: `docs/previews/about-restored-desktop.png`, `about-restored-tablet.png`, `about-restored-mobile.png`. Local production preview refreshed at port 3001. Changes not pushed or deployed.
+
+## October 21, 2026 - remove footer section links
+
+At the user's request, removed the Home, About, Services and Achievement navigation row and its unused link array from `src/components/layout/Footer.tsx`. Brand link, copyright, Back to top, social icons and support email remain in their existing layout.
+
+Actual checks after the edit:
+
+```text
+npm run lint
+> sir-portfolio@0.1.0 lint
+> eslint
+Exit code: 0
+
+npx tsc --noEmit
+No output. Exit code: 0
+
+npm run build
+Next.js 16.4.0 (Turbopack)
+Compiled successfully in 1792ms
+Finished TypeScript in 6.8s
+Generating static pages using 5 workers (4/4) in 990ms
+/ and /_not-found: Static
+Exit code: 0
+```
+
+Personally inspected the footer in the built-in browser at 1280x900, 768x1024 and 375x812. The four links and footer navigation landmark are absent, the remaining content is readable, and no horizontal overflow was observed. Screenshots: `docs/previews/footer-links-removed-desktop.png`, `footer-links-removed-tablet.png`, `footer-links-removed-mobile.png`. No additional tests were added for this markup removal. Preview refreshed on port 3001. Changes remain local.
+
+## October 21, 2026 - colour suit portrait and monochrome hero icons
+
+Replaced only the About portrait with a naturally colourized version of the existing hero suit cutout, using the built-in image editor and the existing outdoor portrait as a skin/hair colour reference. New asset: `public/Images/founder-about-color.png` (1005 x 1565 RGBA). Original assets are retained. Updated `src/data/portfolioData.ts` with the asset and descriptive alt text. Image-generation mode and exact prompt are recorded in `docs/IMAGE_EDITS.md`.
+
+Updated `src/components/sections/HeroSection.tsx` so the three social icons inherit white; hover uses black icons on white and keyboard focus has a white outline. Reused one class constant. The original hero portrait and layout are unchanged.
+
+Built-in tablet inspection revealed that the taller suit image was cropped behind the text overlay. Updated only the image fit in `src/components/sections/AboutSection.tsx` to contain at tablet widths, retaining cover on mobile and desktop. Final visual checks at 375x812, 768x1024 and 1280x900 verified visible faces, readable overlays, unchanged hero composition and white icons. No horizontal overflow at these widths. Also opened/closed the story dialog successfully on mobile. Evidence: `docs/previews/about-suit-color-{desktop,tablet,mobile}.png` and `hero-monochrome-icons-{desktop,mobile}.png`.
+
+Actual checks after the final source edit:
+
+```text
+npm run lint
+> sir-portfolio@0.1.0 lint
+> eslint
+Exit code: 0
+
+npx tsc --noEmit
+No output. Exit code: 0
+
+npm run build
+Next.js 16.4.0 (Turbopack)
+Compiled successfully in 2.7s
+Finished TypeScript in 13.4s
+Generating static pages using 5 workers (4/4) in 1998ms
+/ and /_not-found: Static
+Exit code: 0
+```
+
+The existing knowledgebase suite passed before the final image-fit-only adjustment: `npm test`, 1 file / 648 tests passed, duration 852ms (transform 216ms, setup 0ms, import 323ms, tests 81ms, environment 0ms). No matcher/content logic changed in this task. The final build used normal process access. A restricted preview process could not be reached by the browser; restarting the preview with browser-accessible networking and opening a fresh tab resolved it. Final preview runs at `http://localhost:3001`. Changes are local; no push or deployment is asserted for this update.
+
+## October 21, 2026 - professional knowledgebase expansion
+
+User authorized integrating Yash's latest push and adding 300-400 professional questions with stronger answers and keyword matching. Fetched origin and fast-forwarded main from `90a8efa` to `6a365c8` (latest subject: `footer changed`), then worked on `codex/expand-knowledgebase`.
+
+Added 375 English/Hinglish question forms across 125 new detailed answer topics in `src/data/portfolioData.ts`. Each question resolves to its shared answer. The complete corpus has 154 answer topics and 576 saved questions. Corrected stale DTSS/current-employment wording, credential validity, client scope and unsupported outcome claims. Updated welcome/fallback/suggestions and removed the stray dollar sign from the input's accessible label.
+
+Added `src/types/knowledgeBase.ts` and the precomputed matcher in `src/lib/answerMatcher.ts`; the existing `findAnswer.ts` import remains stable. Matching now uses aliases, whole-word keywords, question similarity, weighted query coverage, conservative typo correction and organization constraints. Added maintenance guidance in `docs/KNOWLEDGE_BASE.md`, updated the developer guide and roadmap, and saved three built-in browser screenshots.
+
+During integration, removed the unused `GlobeIcon` import from the incoming footer and corrected the missing `/Images/COREDHRISTI.png` reference to the existing `/Images/Coredhristi.png` asset. No section redesign was performed.
+
+Final actual command output:
+
+```text
+npm run lint
+> eslint
+Lint exit code: 0
+
+npx tsc --noEmit
+TypeScript exit code: 0
+
+npm test
+RUN v4.1.11 E:/porfolio/portfolio-ui
+Test Files 1 passed (1)
+Tests 648 passed (648)
+Duration 587ms (transform 127ms, setup 0ms, import 194ms, tests 74ms, environment 0ms)
+
+npm run build
+Next.js 16.4.0 (Turbopack)
+Compiled successfully in 1369ms
+Finished TypeScript in 10.6s
+Generating static pages using 5 workers (4/4) in 1209ms
+Route (app)
+  /             Static
+  /_not-found   Static
+Exit code: 0
+
+Corpus audit
+topics: 154
+questions: 576
+newTopics: 125
+```
+
+The first restricted Vitest runs failed before test collection with an EPERM temporary-file rename error. Using `.next/test-temp` for TEMP/TMP resolved this. An early matcher regression incorrectly routed `AI agents` to marketplace categories; the keyword ownership was corrected and the final suite passed. An initial restricted production build stalled and was cancelled; the final production build above ran successfully with normal process/network access. These unsuccessful attempts are not counted as passing checks.
+
+Built-in browser checks: 1280x900 desktop, 768x1024 tablet and 375x812 mobile. Verified Tohfa channel details, Crawl's security-versus-CRM distinction, CEH renewal status, unrelated-question fallback, broad AI and pricing queries, reset, Escape close and focus return to the launcher. Mobile and tablet had no horizontal overflow; browser error logs were empty. Screenshot evidence: `docs/previews/knowledgebase-desktop-1280.png`, `knowledgebase-tablet-768.png`, `knowledgebase-mobile-375.png`.
+
+The suite exercises every saved question, unique normalized questions/IDs, non-exact keyword and typo queries, factual boundaries, unrelated requests and over-length input. The local preview runs on port 3001. No production deployment is asserted.
+
+Publication: pushed implementation commit `5cdda6d` to `origin/codex/expand-knowledgebase`. The connected GitHub integration initially returned 403. Automatic approval review rejected a proposed credential-helper fallback before it ran; no credential was read by that fallback. After the user completed normal GitHub browser sign-in, created and verified [pull request #1](https://github.com/YashLearner/Krishanu-Sir-Portfolio/pull/1), targeting main from the knowledgebase branch. GitHub displayed Open and No conflicts with base branch. Attached the PR to this Codex chat. No merge or production deployment was performed. This follow-up only updates publication documentation; the tested source is unchanged, so engineering checks were not repeated.
+
 ## October 14, 2026 - approved portfolio publication
 
 User explicitly authorized pushing the current approved portfolio to GitHub main. Refreshed origin before staging; no newer upstream commits. Publication includes the existing content, UI fixes, real/enhanced assets, reusable popup and motion components, documentation and saved browser evidence. Pending Discuss a project destination remains documented in TODO.md.
