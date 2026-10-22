@@ -1,6 +1,8 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+
+  output: "export",
   agentRules: false,
   /* config options here */
   cacheComponents: true,
