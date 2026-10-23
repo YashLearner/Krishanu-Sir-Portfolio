@@ -15,7 +15,9 @@ Desktop headline now sits in the bottom-left above Indore/LinkedIn at widths of 
 - [x] Use standard Tailwind PostCSS integration and a Webpack production build.
 - [x] Pass lint, TypeScript, all 648 tests and production build; production npm audit reports zero vulnerabilities.
 - [x] Verify production styling at 375/768/1280 in the built-in browser.
-- [ ] Complete Hostinger deployment from the maintained repository and verify public HTTPS site.
+- [x] Complete Hostinger deployment from the maintained repository and verify public HTTPS site, images, story popup and chatbot.
+
+Published `b33ac34` to existing Hostinger web app at `https://krishanukaundilya.com/`. The same GitHub main branch is the maintained source. See `docs/HOSTINGER_DEPLOYMENT.md` for settings and recovery steps.
 
 ### October 21 portrait/icon follow-up
 
