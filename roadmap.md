@@ -6,7 +6,16 @@ Yash's latest main commit 46f568f (October 13, company logo movable) is already 
 Desktop headline now sits in the bottom-left above Indore/LinkedIn at widths of 1024px+. Mobile/tablet placement stays at the top. The original About JPEG (453 x 488) is retained; portfolioData.about.image now uses `/Images/sir-about-enhanced.png` (1208 x 1302), restored using the built-in image-generation editor at the user's explicit request. About layout and crop settings are unchanged. Original and result were inspected before applying the asset.
 # Project Living Roadmap — Krishanu Kaundilya Personal Portfolio
 
-**Last Updated:** October 21, 2026
+**Last Updated:** October 23, 2026
+
+### October 23 Hostinger deployment
+
+- [x] Inspect existing domain/app and failed build logs; identify the separate stale repository and Turbopack compilation timeout.
+- [x] Apply Next.js 16.4.2 security patch and matching lint config; patch Vitest to 4.1.12.
+- [x] Use standard Tailwind PostCSS integration and a Webpack production build.
+- [x] Pass lint, TypeScript, all 648 tests and production build; production npm audit reports zero vulnerabilities.
+- [x] Verify production styling at 375/768/1280 in the built-in browser.
+- [ ] Complete Hostinger deployment from the maintained repository and verify public HTTPS site.
 
 ### October 21 portrait/icon follow-up
 

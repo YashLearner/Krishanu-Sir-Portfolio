@@ -1,3 +1,45 @@
+## October 23, 2026 - Hostinger build compatibility and production security patch
+
+User requested deploying the portfolio on existing Hostinger web hosting at `krishanukaundilya.com`. Inspected the signed-in dashboard and logs. The existing web app used `YashLearner/krishanu-sir-portfolio-live`, initial commit `66f2eee`, Node 22.x, default build and `.next`; compilation stopped after 15m14s with no diagnostic beyond build timeout. Selected the maintained `YashLearner/Krishanu-Sir-Portfolio` repository for the same existing domain through Change repository. No new plan purchase, domain purchase or deletion was performed.
+
+A local Webpack compatibility probe on Next 16.4.0 completed compilation but stopped with a security-upgrade error. Verified npm audit's production advisories; upgraded Next/eslint-config-next to 16.4.2. Updated Vitest to 4.1.12. Switched production to `next build --webpack`, replaced the custom Tailwind Turbopack adapter with standard `@tailwindcss/postcss` and added `postcss.config.mjs`. Tailwind and its adapter are pinned to 4.3.3. No page content or layout changes were made.
+
+Actual final check output:
+
+```text
+npm run lint
+> sir-portfolio@0.1.0 lint
+> eslint
+Exit code: 0
+
+npx tsc --noEmit
+No output. Exit code: 0
+
+npm test
+RUN v4.1.12 E:/porfolio/portfolio-ui
+Test Files 1 passed (1)
+Tests 648 passed (648)
+Duration 664ms (transform 145ms, setup 0ms, import 210ms, tests 52ms, environment 0ms)
+Exit code: 0
+
+npm run build
+Next.js 16.4.2 (webpack)
+Compiled successfully in 42s
+Finished TypeScript in 4.7s
+Generating static pages using 5 workers (4/4) in 1059ms
+/ and /_not-found: Static
+Exit code: 0
+
+npm audit --omit=dev --json
+vulnerabilities: {}
+metadata.vulnerabilities.total: 0
+Exit code: 0
+```
+
+Full development audit still reports 5 high entries through the ESLint fast-glob/micromatch/braces toolchain. npm proposes a breaking downgrade; no force-fix or blanket all-clear is claimed. These are absent from the production-only audit.
+
+Personally inspected the patched production build at 1280x900, 768x1024 and 375x812 in the built-in browser: Tailwind styling, centered original hero, fonts and mobile navigation remain intact; no horizontal overflow. Evidence: `docs/previews/hostinger-build-desktop.png`, `hostinger-build-tablet.png`, `hostinger-build-mobile.png`. Build source is ready for the existing Hostinger Node.js web app; public deployment verification is recorded separately after completion.
+
 ## October 21, 2026 - approved UI publication preparation
 
 User approved the restored About portrait and requested pushing the current code. Fetched origin successfully; the working branch `codex/expand-knowledgebase` matches its upstream before this publication (0 ahead / 0 behind), and main remains at `6a365c8`. Prepared the approved portrait, monochrome hero icons, removed footer navigation, documentation and browser screenshots for the existing PR branch. Final source was already checked with lint, TypeScript, production build and 375/768/1280 browser verification in the entries below; no source edits occurred during publication preparation. `git diff --check` passed. Push result is reported after remote verification; no merge or production deployment is implied.

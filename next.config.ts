@@ -8,12 +8,6 @@ const nextConfig: NextConfig = {
   reactCompiler: true,
   turbopack: {
     root: process.cwd(),
-    rules: {
-      "*.css": {
-        loaders: ["@tailwindcss/turbopack"],
-        as: "*.css",
-      },
-    },
   },
 };
 

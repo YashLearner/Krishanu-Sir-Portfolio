@@ -1,3 +1,9 @@
+## October 23: Hostinger production builds
+
+Run `npm run build` for the production Webpack build. Tailwind uses `postcss.config.mjs` and `@tailwindcss/postcss` for both development and production; the former custom Turbopack CSS loader has been removed. `npm run dev` remains Next.js development mode. Next.js/eslint-config-next are pinned to 16.4.2, Tailwind/PostCSS to 4.3.3 and Vitest to 4.1.12.
+
+Hostinger deployment target: `krishanukaundilya.com`, existing managed Node.js web app, GitHub repository `YashLearner/Krishanu-Sir-Portfolio`, branch `main`, root `./`, Node 22.x, npm, build command `npm run build`, output `.next`. No application environment variables are required. The previous connected `krishanu-sir-portfolio-live` build timed out in Turbopack after 15m14s; use the maintained repository instead. Do not replace the source with a stale copy or upload `.next`, `node_modules` or `.env` files.
+
 ## October 14 follow-up: desktop headline and enhanced About photo
 
 Desktop headline now sits in the bottom-left above Indore/LinkedIn at widths of 1024px+. Mobile/tablet placement stays at the top. The original About JPEG (453 x 488) is retained; portfolioData.about.image now uses `/Images/sir-about-enhanced.png` (1208 x 1302), restored using the built-in image-generation editor at the user's explicit request. About layout and crop settings are unchanged. Original and result were inspected before applying the asset.
