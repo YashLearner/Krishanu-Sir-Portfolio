@@ -462,37 +462,62 @@ export function ChatbotWindow({ onClose }: ChatbotWindowProps) {
     }, [messages, pendingQuestion]);
 
 
-    useEffect(() => {
-        if (pendingQuestion === null) {
-            return;
+   useEffect(() => {
+    if (pendingQuestion === null) {
+        return;
+    }
 
+    const responseTimer = window.setTimeout(() => {
+        const matchedAnswer = findAnswer(pendingQuestion);
+
+        // Save question only when no answer is found.
+        if (matchedAnswer === null) {
+            void fetch("/api/chat/unanswered", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    question: pendingQuestion,
+                }),
+            }).then((response) => {
+                if (!response.ok) {
+                    throw new Error(
+                        `Failed to save question: ${response.status}`
+                    );
+                }
+            }).catch((error: unknown) => {
+                console.error(
+                    "Unanswered question saving failed:",
+                    error
+                );
+            });
         }
 
-        const responseTimer = window.setTimeout(() => {
-            const answer = findAnswer(pendingQuestion) ?? NO_ANSWER_RESPONSE;
+        const answer = matchedAnswer ?? NO_ANSWER_RESPONSE;
 
+        messageIdCounter.current += 1;
 
-            messageIdCounter.current += 1;
+        const assistantMessage: ChatMessage = {
+            id: `assistant=${messageIdCounter.current}`,
+            role: "assistant",
+            content: answer,
+        };
 
-            const assistantMessage: ChatMessage = {
-                id: `assistant=${messageIdCounter.current}`,
-                role: "assistant",
-                content: answer,
-            };
+        setMessages((currentMessages) => [
+            ...currentMessages,
+            assistantMessage,
+        ]);
 
-            setMessages((currentMessages) => [
-                ...currentMessages,
-                assistantMessage,
+        setPendingQuestion(null);
 
-            ]);
+    }, ThinkingDelay);
 
-            setPendingQuestion(null);
-        }, ThinkingDelay);
+    return () => {
+        window.clearTimeout(responseTimer);
+    };
 
-        return () => {
-            window.clearTimeout(responseTimer);
-        }
-    }, [pendingQuestion]);
+}, [pendingQuestion]);
 
     function createMessage(
         role: MessageRole,

@@ -1,4 +1,3 @@
-
 import { describe, expect, it } from "vitest";
 import { knowledgeBase } from "@/data/knowledgeBase";
 import { professionalFAQs } from "@/data/portfolioData";
